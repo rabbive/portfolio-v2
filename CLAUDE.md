@@ -25,14 +25,14 @@ Preview by opening `index.html` directly in a browser or serving the repo root w
 ## Architecture
 
 - **`index.html`** — the entire site: head/meta, all page sections (in order: Theme Toggle, Header, About, Projects, Experiments, Activity, Links, Footer), and one inline `<script>` at the bottom containing all JavaScript (vanilla, no dependencies).
-- **`src/input.css`** — Tailwind entrypoint plus the handful of custom styles Tailwind utilities can't express: the `slideFadeUp` animation, the collapsible-entry transition (`.exp-body` / `.exp-chevron`, grid-rows animation), the contribution heatmap grid/cells/legend (`.heatmap-*`, with explicit `.dark` variants), and `prefers-reduced-motion` fallbacks.
+- **`src/input.css`** — Tailwind entrypoint plus the handful of custom styles Tailwind utilities can't express: the collapsible-entry transition (`.exp-body` / `.exp-chevron`, grid-rows animation), the contribution heatmap grid/cells/legend (`.heatmap-*`, with explicit `.dark` variants), and `prefers-reduced-motion` fallbacks.
 - **`tailwind.config.js`** — content is only `./index.html`; dark mode is class-based (`class` on `<html>`); extends Inter as the sans font and a custom `neutral` palette.
 
 ### JavaScript behaviors (inline in `index.html`)
 
-- **Theme toggle** — `setTheme('system' | 'light' | 'dark')` sets/removes the `dark` class on `<html>` and persists the choice in `localStorage` under `theme`; "system" follows `prefers-color-scheme`.
-- **Collapsible entries** — `toggleExp(btn)` toggles `.open` on the nearest `.exp-body` and `.rotated` on the chevron; expansion animates via `grid-template-rows: 0fr → 1fr`.
-- **GitHub contribution heatmap** — an IIFE fetches `https://github-contributions-api.jogruber.de/v4/rabbive?y=last`, renders a GitHub-style week/day grid sized to the available width (recomputed on resize, debounced), with a tooltip on hover/focus and cells linking to the profile. The section starts `hidden` and stays hidden if the fetch fails — the heatmap is supplementary, so failures are silent by design.
+- **Theme toggle** — a small inline script in `<head>` applies the `dark` class before first paint (avoids a light-mode flash); `setTheme('system' | 'light' | 'dark')` handles clicks and persists the choice in `localStorage` under `theme`. "System" follows `prefers-color-scheme` and tracks live OS theme changes via a `matchMedia` listener.
+- **Collapsible entries** — `toggleExp(btn)` toggles `.open` on the nearest `.exp-body` and `.rotated` on the chevron, and keeps the button's `aria-expanded` in sync; expansion animates via `grid-template-rows: 0fr → 1fr`.
+- **GitHub contribution heatmap** — an IIFE fetches `https://github-contributions-api.jogruber.de/v4/rabbive?y=last` (cached in `localStorage` under `heatmap-v1` for 6 hours; stale cache is used as a fallback if the fetch fails), renders a GitHub-style week/day grid sized to the available width (recomputed on resize, debounced), with a tooltip on hover/focus and cells linking to the profile. The section starts `hidden` and stays hidden if there's no data — the heatmap is supplementary, so failures are silent by design.
 
 ## Styling conventions
 
