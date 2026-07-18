@@ -1,11 +1,26 @@
 # portfolio-v2
 
-Personal portfolio site. Single static `index.html` — Tailwind CDN, Inter font, vanilla JS for theme toggle (light/dark/system) and collapsible experience entries. No build step, no framework.
+Personal portfolio site. Single static `index.html` — Tailwind (compiled via CLI, not the CDN script), Inter font, vanilla JS for theme toggle (light/dark/system) and collapsible experience entries.
 
-## Run locally
+## Develop
+
+```bash
+npm install
+npm run watch:css   # rebuilds dist/output.css on change
+```
 
 Open `index.html` directly in a browser, or serve it with any static file server.
 
-## Status
+## Build
 
-Content is placeholder and will be replaced.
+```bash
+npm install
+npm run build:css   # outputs dist/output.css (purged, minified)
+```
+
+`dist/output.css` is committed so the site works without a build step on static hosts that don't run `npm install`.
+
+## Before going live
+
+- Update `https://REPLACE_WITH_YOUR_DOMAIN` in `robots.txt` and `sitemap.xml` to your real domain.
+- Point your domain's DNS at your chosen static host (Vercel/Netlify/Cloudflare Pages/GitHub Pages).

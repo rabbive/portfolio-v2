@@ -3,45 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ilavanya Jain</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        neutral: {
-                            50: '#fafafa',
-                            100: '#f5f5f5',
-                            200: '#e5e5e5',
-                            300: '#d4d4d4',
-                            400: '#a3a3a3',
-                            500: '#737373',
-                            600: '#525252',
-                            700: '#404040',
-                            800: '#262626',
-                            900: '#171717',
-                            950: '#0a0a0a',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <title>Ashwanth Kumaravel</title>
+    <meta name="description" content="CS @ VIT — post-quantum cryptography, distributed systems, and RL agents. Python, TypeScript, Rust.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Ashwanth Kumaravel">
+    <meta property="og:description" content="CS @ VIT — post-quantum cryptography, distributed systems, and RL agents. Python, TypeScript, Rust.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Ashwanth Kumaravel">
+    <meta name="twitter:description" content="CS @ VIT — post-quantum cryptography, distributed systems, and RL agents. Python, TypeScript, Rust.">
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/favicon.svg">
+    <link rel="manifest" href="/site.webmanifest">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .animate-slideFadeUp { animation: slideFadeUp 0.5s ease-out forwards; }
-        @keyframes slideFadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .exp-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .exp-body.open { grid-template-rows: 1fr; }
-        .exp-chevron { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .exp-chevron.rotated { transform: rotate(90deg); }
-    </style>
+    <link rel="stylesheet" href="dist/output.css">
 </head>
 <body class="flex min-h-screen flex-col bg-white dark:bg-neutral-950 font-sans text-neutral-900 dark:text-neutral-100 text-sm antialiased selection:bg-neutral-200 dark:selection:bg-neutral-800">
 
@@ -65,50 +42,55 @@
         <div class="max-w-xl mx-auto text-neutral-400">
             <!-- Header -->
             <div class="mb-12">
-                <h1 class="text-sm font-medium text-neutral-900 dark:text-stone-100">lavanya (lav) jain</h1>
-                <p class="mt-1 text-neutral-600 dark:text-neutral-500 text-sm">bangalore, in.</p>
+                <h1 class="text-sm font-medium text-neutral-900 dark:text-stone-100">ashwanth kumaravel</h1>
+                <p class="mt-1 text-neutral-600 dark:text-neutral-500 text-sm">chennai, in.</p>
             </div>
 
             <!-- About -->
             <section class="mb-12">
-                <h2 class="text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">about</h2>
+                <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">
+                    <svg class="h-3.5 w-3.5 shrink-0 text-neutral-600 dark:text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    about
+                </h2>
                 <div class="flex flex-col gap-3 text-neutral-800 dark:text-neutral-400 leading-relaxed">
-                    <p>tldr; grew up on the internet, now i grow things on it.</p>
-                    <p>i like making things people use. and getting those things in front of people who'll care.</p>
-                    <p>i've taken startups from zero to millions of views and arr (within days), closed six-figure influencer deals, and built growth engines across reddit, x, and linkedin — all before most people finish their first internship.</p>
-                    <p>right now i'm the founding growth hire at kairos, and building calorie.dev, a cal ai substitute for the indian dietary on the side.</p>
-                    <p>i write code. i write copy. i ship both fast.</p>
-                    <p>if you want to know more, <a class="text-neutral-700 dark:text-stone-300 underline decoration-neutral-500 dark:decoration-stone-400 decoration-[0.5px] underline-offset-4 transition-colors hover:text-neutral-900 dark:hover:text-stone-200" href="#">here are some things i believe in</a>.</p>
+                    <p>tldr; final year cs student at vit, spending most of my time in systems and security.</p>
+                    <p>i like building things that need to actually hold up — consensus protocols, cryptographic primitives, ai agents that make decisions under uncertainty.</p>
+                    <p>recent builds: a post-quantum secure email client with a signed kem-dem architecture, a raft-inspired consensus protocol for iot edge networks, and a handful of rust services tying it all together.</p>
+                    <p>python, typescript, rust — whichever fits the problem.</p>
+                    <p>most of it ends up on <a class="text-neutral-700 dark:text-stone-300 underline decoration-neutral-500 dark:decoration-stone-400 decoration-[0.5px] underline-offset-4 transition-colors hover:text-neutral-900 dark:hover:text-stone-200" href="https://github.com/rabbive" target="_blank" rel="noopener noreferrer">github</a>.</p>
                 </div>
             </section>
 
             <!-- Intro -->
             <section class="mb-12">
                 <p class="text-neutral-800 dark:text-neutral-400 leading-relaxed">
-                    growth and gtm <a class="text-neutral-700 dark:text-stone-300 underline decoration-neutral-500 dark:decoration-stone-400 decoration-[0.5px] underline-offset-4 transition-colors hover:text-neutral-900 dark:hover:text-stone-200" href="#">measured interfaces</a> and thoughtful experiments.
+                    distributed systems, applied cryptography, and small tools that ship.
                 </p>
             </section>
 
-            <!-- Work -->
+            <!-- Projects -->
             <section class="mb-16">
-                <h2 class="text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">exp.</h2>
+                <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">
+                    <svg class="h-3.5 w-3.5 shrink-0 text-neutral-600 dark:text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
+                    projects
+                </h2>
                 <ul class="flex flex-col gap-1">
                     <li class="group/item py-2 relative">
                         <div class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover/item:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
                         <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover/item:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
-                                <a href="https://runable.com" target="_blank" rel="noopener noreferrer" class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white">runable</a>
+                                <a href="https://github.com/rabbive/echod" target="_blank" rel="noopener noreferrer" class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white">echod</a>
                                 <button onclick="toggleExp(this)" class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer" aria-label="Toggle details">
                                     <svg class="exp-chevron h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                                 </button>
                             </div>
-                            <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500">jul 2025 - nov 2025</span>
+                            <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500">2026</span>
                         </div>
-                        <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">growth, gtm and developer relations intern</p>
+                        <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">distributed consensus for iot edge networks</p>
                         <div class="exp-body">
                             <div class="overflow-hidden">
-                                <p class="text-sm text-neutral-600 dark:text-neutral-400 pt-2">became the "runable" guy. scaled runable to $1M ARR in &lt;10 days.</p>
+                                <p class="text-sm text-neutral-600 dark:text-neutral-400 pt-2">a lightweight, raft-inspired consensus protocol for heterogeneous edge devices — energy-aware and partition-tolerant.</p>
                             </div>
                         </div>
                     </li>
@@ -117,17 +99,17 @@
                         <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover/item:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
-                                <a href="https://www.sociallcapital.com/" target="_blank" rel="noopener noreferrer" class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white">social capital</a>
+                                <a href="https://github.com/rabbive/ops-env" target="_blank" rel="noopener noreferrer" class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white">ops-env</a>
                                 <button onclick="toggleExp(this)" class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer" aria-label="Toggle details">
                                     <svg class="exp-chevron h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                                 </button>
                             </div>
-                            <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500">jan 2026 - feb 2026</span>
+                            <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500">2026</span>
                         </div>
-                        <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">head of growth</p>
+                        <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">support-desk triage environment for agent evals</p>
                         <div class="exp-body">
                             <div class="overflow-hidden">
-                                <p class="text-sm text-neutral-600 dark:text-neutral-400 pt-2">youngest head of growth in the company. built a 1,000+ creator network, led launches (wisprflow and polyai) that hit ~30M views, and onboarded 500+ creators in 2 weeks.</p>
+                                <p class="text-sm text-neutral-600 dark:text-neutral-400 pt-2">openenv-compatible triage environment built with fastapi and deterministic graders, for training and evaluating agents.</p>
                             </div>
                         </div>
                     </li>
@@ -136,17 +118,36 @@
                         <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover/item:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
-                                <a href="https://www.kairos.computer/" target="_blank" rel="noopener noreferrer" class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white">kairos</a>
+                                <a href="https://github.com/rabbive/schrodinger-mail" target="_blank" rel="noopener noreferrer" class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white">schrodinger-mail</a>
                                 <button onclick="toggleExp(this)" class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer" aria-label="Toggle details">
                                     <svg class="exp-chevron h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                                 </button>
                             </div>
-                            <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500">march 2026 - present</span>
+                            <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500">2026</span>
                         </div>
-                        <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">founding gtm/growth</p>
+                        <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">post-quantum secure email client</p>
                         <div class="exp-body">
                             <div class="overflow-hidden">
-                                <p class="text-sm text-neutral-600 dark:text-neutral-400 pt-2">founding growth hire; own the entire growth stack — reddit seeding, x content, seo, influencer ops, hiring, and whatever else needs shipping. build the fastest, largest pipeline of ai ugc (20M+ views in ~10 days).</p>
+                                <p class="text-sm text-neutral-600 dark:text-neutral-400 pt-2">signed kem-dem architecture using nist-standardized algorithms — confidentiality, integrity, and authenticity against both classical and quantum threats.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="group/item py-2 relative">
+                        <div class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover/item:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
+                        <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover/item:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <a href="https://github.com/rabbive/devsignal" target="_blank" rel="noopener noreferrer" class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white">devsignal</a>
+                                <button onclick="toggleExp(this)" class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer" aria-label="Toggle details">
+                                    <svg class="exp-chevron h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                </button>
+                            </div>
+                            <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500">2026</span>
+                        </div>
+                        <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">rust workspace: daemon, discord bot, macos app</p>
+                        <div class="exp-body">
+                            <div class="overflow-hidden">
+                                <p class="text-sm text-neutral-600 dark:text-neutral-400 pt-2">a background daemon paired with a discord bot and a macos client, sharing one rust workspace.</p>
                             </div>
                         </div>
                     </li>
@@ -155,40 +156,74 @@
 
             <!-- Experiments -->
             <section class="mb-16">
-                <h2 class="text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">experiments</h2>
+                <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">
+                    <svg class="h-3.5 w-3.5 shrink-0 text-neutral-600 dark:text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"/><path d="M6.453 15h11.094"/><path d="M8.5 2h7"/></svg>
+                    experiments
+                </h2>
                 <ul class="flex flex-col gap-1">
                     <li class="py-2 text-neutral-700 dark:text-neutral-300">
-                        <a class="group flex flex-col gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative" href="#">
+                        <a class="group flex flex-col gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative" href="https://github.com/rabbive/OpSignal" target="_blank" rel="noopener noreferrer">
                             <div class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
                             <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
                             <div class="flex items-center justify-between">
-                                <h3 class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white">Context codec</h3>
+                                <h3 class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white">OpSignal</h3>
+                                <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500 transition-colors">2026</span>
+                            </div>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">Operational signal monitoring and alerting.</p>
+                        </a>
+                    </li>
+                    <li class="py-2 text-neutral-700 dark:text-neutral-300">
+                        <a class="group flex flex-col gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative" href="https://github.com/rabbive/hybrid-movie-recommender" target="_blank" rel="noopener noreferrer">
+                            <div class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
+                            <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white">hybrid-movie-recommender</h3>
+                                <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500 transition-colors">2026</span>
+                            </div>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">Hybrid collaborative + content-based movie recommender.</p>
+                        </a>
+                    </li>
+                    <li class="py-2 text-neutral-700 dark:text-neutral-300">
+                        <a class="group flex flex-col gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative" href="https://github.com/rabbive/CogniZap" target="_blank" rel="noopener noreferrer">
+                            <div class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
+                            <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white">CogniZap</h3>
                                 <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500 transition-colors">2025</span>
                             </div>
-                            <p class="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">Tiny interface that compresses research notes for faster context windows.</p>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">Cognitive task manager, built with Svelte.</p>
                         </a>
                     </li>
                 </ul>
             </section>
 
-             <!-- Writing -->
+             <!-- Links -->
             <section class="mb-16">
-                <h2 class="text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">writing</h2>
+                <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">
+                    <svg class="h-3.5 w-3.5 shrink-0 text-neutral-600 dark:text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><path d="M8 12h8"/></svg>
+                    links
+                </h2>
                 <ul class="flex flex-col gap-1">
                     <li class="py-2 text-neutral-700 dark:text-neutral-300">
-                        <a class="group flex items-center justify-between gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative" href="#">
+                        <a class="group flex items-center justify-between gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative" href="https://github.com/rabbive" target="_blank" rel="noopener noreferrer">
                             <div class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
                             <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                            <h3 class="grow font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white">Interface ergonomics for copilots</h3>
-                            <span class="ml-1 flex items-center gap-1 whitespace-nowrap transition-colors text-neutral-600 dark:text-neutral-400">Jan 2025</span>
+                            <div class="flex grow items-center gap-2.5">
+                                <svg class="h-4 w-4 shrink-0 text-neutral-600 dark:text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+                                <h3 class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white">github</h3>
+                            </div>
+                            <span class="ml-1 flex items-center gap-1 whitespace-nowrap transition-colors text-neutral-600 dark:text-neutral-400">@rabbive</span>
                         </a>
                     </li>
                      <li class="py-2 text-neutral-700 dark:text-neutral-300">
-                        <a class="group flex items-center justify-between gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative" href="#">
+                        <a class="group flex items-center justify-between gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative" href="https://x.com/ashwaanthh" target="_blank" rel="noopener noreferrer">
                              <div class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
                             <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                            <h3 class="grow font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white">Building rituals for async teams</h3>
-                            <span class="ml-1 flex items-center gap-1 whitespace-nowrap transition-colors text-neutral-600 dark:text-neutral-400">Oct 2024</span>
+                            <div class="flex grow items-center gap-2.5">
+                                <svg class="h-4 w-4 shrink-0 text-neutral-600 dark:text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+                                <h3 class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white">twitter</h3>
+                            </div>
+                            <span class="ml-1 flex items-center gap-1 whitespace-nowrap transition-colors text-neutral-600 dark:text-neutral-400">@ashwaanthh</span>
                         </a>
                     </li>
                 </ul>
@@ -196,7 +231,7 @@
 
             <!-- Footer -->
             <section class="mb-16">
-                 <a class="text-neutral-600 dark:text-neutral-500 text-sm hover:text-neutral-800 dark:hover:text-neutral-300 transition-colors" href="#">colophon</a>
+                 <a class="text-neutral-600 dark:text-neutral-500 text-sm hover:text-neutral-800 dark:hover:text-neutral-300 transition-colors" href="https://github.com/rabbive/portfolio-v2" target="_blank" rel="noopener noreferrer">colophon</a>
             </section>
         </div>
     </main>
