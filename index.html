@@ -3,45 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ilavanya Jain</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        neutral: {
-                            50: '#fafafa',
-                            100: '#f5f5f5',
-                            200: '#e5e5e5',
-                            300: '#d4d4d4',
-                            400: '#a3a3a3',
-                            500: '#737373',
-                            600: '#525252',
-                            700: '#404040',
-                            800: '#262626',
-                            900: '#171717',
-                            950: '#0a0a0a',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <title>Portfolio</title>
+    <meta name="description" content="Personal portfolio — projects, experience, and writing.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Portfolio">
+    <meta property="og:description" content="Personal portfolio — projects, experience, and writing.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Portfolio">
+    <meta name="twitter:description" content="Personal portfolio — projects, experience, and writing.">
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/favicon.svg">
+    <link rel="manifest" href="/site.webmanifest">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .animate-slideFadeUp { animation: slideFadeUp 0.5s ease-out forwards; }
-        @keyframes slideFadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .exp-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .exp-body.open { grid-template-rows: 1fr; }
-        .exp-chevron { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .exp-chevron.rotated { transform: rotate(90deg); }
-    </style>
+    <link rel="stylesheet" href="dist/output.css">
 </head>
 <body class="flex min-h-screen flex-col bg-white dark:bg-neutral-950 font-sans text-neutral-900 dark:text-neutral-100 text-sm antialiased selection:bg-neutral-200 dark:selection:bg-neutral-800">
 

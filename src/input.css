@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.animate-slideFadeUp {
+  animation: slideFadeUp 0.5s ease-out forwards;
+}
+
+@keyframes slideFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.exp-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.exp-body.open {
+  grid-template-rows: 1fr;
+}
+
+.exp-chevron {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.exp-chevron.rotated {
+  transform: rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-slideFadeUp {
+    animation: none;
+  }
+
+  .exp-body,
+  .exp-chevron {
+    transition: none;
+  }
+}
