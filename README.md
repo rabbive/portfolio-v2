@@ -22,10 +22,5 @@ npm run build:css   # outputs dist/output.css (purged, minified)
 
 ## Before going live
 
-- Replace placeholder content (name, bio, experience, links) in `index.html`.
 - Update `https://REPLACE_WITH_YOUR_DOMAIN` in `robots.txt` and `sitemap.xml` to your real domain.
 - Point your domain's DNS at your chosen static host (Vercel/Netlify/Cloudflare Pages/GitHub Pages).
-
-## Status
-
-Content is placeholder and will be replaced.
