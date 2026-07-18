@@ -56,6 +56,8 @@ body {
   grid-template-rows: repeat(7, 1fr);
   gap: 3px;
   width: max-content;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .heatmap-cell {
@@ -69,6 +71,23 @@ body {
 .heatmap-cell[data-level="2"] { background-color: #a3a3a3; }
 .heatmap-cell[data-level="3"] { background-color: #737373; }
 .heatmap-cell[data-level="4"] { background-color: #262626; }
+
+.heatmap-cell[data-date] {
+  cursor: pointer;
+  outline: 1px solid transparent;
+  outline-offset: 1px;
+  transition: outline-color 0.1s ease;
+}
+
+.heatmap-cell[data-date]:hover,
+.heatmap-cell[data-date]:focus-visible {
+  outline-color: rgba(23, 23, 23, 0.5);
+}
+
+.dark .heatmap-cell[data-date]:hover,
+.dark .heatmap-cell[data-date]:focus-visible {
+  outline-color: rgba(245, 245, 245, 0.5);
+}
 
 .dark .heatmap-cell { background-color: #262626; }
 .dark .heatmap-cell[data-level="1"] { background-color: #404040; }

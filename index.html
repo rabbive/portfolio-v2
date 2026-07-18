@@ -205,9 +205,7 @@
                 </h2>
                 <div id="heatmap-wrap" class="hidden">
                     <p id="heatmap-summary" class="text-sm text-neutral-600 dark:text-neutral-400 mb-3"></p>
-                    <div class="overflow-x-auto pb-1">
-                        <div id="heatmap" class="heatmap-grid"></div>
-                    </div>
+                    <div id="heatmap" class="heatmap-grid"></div>
                     <div class="mt-2 flex items-center justify-end gap-1.5 text-xs text-neutral-500 dark:text-neutral-500">
                         <span>less</span>
                         <span class="heatmap-cell heatmap-legend-cell" data-level="0"></span>
@@ -218,6 +216,7 @@
                         <span>more</span>
                     </div>
                 </div>
+                <div id="heatmap-tooltip" class="fixed z-50 hidden pointer-events-none whitespace-nowrap rounded-md bg-neutral-800 px-2 py-1 text-xs text-neutral-50 shadow-lg ring-1 ring-neutral-700"></div>
             </section>
 
              <!-- Links -->
@@ -293,6 +292,109 @@
             const wrap = document.getElementById('heatmap-wrap');
             const grid = document.getElementById('heatmap');
             const summary = document.getElementById('heatmap-summary');
+            const tooltip = document.getElementById('heatmap-tooltip');
+
+            function formatDate(iso) {
+                const d = new Date(iso + 'T00:00:00');
+                return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            }
+
+            function toLocalIso(d) {
+                const y = d.getFullYear();
+                const m = String(d.getMonth() + 1).padStart(2, '0');
+                const day = String(d.getDate()).padStart(2, '0');
+                return y + '-' + m + '-' + day;
+            }
+
+            function showTooltip(cell) {
+                const count = cell.getAttribute('data-count');
+                const date = cell.getAttribute('data-date');
+                if (!date) return;
+                tooltip.textContent = count + ' contribution' + (count === '1' ? '' : 's') + ' on ' + formatDate(date);
+                tooltip.classList.remove('hidden');
+
+                const rect = cell.getBoundingClientRect();
+                const tipRect = tooltip.getBoundingClientRect();
+                tooltip.style.left = Math.round(rect.left + rect.width / 2 - tipRect.width / 2) + 'px';
+                tooltip.style.top = Math.round(rect.top - tipRect.height - 6) + 'px';
+            }
+
+            function hideTooltip() {
+                tooltip.classList.add('hidden');
+            }
+
+            grid.addEventListener('mouseover', (e) => {
+                const cell = e.target.closest('[data-date]');
+                if (cell) showTooltip(cell);
+            });
+            grid.addEventListener('mouseout', (e) => {
+                if (e.target.closest('[data-date]')) hideTooltip();
+            });
+            grid.addEventListener('focusin', (e) => {
+                const cell = e.target.closest('[data-date]');
+                if (cell) showTooltip(cell);
+            });
+            grid.addEventListener('focusout', hideTooltip);
+            grid.addEventListener('click', (e) => {
+                const cell = e.target.closest('[data-date]');
+                if (cell) window.open('https://github.com/rabbive?tab=overview&from=' + cell.getAttribute('data-date') + '&to=' + cell.getAttribute('data-date'), '_blank', 'noopener');
+            });
+
+            const CELL_STEP = 13; // 10px cell + 3px gap
+            const MIN_WEEKS = 4;
+            let allDays = null;
+            let resizeTimer = null;
+
+            function weeksThatFit() {
+                const available = wrap.parentElement.clientWidth;
+                return Math.max(MIN_WEEKS, Math.floor(available / CELL_STEP));
+            }
+
+            function renderGrid(days) {
+                const lastDate = new Date(days[days.length - 1].date + 'T00:00:00');
+                const lastDow = lastDate.getDay();
+                const lastSunday = new Date(lastDate);
+                lastSunday.setDate(lastSunday.getDate() - lastDow);
+
+                const weeks = weeksThatFit();
+                const startDate = new Date(lastSunday);
+                startDate.setDate(startDate.getDate() - (weeks - 1) * 7);
+
+                const startIso = toLocalIso(startDate);
+                const lastIso = days[days.length - 1].date;
+                const shown = days.filter((d) => d.date >= startIso && d.date <= lastIso);
+                if (!shown.length) return;
+
+                const total = shown.reduce((sum, d) => sum + d.count, 0);
+                summary.textContent = total.toLocaleString() + ' contributions in the last ' + weeks + ' weeks';
+
+                grid.innerHTML = '';
+                const frag = document.createDocumentFragment();
+
+                shown.forEach((d) => {
+                    const cell = document.createElement('span');
+                    cell.className = 'heatmap-cell';
+                    cell.setAttribute('data-level', d.level);
+                    cell.setAttribute('data-date', d.date);
+                    cell.setAttribute('data-count', d.count);
+                    cell.setAttribute('tabindex', '0');
+                    cell.setAttribute('role', 'button');
+                    cell.setAttribute('aria-label', d.count + ' contributions on ' + formatDate(d.date));
+                    frag.appendChild(cell);
+                });
+
+                // Pad the trailing (current) week so every column is a full 7 cells
+                const trailingSlots = (6 - lastDow);
+                for (let i = 0; i < trailingSlots; i++) {
+                    const filler = document.createElement('span');
+                    filler.className = 'heatmap-cell';
+                    filler.style.visibility = 'hidden';
+                    frag.appendChild(filler);
+                }
+
+                grid.appendChild(frag);
+                wrap.classList.remove('hidden');
+            }
 
             fetch('https://github-contributions-api.jogruber.de/v4/rabbive?y=last')
                 .then((res) => {
@@ -302,34 +404,18 @@
                 .then((data) => {
                     const days = data.contributions;
                     if (!days || !days.length) return;
-
-                    const total = days.reduce((sum, d) => sum + d.count, 0);
-                    summary.textContent = total.toLocaleString() + ' contributions in the last year';
-
-                    // Pad to start on a Sunday so weeks align into columns
-                    const firstDay = new Date(days[0].date + 'T00:00:00').getDay();
-                    const frag = document.createDocumentFragment();
-                    for (let i = 0; i < firstDay; i++) {
-                        const filler = document.createElement('span');
-                        filler.className = 'heatmap-cell';
-                        filler.style.visibility = 'hidden';
-                        frag.appendChild(filler);
-                    }
-
-                    days.forEach((d) => {
-                        const cell = document.createElement('span');
-                        cell.className = 'heatmap-cell';
-                        cell.setAttribute('data-level', d.level);
-                        cell.title = d.date + ': ' + d.count + ' contribution' + (d.count === 1 ? '' : 's');
-                        frag.appendChild(cell);
-                    });
-
-                    grid.appendChild(frag);
-                    wrap.classList.remove('hidden');
+                    allDays = days;
+                    renderGrid(allDays);
                 })
                 .catch(() => {
                     // GitHub activity is supplementary — fail silently, keep section hidden
                 });
+
+            window.addEventListener('resize', () => {
+                if (!allDays) return;
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => renderGrid(allDays), 150);
+            });
         })();
     </script>
 </body>
