@@ -197,6 +197,29 @@
                 </ul>
             </section>
 
+             <!-- Activity -->
+            <section class="mb-16">
+                <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">
+                    <svg class="h-3.5 w-3.5 shrink-0 text-neutral-600 dark:text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    activity
+                </h2>
+                <div id="heatmap-wrap" class="hidden">
+                    <p id="heatmap-summary" class="text-sm text-neutral-600 dark:text-neutral-400 mb-3"></p>
+                    <div class="overflow-x-auto pb-1">
+                        <div id="heatmap" class="heatmap-grid"></div>
+                    </div>
+                    <div class="mt-2 flex items-center justify-end gap-1.5 text-xs text-neutral-500 dark:text-neutral-500">
+                        <span>less</span>
+                        <span class="heatmap-cell heatmap-legend-cell" data-level="0"></span>
+                        <span class="heatmap-cell heatmap-legend-cell" data-level="1"></span>
+                        <span class="heatmap-cell heatmap-legend-cell" data-level="2"></span>
+                        <span class="heatmap-cell heatmap-legend-cell" data-level="3"></span>
+                        <span class="heatmap-cell heatmap-legend-cell" data-level="4"></span>
+                        <span>more</span>
+                    </div>
+                </div>
+            </section>
+
              <!-- Links -->
             <section class="mb-16">
                 <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">
@@ -264,6 +287,50 @@
         } else {
             setTheme('system');
         }
+
+        // GitHub contribution heatmap
+        (function loadHeatmap() {
+            const wrap = document.getElementById('heatmap-wrap');
+            const grid = document.getElementById('heatmap');
+            const summary = document.getElementById('heatmap-summary');
+
+            fetch('https://github-contributions-api.jogruber.de/v4/rabbive?y=last')
+                .then((res) => {
+                    if (!res.ok) throw new Error('bad response');
+                    return res.json();
+                })
+                .then((data) => {
+                    const days = data.contributions;
+                    if (!days || !days.length) return;
+
+                    const total = days.reduce((sum, d) => sum + d.count, 0);
+                    summary.textContent = total.toLocaleString() + ' contributions in the last year';
+
+                    // Pad to start on a Sunday so weeks align into columns
+                    const firstDay = new Date(days[0].date + 'T00:00:00').getDay();
+                    const frag = document.createDocumentFragment();
+                    for (let i = 0; i < firstDay; i++) {
+                        const filler = document.createElement('span');
+                        filler.className = 'heatmap-cell';
+                        filler.style.visibility = 'hidden';
+                        frag.appendChild(filler);
+                    }
+
+                    days.forEach((d) => {
+                        const cell = document.createElement('span');
+                        cell.className = 'heatmap-cell';
+                        cell.setAttribute('data-level', d.level);
+                        cell.title = d.date + ': ' + d.count + ' contribution' + (d.count === 1 ? '' : 's');
+                        frag.appendChild(cell);
+                    });
+
+                    grid.appendChild(frag);
+                    wrap.classList.remove('hidden');
+                })
+                .catch(() => {
+                    // GitHub activity is supplementary — fail silently, keep section hidden
+                });
+        })();
     </script>
 </body>
 </html>
