@@ -17,8 +17,19 @@
     <link rel="apple-touch-icon" href="/favicon.svg">
     <link rel="manifest" href="/site.webmanifest">
 
+    <script>
+        // Apply theme before first paint to avoid a light-mode flash for dark users
+        (function () {
+            const saved = localStorage.getItem('theme');
+            const dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.classList.toggle('dark', dark);
+        })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="dist/output.css?v=6">
+    <link rel="stylesheet" href="dist/output.css?v=7">
 </head>
 <body class="flex min-h-screen flex-col bg-white dark:bg-neutral-950 font-sans text-neutral-900 dark:text-neutral-100 text-sm antialiased selection:bg-neutral-200 dark:selection:bg-neutral-800">
 
@@ -26,7 +37,6 @@
     <div class="fixed top-4 right-4 sm:top-6 sm:right-6 z-50">
         <div class="flex h-7 max-w-7 overflow-hidden rounded-full p-0.5 ring-1 ring-zinc-200/20 dark:ring-zinc-800/50 transition-all hover:max-w-[100px] justify-start bg-white/80 dark:bg-neutral-950/80 backdrop-blur-sm">
             <button onclick="setTheme('system')" class="relative size-6 shrink-0 cursor-pointer rounded-full group" aria-label="System theme">
-                <div id="thumb" class="absolute inset-0 rounded-full bg-zinc-200/50 dark:bg-zinc-800/50 transition-transform hidden"></div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="relative m-auto h-4 w-4 text-zinc-900 dark:text-zinc-100"><rect width="20" height="14" x="2" y="3" rx="2"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>
             </button>
             <button onclick="setTheme('light')" class="relative size-6 shrink-0 cursor-pointer rounded-full ml-1" aria-label="Light theme">
@@ -83,7 +93,7 @@
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <a href="https://github.com/rabbive/echod" target="_blank" rel="noopener noreferrer" class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white">echod</a>
-                                <button onclick="toggleExp(this)" class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer" aria-label="Toggle details">
+                                <button onclick="toggleExp(this)" class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer" aria-label="Toggle details" aria-expanded="false">
                                     <svg class="exp-chevron h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                                 </button>
                             </div>
@@ -102,7 +112,7 @@
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <a href="https://github.com/rabbive/ops-env" target="_blank" rel="noopener noreferrer" class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white">ops-env</a>
-                                <button onclick="toggleExp(this)" class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer" aria-label="Toggle details">
+                                <button onclick="toggleExp(this)" class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer" aria-label="Toggle details" aria-expanded="false">
                                     <svg class="exp-chevron h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                                 </button>
                             </div>
@@ -121,7 +131,7 @@
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <a href="https://github.com/rabbive/schrodinger-mail" target="_blank" rel="noopener noreferrer" class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white">schrodinger-mail</a>
-                                <button onclick="toggleExp(this)" class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer" aria-label="Toggle details">
+                                <button onclick="toggleExp(this)" class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer" aria-label="Toggle details" aria-expanded="false">
                                     <svg class="exp-chevron h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                                 </button>
                             </div>
@@ -140,7 +150,7 @@
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <a href="https://github.com/rabbive/devsignal" target="_blank" rel="noopener noreferrer" class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white">devsignal</a>
-                                <button onclick="toggleExp(this)" class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer" aria-label="Toggle details">
+                                <button onclick="toggleExp(this)" class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer" aria-label="Toggle details" aria-expanded="false">
                                     <svg class="exp-chevron h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                                 </button>
                             </div>
@@ -288,17 +298,18 @@
             const li = btn.closest('li');
             const body = li.querySelector('.exp-body');
             const chevron = btn.querySelector('.exp-chevron');
-            body.classList.toggle('open');
+            const open = body.classList.toggle('open');
             chevron.classList.toggle('rotated');
+            btn.setAttribute('aria-expanded', open);
         }
 
-        // Init theme
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            setTheme(savedTheme);
-        } else {
-            setTheme('system');
-        }
+        // Theme is applied before first paint by the inline script in <head>;
+        // follow OS theme changes live while in "system" mode
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                document.documentElement.classList.toggle('dark', e.matches);
+            }
+        });
 
         // GitHub contribution heatmap
         (function loadHeatmap() {
@@ -438,20 +449,44 @@
                 wrap.classList.remove('hidden');
             }
 
-            fetch('https://github-contributions-api.jogruber.de/v4/rabbive?y=last')
-                .then((res) => {
-                    if (!res.ok) throw new Error('bad response');
-                    return res.json();
-                })
-                .then((data) => {
-                    const days = data.contributions;
-                    if (!days || !days.length) return;
-                    allDays = days;
-                    renderGrid(allDays);
-                })
-                .catch(() => {
-                    // GitHub activity is supplementary — fail silently, keep section hidden
-                });
+            const CACHE_KEY = 'heatmap-v1';
+            const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 hours
+
+            function readCache() {
+                try {
+                    return JSON.parse(localStorage.getItem(CACHE_KEY));
+                } catch (e) {
+                    return null;
+                }
+            }
+
+            function show(days) {
+                allDays = days;
+                renderGrid(allDays);
+            }
+
+            const cached = readCache();
+            if (cached && cached.days && cached.days.length && Date.now() - cached.savedAt < CACHE_TTL) {
+                show(cached.days);
+            } else {
+                fetch('https://github-contributions-api.jogruber.de/v4/rabbive?y=last')
+                    .then((res) => {
+                        if (!res.ok) throw new Error('bad response');
+                        return res.json();
+                    })
+                    .then((data) => {
+                        const days = data.contributions;
+                        if (!days || !days.length) return;
+                        try {
+                            localStorage.setItem(CACHE_KEY, JSON.stringify({ savedAt: Date.now(), days: days }));
+                        } catch (e) { /* storage full/unavailable — rendering still works */ }
+                        show(days);
+                    })
+                    .catch(() => {
+                        // GitHub activity is supplementary — fall back to stale cache, else keep section hidden
+                        if (cached && cached.days && cached.days.length) show(cached.days);
+                    });
+            }
 
             window.addEventListener('resize', () => {
                 if (!allDays) return;
