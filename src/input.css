@@ -100,3 +100,8 @@ body {
   height: 9px;
   border-radius: 2px;
 }
+
+#heatmap-tooltip {
+  max-width: calc(100vw - 16px);
+  white-space: normal;
+}
