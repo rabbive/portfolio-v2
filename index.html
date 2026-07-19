@@ -29,7 +29,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="dist/output.css?v=6">
+    <link rel="stylesheet" href="dist/output.css?v=7">
 </head>
 <body class="flex min-h-screen flex-col bg-white dark:bg-neutral-950 font-sans text-neutral-900 dark:text-neutral-100 text-sm antialiased selection:bg-neutral-200 dark:selection:bg-neutral-800">
 
@@ -217,7 +217,7 @@
                 </h2>
                 <div id="heatmap-wrap" class="hidden">
                     <p id="heatmap-summary" class="text-sm text-neutral-600 dark:text-neutral-400 mb-3"></p>
-                    <div id="heatmap" class="heatmap-grid"></div>
+                    <div id="heatmap" class="heatmap-grid touch-none"></div>
                     <div class="mt-2 flex items-center justify-end gap-1.5 text-xs text-neutral-500 dark:text-neutral-500">
                         <span>less</span>
                         <span class="heatmap-cell heatmap-legend-cell" data-level="0"></span>
@@ -330,17 +330,25 @@
                 return y + '-' + m + '-' + day;
             }
 
+            function positionTooltip(cell) {
+                const rect = cell.getBoundingClientRect();
+                const tipRect = tooltip.getBoundingClientRect();
+                const margin = 4;
+                let left = rect.left + rect.width / 2 - tipRect.width / 2;
+                left = Math.min(Math.max(left, margin), window.innerWidth - tipRect.width - margin);
+                let top = rect.top - tipRect.height - 6;
+                if (top < margin) top = rect.bottom + 6;
+                tooltip.style.left = Math.round(left) + 'px';
+                tooltip.style.top = Math.round(top) + 'px';
+            }
+
             function showTooltip(cell) {
                 const count = cell.getAttribute('data-count');
                 const date = cell.getAttribute('data-date');
                 if (!date) return;
                 tooltip.textContent = count + ' contribution' + (count === '1' ? '' : 's') + ' on ' + formatDate(date);
                 tooltip.classList.remove('hidden');
-
-                const rect = cell.getBoundingClientRect();
-                const tipRect = tooltip.getBoundingClientRect();
-                tooltip.style.left = Math.round(rect.left + rect.width / 2 - tipRect.width / 2) + 'px';
-                tooltip.style.top = Math.round(rect.top - tipRect.height - 6) + 'px';
+                positionTooltip(cell);
             }
 
             function hideTooltip() {
@@ -363,6 +371,27 @@
                 const cell = e.target.closest('[data-date]');
                 if (cell) window.open('https://github.com/rabbive?tab=overview&from=' + cell.getAttribute('data-date') + '&to=' + cell.getAttribute('data-date'), '_blank', 'noopener');
             });
+
+            let lastTouchedCell = null;
+
+            function handleTouchScrub(e) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const el = document.elementFromPoint(touch.clientX, touch.clientY);
+                const cell = el && el.closest('[data-date]');
+                if (cell && cell !== lastTouchedCell) {
+                    showTooltip(cell);
+                    lastTouchedCell = cell;
+                } else if (!cell) {
+                    hideTooltip();
+                    lastTouchedCell = null;
+                }
+            }
+
+            grid.addEventListener('touchstart', handleTouchScrub, { passive: false });
+            grid.addEventListener('touchmove', handleTouchScrub, { passive: false });
+            grid.addEventListener('touchend', () => { hideTooltip(); lastTouchedCell = null; });
+            grid.addEventListener('touchcancel', () => { hideTooltip(); lastTouchedCell = null; });
 
             const CELL_STEP = 13; // 10px cell + 3px gap
             const MIN_WEEKS = 4;
