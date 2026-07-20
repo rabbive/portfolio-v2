@@ -38,7 +38,6 @@ jobs:
           args: >-
             --verbose --no-progress
             --accept 200,204,301,302,307,308,429
-            --exclude-mail
             --exclude "(linkedin\.com|x\.com|\?v=|resume\.pdf)"
             --root-dir .
             ./**/*.html
