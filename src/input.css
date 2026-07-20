@@ -86,3 +86,12 @@ body {
   max-width: calc(100vw - 16px);
   white-space: normal;
 }
+
+/* Corner-bracket hover marks are a desktop-only flourish — touch devices
+   have no real hover state, so tapping made them flash/stick oddly. */
+@media not all and (hover: hover) and (pointer: fine) {
+  .group\/item:hover .group-hover\/item\:block,
+  .group:hover .group-hover\:block {
+    display: none !important;
+  }
+}
