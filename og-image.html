@@ -1,61 +1,102 @@
-<!DOCTYPE html>
+<!doctype html>
 <!-- Source for og.png (1200x630 social card). Render with:
      chrome --headless --screenshot=og.png --window-size=1200,630 --hide-scrollbars og-image.html -->
 <html>
-<head>
-<meta charset="UTF-8">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    width: 1200px;
-    height: 630px;
-    background: #ffffff;
-    font-family: 'Inter', sans-serif;
-    color: #171717;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 96px;
-    position: relative;
-    -webkit-font-smoothing: antialiased;
-  }
-  .name { font-size: 64px; font-weight: 500; letter-spacing: -0.02em; }
-  .tag {
-    margin-top: 28px;
-    font-size: 29px;
-    font-weight: 400;
-    color: #525252;
-    line-height: 1.45;
-    max-width: 920px;
-  }
-  .url {
-    position: absolute;
-    bottom: 88px;
-    left: 96px;
-    font-size: 26px;
-    color: #a3a3a3;
-  }
-  /* corner cross marks — same motif as the site's hover brackets */
-  .cross { position: absolute; width: 20px; height: 20px; }
-  .cross::before, .cross::after { content: ''; position: absolute; background: #a3a3a3; }
-  .cross::before { left: 50%; top: 0; width: 1px; height: 100%; transform: translateX(-50%); }
-  .cross::after { top: 50%; left: 0; height: 1px; width: 100%; transform: translateY(-50%); }
-  .tl { top: 48px; left: 48px; }
-  .tr { top: 48px; right: 48px; }
-  .bl { bottom: 48px; left: 48px; }
-  .br { bottom: 48px; right: 48px; }
-</style>
-</head>
-<body>
-  <div class="cross tl"></div>
-  <div class="cross tr"></div>
-  <div class="cross bl"></div>
-  <div class="cross br"></div>
-  <div class="name">ashwanth kumaravel</div>
-  <div class="tag">cs @ vit — post-quantum cryptography, distributed systems, and rl agents.</div>
-  <div class="url">rabbive.dev</div>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                width: 1200px;
+                height: 630px;
+                background: #ffffff;
+                font-family: 'Inter', sans-serif;
+                color: #171717;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 96px;
+                position: relative;
+                -webkit-font-smoothing: antialiased;
+            }
+            .name {
+                font-size: 64px;
+                font-weight: 500;
+                letter-spacing: -0.02em;
+            }
+            .tag {
+                margin-top: 28px;
+                font-size: 29px;
+                font-weight: 400;
+                color: #525252;
+                line-height: 1.45;
+                max-width: 920px;
+            }
+            .url {
+                position: absolute;
+                bottom: 88px;
+                left: 96px;
+                font-size: 26px;
+                color: #a3a3a3;
+            }
+            /* corner cross marks — same motif as the site's hover brackets */
+            .cross {
+                position: absolute;
+                width: 20px;
+                height: 20px;
+            }
+            .cross::before,
+            .cross::after {
+                content: '';
+                position: absolute;
+                background: #a3a3a3;
+            }
+            .cross::before {
+                left: 50%;
+                top: 0;
+                width: 1px;
+                height: 100%;
+                transform: translateX(-50%);
+            }
+            .cross::after {
+                top: 50%;
+                left: 0;
+                height: 1px;
+                width: 100%;
+                transform: translateY(-50%);
+            }
+            .tl {
+                top: 48px;
+                left: 48px;
+            }
+            .tr {
+                top: 48px;
+                right: 48px;
+            }
+            .bl {
+                bottom: 48px;
+                left: 48px;
+            }
+            .br {
+                bottom: 48px;
+                right: 48px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="cross tl"></div>
+        <div class="cross tr"></div>
+        <div class="cross bl"></div>
+        <div class="cross br"></div>
+        <div class="name">ashwanth kumaravel</div>
+        <div class="tag">cs @ vit — post-quantum cryptography, distributed systems, and rl agents.</div>
+        <div class="url">rabbive.dev</div>
+    </body>
 </html>

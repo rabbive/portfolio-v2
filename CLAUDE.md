@@ -23,7 +23,8 @@ Preview by opening `index.html` directly in a browser or serving the repo root w
 - `robots.txt` and `sitemap.xml` point at the production domain `https://rabbive.dev`.
 - **Fonts are self-hosted** in `fonts/` (Inter latin subsets, woff2) with `@font-face` rules in `src/input.css`; `index.html` preloads the 400/500 weights. Do not re-add Google Fonts links.
 - **`_headers`** configures Cloudflare Pages caching (immutable for `dist/` + `fonts/`, one day for `og.png`) and security headers/CSP. The heatmap's contributions API origin must stay in `connect-src`, and `og-image.html` keeps its own relaxed CSP.
-- **CI** (`.github/workflows/ci.yml`) runs on every push: fails if `dist/output.css` is stale vs. sources, then htmlhint + lychee link checks. LinkedIn/X are excluded from link checks (bot-blocked, flaky) — verify them manually. The `resume.pdf` exclusion is a TODO until the PDF is added.
+- **CI** (`.github/workflows/ci.yml`) runs on every push: fails if `dist/output.css` is stale vs. sources, then htmlhint, Prettier `format:check`, and lychee link checks. LinkedIn/X are excluded from link checks (bot-blocked, flaky) — verify them manually. The `resume.pdf` exclusion is a TODO until the PDF is added.
+- **Formatting:** Prettier (`npm run format`), configured in `.prettierrc.json` to match house style (4-space indent, single quotes, 120-col). Run it before committing; CI enforces it.
 
 ## Architecture
 

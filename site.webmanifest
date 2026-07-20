@@ -1,14 +1,14 @@
 {
-  "name": "Portfolio",
-  "short_name": "Portfolio",
-  "icons": [
-    {
-      "src": "/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
-    }
-  ],
-  "theme_color": "#171717",
-  "background_color": "#ffffff",
-  "display": "standalone"
+    "name": "Portfolio",
+    "short_name": "Portfolio",
+    "icons": [
+        {
+            "src": "/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml"
+        }
+    ],
+    "theme_color": "#171717",
+    "background_color": "#ffffff",
+    "display": "standalone"
 }

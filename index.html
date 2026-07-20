@@ -1,527 +1,1199 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ashwanth kumaravel — systems &amp; security</title>
-    <meta name="description" content="CS @ VIT — post-quantum cryptography, distributed systems, and RL agents. Python, TypeScript, Rust.">
-    <link rel="canonical" href="https://rabbive.dev/">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ashwanth kumaravel — systems &amp; security</title>
+        <meta
+            name="description"
+            content="CS @ VIT — post-quantum cryptography, distributed systems, and RL agents. Python, TypeScript, Rust."
+        />
+        <link rel="canonical" href="https://rabbive.dev/" />
 
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rabbive.dev/">
-    <meta property="og:site_name" content="rabbive.dev">
-    <meta property="og:title" content="ashwanth kumaravel — systems &amp; security">
-    <meta property="og:description" content="CS @ VIT — post-quantum cryptography, distributed systems, and RL agents. Python, TypeScript, Rust.">
-    <meta property="og:image" content="https://rabbive.dev/og.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="ashwanth kumaravel — cs @ vit, systems &amp; security">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ashwanth kumaravel — systems &amp; security">
-    <meta name="twitter:description" content="CS @ VIT — post-quantum cryptography, distributed systems, and RL agents. Python, TypeScript, Rust.">
-    <meta name="twitter:image" content="https://rabbive.dev/og.png">
-    <meta name="twitter:creator" content="@ashwaanthh">
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://rabbive.dev/" />
+        <meta property="og:site_name" content="rabbive.dev" />
+        <meta property="og:title" content="ashwanth kumaravel — systems &amp; security" />
+        <meta
+            property="og:description"
+            content="CS @ VIT — post-quantum cryptography, distributed systems, and RL agents. Python, TypeScript, Rust."
+        />
+        <meta property="og:image" content="https://rabbive.dev/og.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="ashwanth kumaravel — cs @ vit, systems &amp; security" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="ashwanth kumaravel — systems &amp; security" />
+        <meta
+            name="twitter:description"
+            content="CS @ VIT — post-quantum cryptography, distributed systems, and RL agents. Python, TypeScript, Rust."
+        />
+        <meta name="twitter:image" content="https://rabbive.dev/og.png" />
+        <meta name="twitter:creator" content="@ashwaanthh" />
 
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Ashwanth Kumaravel",
-      "url": "https://rabbive.dev/",
-      "email": "mailto:ashwanthkumaravel@gmail.com",
-      "address": { "@type": "PostalAddress", "addressLocality": "Chennai", "addressCountry": "IN" },
-      "knowsAbout": ["post-quantum cryptography", "distributed systems", "reinforcement learning", "Python", "TypeScript", "Rust"],
-      "sameAs": [
-        "https://github.com/rabbive",
-        "https://www.linkedin.com/in/ashwanthk",
-        "https://x.com/ashwaanthh"
-      ]
-    }
-    </script>
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Person",
+                "name": "Ashwanth Kumaravel",
+                "url": "https://rabbive.dev/",
+                "email": "mailto:ashwanthkumaravel@gmail.com",
+                "address": { "@type": "PostalAddress", "addressLocality": "Chennai", "addressCountry": "IN" },
+                "knowsAbout": [
+                    "post-quantum cryptography",
+                    "distributed systems",
+                    "reinforcement learning",
+                    "Python",
+                    "TypeScript",
+                    "Rust"
+                ],
+                "sameAs": [
+                    "https://github.com/rabbive",
+                    "https://www.linkedin.com/in/ashwanthk",
+                    "https://x.com/ashwaanthh"
+                ]
+            }
+        </script>
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="apple-touch-icon" href="/favicon.svg">
-    <link rel="manifest" href="/site.webmanifest">
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
+        <link rel="manifest" href="/site.webmanifest" />
 
-    <script>
-        // Apply theme before first paint to avoid a light-mode flash for dark users
-        (function () {
-            const saved = localStorage.getItem('theme');
-            const dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.classList.toggle('dark', dark);
-        })();
-    </script>
+        <script>
+            // Apply theme before first paint to avoid a light-mode flash for dark users
+            (function () {
+                const saved = localStorage.getItem('theme');
+                const dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.classList.toggle('dark', dark);
+            })();
+        </script>
 
-    <link rel="preload" href="/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/fonts/inter-latin-500.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="dist/output.css?v=9">
-</head>
-<body class="flex min-h-screen flex-col bg-white dark:bg-neutral-950 font-sans text-neutral-900 dark:text-neutral-100 text-sm antialiased selection:bg-neutral-200 dark:selection:bg-neutral-800">
-
-    <!-- Theme Toggle -->
-    <div class="fixed top-4 right-4 sm:top-6 sm:right-6 z-50">
-        <div class="flex h-7 max-w-7 overflow-hidden rounded-full p-0.5 ring-1 ring-zinc-200/20 dark:ring-zinc-800/50 transition-all hover:max-w-[100px] justify-start bg-white/80 dark:bg-neutral-950/80 backdrop-blur-sm">
-            <button onclick="setTheme('system')" class="relative size-6 shrink-0 cursor-pointer rounded-full group" aria-label="System theme">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="relative m-auto h-4 w-4 text-zinc-900 dark:text-zinc-100"><rect width="20" height="14" x="2" y="3" rx="2"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>
-            </button>
-            <button onclick="setTheme('light')" class="relative size-6 shrink-0 cursor-pointer rounded-full ml-1" aria-label="Light theme">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="relative m-auto h-4 w-4 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
-            </button>
-            <button onclick="setTheme('dark')" class="relative size-6 shrink-0 cursor-pointer rounded-full ml-1" aria-label="Dark theme">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="relative m-auto h-4 w-4 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg>
-            </button>
-        </div>
-    </div>
-
-    <main class="flex-1 pt-24 px-6 md:px-0">
-        <div class="max-w-xl mx-auto text-neutral-400">
-            <!-- Header -->
-            <div class="mb-12">
-                <h1 class="text-sm font-medium text-neutral-900 dark:text-stone-100">ashwanth kumaravel</h1>
-                <p class="mt-1 text-neutral-600 dark:text-neutral-500 text-sm">chennai, in.</p>
-                <div class="mt-4 flex flex-wrap items-center gap-2.5">
-                    <a href="/resume.pdf" download class="inline-flex items-center gap-2 rounded-full bg-neutral-200 px-4 py-2 font-medium text-neutral-900 shadow-sm transition-all duration-200 hover:bg-neutral-300 active:scale-[0.98]">
-                        <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
-                        resume / cv
-                    </a>
-                    <a href="mailto:ashwanthkumaravel@gmail.com" class="inline-flex items-center gap-2 rounded-full bg-white dark:bg-neutral-900 px-4 py-2 font-medium text-neutral-800 dark:text-neutral-100 ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm transition-all duration-200 hover:bg-neutral-50 hover:ring-neutral-300 dark:hover:bg-neutral-800/60 dark:hover:ring-neutral-700 active:scale-[0.98]">
-                        <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                        get in touch
-                    </a>
-                </div>
+        <link rel="preload" href="/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin />
+        <link rel="preload" href="/fonts/inter-latin-500.woff2" as="font" type="font/woff2" crossorigin />
+        <link rel="stylesheet" href="dist/output.css?v=9" />
+    </head>
+    <body
+        class="flex min-h-screen flex-col bg-white dark:bg-neutral-950 font-sans text-neutral-900 dark:text-neutral-100 text-sm antialiased selection:bg-neutral-200 dark:selection:bg-neutral-800"
+    >
+        <!-- Theme Toggle -->
+        <div class="fixed top-4 right-4 sm:top-6 sm:right-6 z-50">
+            <div
+                class="flex h-7 max-w-7 overflow-hidden rounded-full p-0.5 ring-1 ring-zinc-200/20 dark:ring-zinc-800/50 transition-all hover:max-w-[100px] justify-start bg-white/80 dark:bg-neutral-950/80 backdrop-blur-sm"
+            >
+                <button
+                    onclick="setTheme('system')"
+                    class="relative size-6 shrink-0 cursor-pointer rounded-full group"
+                    aria-label="System theme"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="relative m-auto h-4 w-4 text-zinc-900 dark:text-zinc-100"
+                    >
+                        <rect width="20" height="14" x="2" y="3" rx="2"></rect>
+                        <line x1="8" x2="16" y1="21" y2="21"></line>
+                        <line x1="12" x2="12" y1="17" y2="21"></line>
+                    </svg>
+                </button>
+                <button
+                    onclick="setTheme('light')"
+                    class="relative size-6 shrink-0 cursor-pointer rounded-full ml-1"
+                    aria-label="Light theme"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="relative m-auto h-4 w-4 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
+                    >
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2"></path>
+                        <path d="M12 20v2"></path>
+                        <path d="m4.93 4.93 1.41 1.41"></path>
+                        <path d="m17.66 17.66 1.41 1.41"></path>
+                        <path d="M2 12h2"></path>
+                        <path d="M20 12h2"></path>
+                        <path d="m6.34 17.66-1.41 1.41"></path>
+                        <path d="m19.07 4.93-1.41 1.41"></path>
+                    </svg>
+                </button>
+                <button
+                    onclick="setTheme('dark')"
+                    class="relative size-6 shrink-0 cursor-pointer rounded-full ml-1"
+                    aria-label="Dark theme"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="relative m-auto h-4 w-4 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
+                    >
+                        <path
+                            d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"
+                        ></path>
+                    </svg>
+                </button>
             </div>
+        </div>
 
-            <!-- About -->
-            <section class="mb-12">
-                <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">
-                    <svg class="h-3.5 w-3.5 shrink-0 text-neutral-600 dark:text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                    about
-                </h2>
-                <div class="flex flex-col gap-3 text-neutral-800 dark:text-neutral-400 leading-relaxed">
-                    <p>tldr; final-year cs @ vit (grad 2027), building systems + security infra. open to new-grad sde roles.</p>
-                    <p>i like things that hold up under load, so i build them that way — a raft-inspired consensus protocol running across heterogeneous iot edge nodes, a post-quantum email client with a signed kem-dem architecture on nist-standardized algorithms, and an openenv-compatible eval harness with deterministic graders for agents.</p>
-                    <p>python, typescript, rust — whichever fits. i write tests, i benchmark, i ship.</p>
-                    <p>code lives on <a class="text-neutral-700 dark:text-stone-300 underline decoration-neutral-500 dark:decoration-stone-400 decoration-[0.5px] underline-offset-4 transition-colors hover:text-neutral-900 dark:hover:text-stone-200" href="https://github.com/rabbive" target="_blank" rel="noopener noreferrer">github</a>.</p>
-                </div>
-            </section>
-
-            <!-- Projects -->
-            <section class="mb-16">
-                <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">
-                    <svg class="h-3.5 w-3.5 shrink-0 text-neutral-600 dark:text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
-                    projects
-                </h2>
-                <ul class="flex flex-col gap-1">
-                    <li class="group/item py-2 relative">
-                        <div class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover/item:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                        <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover/item:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                                <a href="https://github.com/rabbive/echod" target="_blank" rel="noopener noreferrer" class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white">echod</a>
-                                <button onclick="toggleExp(this)" class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer" aria-label="Toggle details" aria-expanded="false">
-                                    <svg class="exp-chevron h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                                </button>
-                            </div>
-                            <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500">2026</span>
-                        </div>
-                        <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">distributed consensus for iot edge networks</p>
-                        <div class="exp-body">
-                            <div class="overflow-hidden">
-                                <p class="text-sm text-neutral-600 dark:text-neutral-400 pt-2">a lightweight, raft-inspired consensus protocol for heterogeneous edge devices — energy-aware and partition-tolerant.</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="group/item py-2 relative">
-                        <div class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover/item:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                        <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover/item:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                                <a href="https://github.com/rabbive/ops-env" target="_blank" rel="noopener noreferrer" class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white">ops-env</a>
-                                <button onclick="toggleExp(this)" class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer" aria-label="Toggle details" aria-expanded="false">
-                                    <svg class="exp-chevron h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                                </button>
-                            </div>
-                            <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500">2026</span>
-                        </div>
-                        <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">support-desk triage environment for agent evals</p>
-                        <div class="exp-body">
-                            <div class="overflow-hidden">
-                                <p class="text-sm text-neutral-600 dark:text-neutral-400 pt-2">openenv-compatible triage environment built with fastapi and deterministic graders, for training and evaluating agents.</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="group/item py-2 relative">
-                        <div class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover/item:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                        <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover/item:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                                <a href="https://github.com/rabbive/schrodinger-mail" target="_blank" rel="noopener noreferrer" class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white">schrodinger-mail</a>
-                                <button onclick="toggleExp(this)" class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer" aria-label="Toggle details" aria-expanded="false">
-                                    <svg class="exp-chevron h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                                </button>
-                            </div>
-                            <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500">2026</span>
-                        </div>
-                        <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">post-quantum secure email client</p>
-                        <div class="exp-body">
-                            <div class="overflow-hidden">
-                                <p class="text-sm text-neutral-600 dark:text-neutral-400 pt-2">signed kem-dem architecture using nist-standardized algorithms — confidentiality, integrity, and authenticity against both classical and quantum threats.</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="group/item py-2 relative">
-                        <div class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover/item:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                        <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover/item:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                                <a href="https://github.com/rabbive/devsignal" target="_blank" rel="noopener noreferrer" class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white">devsignal</a>
-                                <button onclick="toggleExp(this)" class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer" aria-label="Toggle details" aria-expanded="false">
-                                    <svg class="exp-chevron h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                                </button>
-                            </div>
-                            <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500">2026</span>
-                        </div>
-                        <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">rust workspace: daemon, discord bot, macos app</p>
-                        <div class="exp-body">
-                            <div class="overflow-hidden">
-                                <p class="text-sm text-neutral-600 dark:text-neutral-400 pt-2">a background daemon paired with a discord bot and a macos client, sharing one rust workspace.</p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </section>
-
-            <!-- Experiments -->
-            <section class="mb-16">
-                <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">
-                    <svg class="h-3.5 w-3.5 shrink-0 text-neutral-600 dark:text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"/><path d="M6.453 15h11.094"/><path d="M8.5 2h7"/></svg>
-                    experiments
-                </h2>
-                <ul class="flex flex-col gap-1">
-                    <li class="py-2 text-neutral-700 dark:text-neutral-300">
-                        <a class="group flex flex-col gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative" href="https://github.com/rabbive/OpSignal" target="_blank" rel="noopener noreferrer">
-                            <div class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                            <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                            <div class="flex items-center justify-between">
-                                <h3 class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white">OpSignal</h3>
-                                <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500 transition-colors">2026</span>
-                            </div>
-                            <p class="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">Operational signal monitoring and alerting.</p>
+        <main class="flex-1 pt-24 px-6 md:px-0">
+            <div class="max-w-xl mx-auto text-neutral-400">
+                <!-- Header -->
+                <div class="mb-12">
+                    <h1 class="text-sm font-medium text-neutral-900 dark:text-stone-100">ashwanth kumaravel</h1>
+                    <p class="mt-1 text-neutral-600 dark:text-neutral-500 text-sm">chennai, in.</p>
+                    <div class="mt-4 flex flex-wrap items-center gap-2.5">
+                        <a
+                            href="/resume.pdf"
+                            download
+                            class="inline-flex items-center gap-2 rounded-full bg-neutral-200 px-4 py-2 font-medium text-neutral-900 shadow-sm transition-all duration-200 hover:bg-neutral-300 active:scale-[0.98]"
+                        >
+                            <svg
+                                class="h-4 w-4 shrink-0"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                xmlns="http://www.w3.org/2000/svg"
+                                aria-hidden="true"
+                            >
+                                <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                                <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                                <path d="M10 9H8" />
+                                <path d="M16 13H8" />
+                                <path d="M16 17H8" />
+                            </svg>
+                            resume / cv
                         </a>
-                    </li>
-                    <li class="py-2 text-neutral-700 dark:text-neutral-300">
-                        <a class="group flex flex-col gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative" href="https://github.com/rabbive/hybrid-movie-recommender" target="_blank" rel="noopener noreferrer">
-                            <div class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                            <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                            <div class="flex items-center justify-between">
-                                <h3 class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white">hybrid-movie-recommender</h3>
-                                <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500 transition-colors">2026</span>
-                            </div>
-                            <p class="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">Hybrid collaborative + content-based movie recommender.</p>
+                        <a
+                            href="mailto:ashwanthkumaravel@gmail.com"
+                            class="inline-flex items-center gap-2 rounded-full bg-white dark:bg-neutral-900 px-4 py-2 font-medium text-neutral-800 dark:text-neutral-100 ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm transition-all duration-200 hover:bg-neutral-50 hover:ring-neutral-300 dark:hover:bg-neutral-800/60 dark:hover:ring-neutral-700 active:scale-[0.98]"
+                        >
+                            <svg
+                                class="h-4 w-4 shrink-0"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                xmlns="http://www.w3.org/2000/svg"
+                                aria-hidden="true"
+                            >
+                                <line x1="22" x2="11" y1="2" y2="13" />
+                                <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                            </svg>
+                            get in touch
                         </a>
-                    </li>
-                    <li class="py-2 text-neutral-700 dark:text-neutral-300">
-                        <a class="group flex flex-col gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative" href="https://github.com/rabbive/CogniZap" target="_blank" rel="noopener noreferrer">
-                            <div class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                            <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                            <div class="flex items-center justify-between">
-                                <h3 class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white">CogniZap</h3>
-                                <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500 transition-colors">2025</span>
-                            </div>
-                            <p class="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">Cognitive task manager, built with Svelte.</p>
-                        </a>
-                    </li>
-                </ul>
-            </section>
-
-             <!-- Activity -->
-            <section class="mb-16">
-                <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">
-                    <svg class="h-3.5 w-3.5 shrink-0 text-neutral-600 dark:text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                    activity
-                </h2>
-                <div id="heatmap-wrap" class="hidden">
-                    <p id="heatmap-summary" class="text-sm text-neutral-600 dark:text-neutral-400 mb-3"></p>
-                    <div id="heatmap" class="heatmap-grid touch-none"></div>
-                    <div class="mt-2 flex items-center justify-end gap-1.5 text-xs text-neutral-500 dark:text-neutral-500">
-                        <span>less</span>
-                        <span class="heatmap-cell heatmap-legend-cell" data-level="0"></span>
-                        <span class="heatmap-cell heatmap-legend-cell" data-level="1"></span>
-                        <span class="heatmap-cell heatmap-legend-cell" data-level="2"></span>
-                        <span class="heatmap-cell heatmap-legend-cell" data-level="3"></span>
-                        <span class="heatmap-cell heatmap-legend-cell" data-level="4"></span>
-                        <span>more</span>
                     </div>
                 </div>
-                <div id="heatmap-tooltip" class="fixed z-50 hidden pointer-events-none whitespace-nowrap rounded-md bg-neutral-800 px-2 py-1 text-xs text-neutral-50 shadow-lg ring-1 ring-neutral-700"></div>
-            </section>
 
-             <!-- Links -->
-            <section class="mb-16">
-                <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">
-                    <svg class="h-3.5 w-3.5 shrink-0 text-neutral-600 dark:text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><path d="M8 12h8"/></svg>
-                    links
-                </h2>
-                <ul class="flex flex-col gap-1">
-                    <li class="py-2 text-neutral-700 dark:text-neutral-300">
-                        <a class="group flex items-center justify-between gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative" href="https://github.com/rabbive" target="_blank" rel="noopener noreferrer">
-                            <div class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                            <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                            <div class="flex grow items-center gap-2.5">
-                                <svg class="h-4 w-4 shrink-0 text-neutral-600 dark:text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
-                                <h3 class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white">github</h3>
+                <!-- About -->
+                <section class="mb-12">
+                    <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">
+                        <svg
+                            class="h-3.5 w-3.5 shrink-0 text-neutral-600 dark:text-neutral-400"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                        >
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        about
+                    </h2>
+                    <div class="flex flex-col gap-3 text-neutral-800 dark:text-neutral-400 leading-relaxed">
+                        <p>
+                            tldr; final-year cs @ vit (grad 2027), building systems + security infra. open to new-grad
+                            sde roles.
+                        </p>
+                        <p>
+                            i like things that hold up under load, so i build them that way — a raft-inspired consensus
+                            protocol running across heterogeneous iot edge nodes, a post-quantum email client with a
+                            signed kem-dem architecture on nist-standardized algorithms, and an openenv-compatible eval
+                            harness with deterministic graders for agents.
+                        </p>
+                        <p>python, typescript, rust — whichever fits. i write tests, i benchmark, i ship.</p>
+                        <p>
+                            code lives on
+                            <a
+                                class="text-neutral-700 dark:text-stone-300 underline decoration-neutral-500 dark:decoration-stone-400 decoration-[0.5px] underline-offset-4 transition-colors hover:text-neutral-900 dark:hover:text-stone-200"
+                                href="https://github.com/rabbive"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >github</a
+                            >.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Projects -->
+                <section class="mb-16">
+                    <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">
+                        <svg
+                            class="h-3.5 w-3.5 shrink-0 text-neutral-600 dark:text-neutral-400"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                        >
+                            <path d="m18 16 4-4-4-4" />
+                            <path d="m6 8-4 4 4 4" />
+                            <path d="m14.5 4-5 16" />
+                        </svg>
+                        projects
+                    </h2>
+                    <ul class="flex flex-col gap-1">
+                        <li class="group/item py-2 relative">
+                            <div
+                                class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover/item:block"
+                                style="--cross-size: 10px"
+                            >
+                                <div
+                                    class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                ></div>
+                                <div
+                                    class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                ></div>
                             </div>
-                            <span class="ml-1 flex items-center gap-1 whitespace-nowrap transition-colors text-neutral-600 dark:text-neutral-400">@rabbive</span>
-                        </a>
-                    </li>
-                     <li class="py-2 text-neutral-700 dark:text-neutral-300">
-                        <a class="group flex items-center justify-between gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative" href="https://x.com/ashwaanthh" target="_blank" rel="noopener noreferrer">
-                             <div class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                            <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                            <div class="flex grow items-center gap-2.5">
-                                <svg class="h-4 w-4 shrink-0 text-neutral-600 dark:text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
-                                <h3 class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white">twitter</h3>
+                            <div
+                                class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover/item:block"
+                                style="--cross-size: 10px"
+                            >
+                                <div
+                                    class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                ></div>
+                                <div
+                                    class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                ></div>
                             </div>
-                            <span class="ml-1 flex items-center gap-1 whitespace-nowrap transition-colors text-neutral-600 dark:text-neutral-400">@ashwaanthh</span>
-                        </a>
-                    </li>
-                    <li class="py-2 text-neutral-700 dark:text-neutral-300">
-                        <a class="group flex items-center justify-between gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative" href="https://linkedin.com/in/ashwanthk" target="_blank" rel="noopener noreferrer">
-                            <div class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                            <div class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover:block" style="--cross-size:10px"><div class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div><div class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"></div></div>
-                            <div class="flex grow items-center gap-2.5">
-                                <svg class="h-4 w-4 shrink-0 text-neutral-600 dark:text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-                                <h3 class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white">linkedin</h3>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <a
+                                        href="https://github.com/rabbive/echod"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white"
+                                        >echod</a
+                                    >
+                                    <button
+                                        onclick="toggleExp(this)"
+                                        class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer"
+                                        aria-label="Toggle details"
+                                        aria-expanded="false"
+                                    >
+                                        <svg
+                                            class="exp-chevron h-3 w-3"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <polyline points="9 18 15 12 9 6"></polyline>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500">2026</span>
                             </div>
-                            <span class="ml-1 flex items-center gap-1 whitespace-nowrap transition-colors text-neutral-600 dark:text-neutral-400">ashwanthk</span>
-                        </a>
-                    </li>
-                </ul>
-            </section>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">
+                                distributed consensus for iot edge networks
+                            </p>
+                            <div class="exp-body">
+                                <div class="overflow-hidden">
+                                    <p class="text-sm text-neutral-600 dark:text-neutral-400 pt-2">
+                                        a lightweight, raft-inspired consensus protocol for heterogeneous edge devices —
+                                        energy-aware and partition-tolerant.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="group/item py-2 relative">
+                            <div
+                                class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover/item:block"
+                                style="--cross-size: 10px"
+                            >
+                                <div
+                                    class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                ></div>
+                                <div
+                                    class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                ></div>
+                            </div>
+                            <div
+                                class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover/item:block"
+                                style="--cross-size: 10px"
+                            >
+                                <div
+                                    class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                ></div>
+                                <div
+                                    class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                ></div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <a
+                                        href="https://github.com/rabbive/ops-env"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white"
+                                        >ops-env</a
+                                    >
+                                    <button
+                                        onclick="toggleExp(this)"
+                                        class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer"
+                                        aria-label="Toggle details"
+                                        aria-expanded="false"
+                                    >
+                                        <svg
+                                            class="exp-chevron h-3 w-3"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <polyline points="9 18 15 12 9 6"></polyline>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500">2026</span>
+                            </div>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">
+                                support-desk triage environment for agent evals
+                            </p>
+                            <div class="exp-body">
+                                <div class="overflow-hidden">
+                                    <p class="text-sm text-neutral-600 dark:text-neutral-400 pt-2">
+                                        openenv-compatible triage environment built with fastapi and deterministic
+                                        graders, for training and evaluating agents.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="group/item py-2 relative">
+                            <div
+                                class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover/item:block"
+                                style="--cross-size: 10px"
+                            >
+                                <div
+                                    class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                ></div>
+                                <div
+                                    class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                ></div>
+                            </div>
+                            <div
+                                class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover/item:block"
+                                style="--cross-size: 10px"
+                            >
+                                <div
+                                    class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                ></div>
+                                <div
+                                    class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                ></div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <a
+                                        href="https://github.com/rabbive/schrodinger-mail"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white"
+                                        >schrodinger-mail</a
+                                    >
+                                    <button
+                                        onclick="toggleExp(this)"
+                                        class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer"
+                                        aria-label="Toggle details"
+                                        aria-expanded="false"
+                                    >
+                                        <svg
+                                            class="exp-chevron h-3 w-3"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <polyline points="9 18 15 12 9 6"></polyline>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500">2026</span>
+                            </div>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">
+                                post-quantum secure email client
+                            </p>
+                            <div class="exp-body">
+                                <div class="overflow-hidden">
+                                    <p class="text-sm text-neutral-600 dark:text-neutral-400 pt-2">
+                                        signed kem-dem architecture using nist-standardized algorithms —
+                                        confidentiality, integrity, and authenticity against both classical and quantum
+                                        threats.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="group/item py-2 relative">
+                            <div
+                                class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover/item:block"
+                                style="--cross-size: 10px"
+                            >
+                                <div
+                                    class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                ></div>
+                                <div
+                                    class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                ></div>
+                            </div>
+                            <div
+                                class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover/item:block"
+                                style="--cross-size: 10px"
+                            >
+                                <div
+                                    class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                ></div>
+                                <div
+                                    class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                ></div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <a
+                                        href="https://github.com/rabbive/devsignal"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-white"
+                                        >devsignal</a
+                                    >
+                                    <button
+                                        onclick="toggleExp(this)"
+                                        class="flex items-center text-neutral-400 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors cursor-pointer"
+                                        aria-label="Toggle details"
+                                        aria-expanded="false"
+                                    >
+                                        <svg
+                                            class="exp-chevron h-3 w-3"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <polyline points="9 18 15 12 9 6"></polyline>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <span class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500">2026</span>
+                            </div>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">
+                                rust workspace: daemon, discord bot, macos app
+                            </p>
+                            <div class="exp-body">
+                                <div class="overflow-hidden">
+                                    <p class="text-sm text-neutral-600 dark:text-neutral-400 pt-2">
+                                        a background daemon paired with a discord bot and a macos client, sharing one
+                                        rust workspace.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
 
-            <!-- Footer -->
-            <section class="mb-16">
-                 <p class="text-neutral-600 dark:text-neutral-500 text-sm">no framework, no tracker — typeset in inter, styled with tailwind. <a class="underline decoration-neutral-400/50 underline-offset-[3px] hover:text-neutral-800 dark:hover:text-neutral-300 transition-colors" href="https://github.com/rabbive/portfolio-v2" target="_blank" rel="noopener noreferrer">read the source</a>.</p>
-            </section>
-        </div>
-    </main>
+                <!-- Experiments -->
+                <section class="mb-16">
+                    <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">
+                        <svg
+                            class="h-3.5 w-3.5 shrink-0 text-neutral-600 dark:text-neutral-400"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"
+                            />
+                            <path d="M6.453 15h11.094" />
+                            <path d="M8.5 2h7" />
+                        </svg>
+                        experiments
+                    </h2>
+                    <ul class="flex flex-col gap-1">
+                        <li class="py-2 text-neutral-700 dark:text-neutral-300">
+                            <a
+                                class="group flex flex-col gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative"
+                                href="https://github.com/rabbive/OpSignal"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <div
+                                    class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover:block"
+                                    style="--cross-size: 10px"
+                                >
+                                    <div
+                                        class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                    <div
+                                        class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                </div>
+                                <div
+                                    class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover:block"
+                                    style="--cross-size: 10px"
+                                >
+                                    <div
+                                        class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                    <div
+                                        class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <h3
+                                        class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white"
+                                    >
+                                        OpSignal
+                                    </h3>
+                                    <span
+                                        class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500 transition-colors"
+                                        >2026</span
+                                    >
+                                </div>
+                                <p
+                                    class="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors"
+                                >
+                                    Operational signal monitoring and alerting.
+                                </p>
+                            </a>
+                        </li>
+                        <li class="py-2 text-neutral-700 dark:text-neutral-300">
+                            <a
+                                class="group flex flex-col gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative"
+                                href="https://github.com/rabbive/hybrid-movie-recommender"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <div
+                                    class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover:block"
+                                    style="--cross-size: 10px"
+                                >
+                                    <div
+                                        class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                    <div
+                                        class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                </div>
+                                <div
+                                    class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover:block"
+                                    style="--cross-size: 10px"
+                                >
+                                    <div
+                                        class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                    <div
+                                        class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <h3
+                                        class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white"
+                                    >
+                                        hybrid-movie-recommender
+                                    </h3>
+                                    <span
+                                        class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500 transition-colors"
+                                        >2026</span
+                                    >
+                                </div>
+                                <p
+                                    class="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors"
+                                >
+                                    Hybrid collaborative + content-based movie recommender.
+                                </p>
+                            </a>
+                        </li>
+                        <li class="py-2 text-neutral-700 dark:text-neutral-300">
+                            <a
+                                class="group flex flex-col gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative"
+                                href="https://github.com/rabbive/CogniZap"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <div
+                                    class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover:block"
+                                    style="--cross-size: 10px"
+                                >
+                                    <div
+                                        class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                    <div
+                                        class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                </div>
+                                <div
+                                    class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover:block"
+                                    style="--cross-size: 10px"
+                                >
+                                    <div
+                                        class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                    <div
+                                        class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <h3
+                                        class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white"
+                                    >
+                                        CogniZap
+                                    </h3>
+                                    <span
+                                        class="ml-1 whitespace-nowrap text-neutral-600 dark:text-neutral-500 transition-colors"
+                                        >2025</span
+                                    >
+                                </div>
+                                <p
+                                    class="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors"
+                                >
+                                    Cognitive task manager, built with Svelte.
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
 
-    <script>
-        function setTheme(theme) {
-            const html = document.querySelector('html');
-            if (theme === 'system') {
-                const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                html.classList.toggle('dark', systemDark);
-                localStorage.removeItem('theme');
-            } else {
-                html.classList.toggle('dark', theme === 'dark');
-                localStorage.setItem('theme', theme);
-            }
-        }
+                <!-- Activity -->
+                <section class="mb-16">
+                    <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">
+                        <svg
+                            class="h-3.5 w-3.5 shrink-0 text-neutral-600 dark:text-neutral-400"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                        >
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                        </svg>
+                        activity
+                    </h2>
+                    <div id="heatmap-wrap" class="hidden">
+                        <p id="heatmap-summary" class="text-sm text-neutral-600 dark:text-neutral-400 mb-3"></p>
+                        <div id="heatmap" class="heatmap-grid touch-none"></div>
+                        <div
+                            class="mt-2 flex items-center justify-end gap-1.5 text-xs text-neutral-500 dark:text-neutral-500"
+                        >
+                            <span>less</span>
+                            <span class="heatmap-cell heatmap-legend-cell" data-level="0"></span>
+                            <span class="heatmap-cell heatmap-legend-cell" data-level="1"></span>
+                            <span class="heatmap-cell heatmap-legend-cell" data-level="2"></span>
+                            <span class="heatmap-cell heatmap-legend-cell" data-level="3"></span>
+                            <span class="heatmap-cell heatmap-legend-cell" data-level="4"></span>
+                            <span>more</span>
+                        </div>
+                    </div>
+                    <div
+                        id="heatmap-tooltip"
+                        class="fixed z-50 hidden pointer-events-none whitespace-nowrap rounded-md bg-neutral-800 px-2 py-1 text-xs text-neutral-50 shadow-lg ring-1 ring-neutral-700"
+                    ></div>
+                </section>
 
-        function toggleExp(btn) {
-            const li = btn.closest('li');
-            const body = li.querySelector('.exp-body');
-            const chevron = btn.querySelector('.exp-chevron');
-            const open = body.classList.toggle('open');
-            chevron.classList.toggle('rotated');
-            btn.setAttribute('aria-expanded', open);
-        }
+                <!-- Links -->
+                <section class="mb-16">
+                    <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">
+                        <svg
+                            class="h-3.5 w-3.5 shrink-0 text-neutral-600 dark:text-neutral-400"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                        >
+                            <path d="M9 17H7A5 5 0 0 1 7 7h2" />
+                            <path d="M15 7h2a5 5 0 1 1 0 10h-2" />
+                            <path d="M8 12h8" />
+                        </svg>
+                        links
+                    </h2>
+                    <ul class="flex flex-col gap-1">
+                        <li class="py-2 text-neutral-700 dark:text-neutral-300">
+                            <a
+                                class="group flex items-center justify-between gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative"
+                                href="https://github.com/rabbive"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <div
+                                    class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover:block"
+                                    style="--cross-size: 10px"
+                                >
+                                    <div
+                                        class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                    <div
+                                        class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                </div>
+                                <div
+                                    class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover:block"
+                                    style="--cross-size: 10px"
+                                >
+                                    <div
+                                        class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                    <div
+                                        class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                </div>
+                                <div class="flex grow items-center gap-2.5">
+                                    <svg
+                                        class="h-4 w-4 shrink-0 text-neutral-600 dark:text-neutral-400"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"
+                                        />
+                                    </svg>
+                                    <h3
+                                        class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white"
+                                    >
+                                        github
+                                    </h3>
+                                </div>
+                                <span
+                                    class="ml-1 flex items-center gap-1 whitespace-nowrap transition-colors text-neutral-600 dark:text-neutral-400"
+                                    >@rabbive</span
+                                >
+                            </a>
+                        </li>
+                        <li class="py-2 text-neutral-700 dark:text-neutral-300">
+                            <a
+                                class="group flex items-center justify-between gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative"
+                                href="https://x.com/ashwaanthh"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <div
+                                    class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover:block"
+                                    style="--cross-size: 10px"
+                                >
+                                    <div
+                                        class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                    <div
+                                        class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                </div>
+                                <div
+                                    class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover:block"
+                                    style="--cross-size: 10px"
+                                >
+                                    <div
+                                        class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                    <div
+                                        class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                </div>
+                                <div class="flex grow items-center gap-2.5">
+                                    <svg
+                                        class="h-4 w-4 shrink-0 text-neutral-600 dark:text-neutral-400"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"
+                                        />
+                                    </svg>
+                                    <h3
+                                        class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white"
+                                    >
+                                        twitter
+                                    </h3>
+                                </div>
+                                <span
+                                    class="ml-1 flex items-center gap-1 whitespace-nowrap transition-colors text-neutral-600 dark:text-neutral-400"
+                                    >@ashwaanthh</span
+                                >
+                            </a>
+                        </li>
+                        <li class="py-2 text-neutral-700 dark:text-neutral-300">
+                            <a
+                                class="group flex items-center justify-between gap-1 hover:outline-[0.5px] outline-offset-[6px] hover:outline-neutral-400/50 dark:hover:outline-neutral-600/50 border-0 relative"
+                                href="https://linkedin.com/in/ashwanthk"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <div
+                                    class="absolute left-[-6.25px] top-[-6.25px] hidden group-hover:block"
+                                    style="--cross-size: 10px"
+                                >
+                                    <div
+                                        class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                    <div
+                                        class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                </div>
+                                <div
+                                    class="absolute bottom-[-6.25px] right-[-6.25px] hidden group-hover:block"
+                                    style="--cross-size: 10px"
+                                >
+                                    <div
+                                        class="absolute left-0 top-0 h-[var(--cross-size)] w-[0.5px] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                    <div
+                                        class="absolute left-0 top-0 h-[0.5px] w-[var(--cross-size)] -translate-x-1/2 -translate-y-1/2 bg-neutral-400 dark:bg-neutral-500"
+                                    ></div>
+                                </div>
+                                <div class="flex grow items-center gap-2.5">
+                                    <svg
+                                        class="h-4 w-4 shrink-0 text-neutral-600 dark:text-neutral-400"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                                        />
+                                        <rect width="4" height="12" x="2" y="9" />
+                                        <circle cx="4" cy="4" r="2" />
+                                    </svg>
+                                    <h3
+                                        class="font-medium text-neutral-800 dark:text-neutral-200 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors group-hover:text-neutral-900 dark:group-hover:text-white"
+                                    >
+                                        linkedin
+                                    </h3>
+                                </div>
+                                <span
+                                    class="ml-1 flex items-center gap-1 whitespace-nowrap transition-colors text-neutral-600 dark:text-neutral-400"
+                                    >ashwanthk</span
+                                >
+                            </a>
+                        </li>
+                    </ul>
+                </section>
 
-        // Theme is applied before first paint by the inline script in <head>;
-        // follow OS theme changes live while in "system" mode
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-            if (!localStorage.getItem('theme')) {
-                document.documentElement.classList.toggle('dark', e.matches);
-            }
-        });
+                <!-- Footer -->
+                <section class="mb-16">
+                    <p class="text-neutral-600 dark:text-neutral-500 text-sm">
+                        no framework, no tracker — typeset in inter, styled with tailwind.
+                        <a
+                            class="underline decoration-neutral-400/50 underline-offset-[3px] hover:text-neutral-800 dark:hover:text-neutral-300 transition-colors"
+                            href="https://github.com/rabbive/portfolio-v2"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >read the source</a
+                        >.
+                    </p>
+                </section>
+            </div>
+        </main>
 
-        // GitHub contribution heatmap
-        (function loadHeatmap() {
-            const wrap = document.getElementById('heatmap-wrap');
-            const grid = document.getElementById('heatmap');
-            const summary = document.getElementById('heatmap-summary');
-            const tooltip = document.getElementById('heatmap-tooltip');
-
-            function formatDate(iso) {
-                const d = new Date(iso + 'T00:00:00');
-                return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-            }
-
-            function toLocalIso(d) {
-                const y = d.getFullYear();
-                const m = String(d.getMonth() + 1).padStart(2, '0');
-                const day = String(d.getDate()).padStart(2, '0');
-                return y + '-' + m + '-' + day;
-            }
-
-            function positionTooltip(cell) {
-                const rect = cell.getBoundingClientRect();
-                const tipRect = tooltip.getBoundingClientRect();
-                const margin = 4;
-                let left = rect.left + rect.width / 2 - tipRect.width / 2;
-                left = Math.min(Math.max(left, margin), window.innerWidth - tipRect.width - margin);
-                let top = rect.top - tipRect.height - 6;
-                if (top < margin) top = rect.bottom + 6;
-                tooltip.style.left = Math.round(left) + 'px';
-                tooltip.style.top = Math.round(top) + 'px';
-            }
-
-            function showTooltip(cell) {
-                const count = cell.getAttribute('data-count');
-                const date = cell.getAttribute('data-date');
-                if (!date) return;
-                tooltip.textContent = count + ' contribution' + (count === '1' ? '' : 's') + ' on ' + formatDate(date);
-                tooltip.classList.remove('hidden');
-                positionTooltip(cell);
-            }
-
-            function hideTooltip() {
-                tooltip.classList.add('hidden');
-            }
-
-            grid.addEventListener('mouseover', (e) => {
-                const cell = e.target.closest('[data-date]');
-                if (cell) showTooltip(cell);
-            });
-            grid.addEventListener('mouseout', (e) => {
-                if (e.target.closest('[data-date]')) hideTooltip();
-            });
-            grid.addEventListener('focusin', (e) => {
-                const cell = e.target.closest('[data-date]');
-                if (cell) showTooltip(cell);
-            });
-            grid.addEventListener('focusout', hideTooltip);
-            grid.addEventListener('click', (e) => {
-                const cell = e.target.closest('[data-date]');
-                if (cell) window.open('https://github.com/rabbive?tab=overview&from=' + cell.getAttribute('data-date') + '&to=' + cell.getAttribute('data-date'), '_blank', 'noopener');
-            });
-
-            let lastTouchedCell = null;
-
-            function handleTouchScrub(e) {
-                e.preventDefault();
-                const touch = e.touches[0];
-                const el = document.elementFromPoint(touch.clientX, touch.clientY);
-                const cell = el && el.closest('[data-date]');
-                if (cell && cell !== lastTouchedCell) {
-                    showTooltip(cell);
-                    lastTouchedCell = cell;
-                } else if (!cell) {
-                    hideTooltip();
-                    lastTouchedCell = null;
+        <script>
+            function setTheme(theme) {
+                const html = document.querySelector('html');
+                if (theme === 'system') {
+                    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    html.classList.toggle('dark', systemDark);
+                    localStorage.removeItem('theme');
+                } else {
+                    html.classList.toggle('dark', theme === 'dark');
+                    localStorage.setItem('theme', theme);
                 }
             }
 
-            grid.addEventListener('touchstart', handleTouchScrub, { passive: false });
-            grid.addEventListener('touchmove', handleTouchScrub, { passive: false });
-            grid.addEventListener('touchend', () => { hideTooltip(); lastTouchedCell = null; });
-            grid.addEventListener('touchcancel', () => { hideTooltip(); lastTouchedCell = null; });
-
-            const CELL_STEP = 13; // 10px cell + 3px gap
-            const MIN_WEEKS = 4;
-            let allDays = null;
-            let resizeTimer = null;
-
-            function weeksThatFit() {
-                const available = wrap.parentElement.clientWidth;
-                return Math.max(MIN_WEEKS, Math.floor(available / CELL_STEP));
+            function toggleExp(btn) {
+                const li = btn.closest('li');
+                const body = li.querySelector('.exp-body');
+                const chevron = btn.querySelector('.exp-chevron');
+                const open = body.classList.toggle('open');
+                chevron.classList.toggle('rotated');
+                btn.setAttribute('aria-expanded', open);
             }
 
-            function renderGrid(days) {
-                const lastDate = new Date(days[days.length - 1].date + 'T00:00:00');
-                const lastDow = lastDate.getDay();
-                const lastSunday = new Date(lastDate);
-                lastSunday.setDate(lastSunday.getDate() - lastDow);
+            // Theme is applied before first paint by the inline script in <head>;
+            // follow OS theme changes live while in "system" mode
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                if (!localStorage.getItem('theme')) {
+                    document.documentElement.classList.toggle('dark', e.matches);
+                }
+            });
 
-                const weeks = weeksThatFit();
-                const startDate = new Date(lastSunday);
-                startDate.setDate(startDate.getDate() - (weeks - 1) * 7);
+            // GitHub contribution heatmap
+            (function loadHeatmap() {
+                const wrap = document.getElementById('heatmap-wrap');
+                const grid = document.getElementById('heatmap');
+                const summary = document.getElementById('heatmap-summary');
+                const tooltip = document.getElementById('heatmap-tooltip');
 
-                const startIso = toLocalIso(startDate);
-                const lastIso = days[days.length - 1].date;
-                const shown = days.filter((d) => d.date >= startIso && d.date <= lastIso);
-                if (!shown.length) return;
+                function formatDate(iso) {
+                    const d = new Date(iso + 'T00:00:00');
+                    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                }
 
-                const total = shown.reduce((sum, d) => sum + d.count, 0);
-                summary.textContent = total.toLocaleString() + ' contributions in the last ' + weeks + ' weeks';
+                function toLocalIso(d) {
+                    const y = d.getFullYear();
+                    const m = String(d.getMonth() + 1).padStart(2, '0');
+                    const day = String(d.getDate()).padStart(2, '0');
+                    return y + '-' + m + '-' + day;
+                }
 
-                grid.innerHTML = '';
-                const frag = document.createDocumentFragment();
+                function positionTooltip(cell) {
+                    const rect = cell.getBoundingClientRect();
+                    const tipRect = tooltip.getBoundingClientRect();
+                    const margin = 4;
+                    let left = rect.left + rect.width / 2 - tipRect.width / 2;
+                    left = Math.min(Math.max(left, margin), window.innerWidth - tipRect.width - margin);
+                    let top = rect.top - tipRect.height - 6;
+                    if (top < margin) top = rect.bottom + 6;
+                    tooltip.style.left = Math.round(left) + 'px';
+                    tooltip.style.top = Math.round(top) + 'px';
+                }
 
-                shown.forEach((d) => {
-                    const cell = document.createElement('span');
-                    cell.className = 'heatmap-cell';
-                    cell.setAttribute('data-level', d.level);
-                    cell.setAttribute('data-date', d.date);
-                    cell.setAttribute('data-count', d.count);
-                    cell.setAttribute('tabindex', '0');
-                    cell.setAttribute('role', 'button');
-                    cell.setAttribute('aria-label', d.count + ' contributions on ' + formatDate(d.date));
-                    frag.appendChild(cell);
+                function showTooltip(cell) {
+                    const count = cell.getAttribute('data-count');
+                    const date = cell.getAttribute('data-date');
+                    if (!date) return;
+                    tooltip.textContent =
+                        count + ' contribution' + (count === '1' ? '' : 's') + ' on ' + formatDate(date);
+                    tooltip.classList.remove('hidden');
+                    positionTooltip(cell);
+                }
+
+                function hideTooltip() {
+                    tooltip.classList.add('hidden');
+                }
+
+                grid.addEventListener('mouseover', (e) => {
+                    const cell = e.target.closest('[data-date]');
+                    if (cell) showTooltip(cell);
+                });
+                grid.addEventListener('mouseout', (e) => {
+                    if (e.target.closest('[data-date]')) hideTooltip();
+                });
+                grid.addEventListener('focusin', (e) => {
+                    const cell = e.target.closest('[data-date]');
+                    if (cell) showTooltip(cell);
+                });
+                grid.addEventListener('focusout', hideTooltip);
+                grid.addEventListener('click', (e) => {
+                    const cell = e.target.closest('[data-date]');
+                    if (cell)
+                        window.open(
+                            'https://github.com/rabbive?tab=overview&from=' +
+                                cell.getAttribute('data-date') +
+                                '&to=' +
+                                cell.getAttribute('data-date'),
+                            '_blank',
+                            'noopener',
+                        );
                 });
 
-                // Pad the trailing (current) week so every column is a full 7 cells
-                const trailingSlots = (6 - lastDow);
-                for (let i = 0; i < trailingSlots; i++) {
-                    const filler = document.createElement('span');
-                    filler.className = 'heatmap-cell';
-                    filler.style.visibility = 'hidden';
-                    frag.appendChild(filler);
+                let lastTouchedCell = null;
+
+                function handleTouchScrub(e) {
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    const el = document.elementFromPoint(touch.clientX, touch.clientY);
+                    const cell = el && el.closest('[data-date]');
+                    if (cell && cell !== lastTouchedCell) {
+                        showTooltip(cell);
+                        lastTouchedCell = cell;
+                    } else if (!cell) {
+                        hideTooltip();
+                        lastTouchedCell = null;
+                    }
                 }
 
-                grid.appendChild(frag);
-                wrap.classList.remove('hidden');
-            }
+                grid.addEventListener('touchstart', handleTouchScrub, { passive: false });
+                grid.addEventListener('touchmove', handleTouchScrub, { passive: false });
+                grid.addEventListener('touchend', () => {
+                    hideTooltip();
+                    lastTouchedCell = null;
+                });
+                grid.addEventListener('touchcancel', () => {
+                    hideTooltip();
+                    lastTouchedCell = null;
+                });
 
-            const CACHE_KEY = 'heatmap-v1';
-            const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 hours
+                const CELL_STEP = 13; // 10px cell + 3px gap
+                const MIN_WEEKS = 4;
+                let allDays = null;
+                let resizeTimer = null;
 
-            function readCache() {
-                try {
-                    return JSON.parse(localStorage.getItem(CACHE_KEY));
-                } catch (e) {
-                    return null;
+                function weeksThatFit() {
+                    const available = wrap.parentElement.clientWidth;
+                    return Math.max(MIN_WEEKS, Math.floor(available / CELL_STEP));
                 }
-            }
 
-            function show(days) {
-                allDays = days;
-                renderGrid(allDays);
-            }
+                function renderGrid(days) {
+                    const lastDate = new Date(days[days.length - 1].date + 'T00:00:00');
+                    const lastDow = lastDate.getDay();
+                    const lastSunday = new Date(lastDate);
+                    lastSunday.setDate(lastSunday.getDate() - lastDow);
 
-            const cached = readCache();
-            if (cached && cached.days && cached.days.length && Date.now() - cached.savedAt < CACHE_TTL) {
-                show(cached.days);
-            } else {
-                fetch('https://github-contributions-api.jogruber.de/v4/rabbive?y=last')
-                    .then((res) => {
-                        if (!res.ok) throw new Error('bad response');
-                        return res.json();
-                    })
-                    .then((data) => {
-                        const days = data.contributions;
-                        if (!days || !days.length) return;
-                        try {
-                            localStorage.setItem(CACHE_KEY, JSON.stringify({ savedAt: Date.now(), days: days }));
-                        } catch (e) { /* storage full/unavailable — rendering still works */ }
-                        show(days);
-                    })
-                    .catch(() => {
-                        // GitHub activity is supplementary — fall back to stale cache, else keep section hidden
-                        if (cached && cached.days && cached.days.length) show(cached.days);
+                    const weeks = weeksThatFit();
+                    const startDate = new Date(lastSunday);
+                    startDate.setDate(startDate.getDate() - (weeks - 1) * 7);
+
+                    const startIso = toLocalIso(startDate);
+                    const lastIso = days[days.length - 1].date;
+                    const shown = days.filter((d) => d.date >= startIso && d.date <= lastIso);
+                    if (!shown.length) return;
+
+                    const total = shown.reduce((sum, d) => sum + d.count, 0);
+                    summary.textContent = total.toLocaleString() + ' contributions in the last ' + weeks + ' weeks';
+
+                    grid.innerHTML = '';
+                    const frag = document.createDocumentFragment();
+
+                    shown.forEach((d) => {
+                        const cell = document.createElement('span');
+                        cell.className = 'heatmap-cell';
+                        cell.setAttribute('data-level', d.level);
+                        cell.setAttribute('data-date', d.date);
+                        cell.setAttribute('data-count', d.count);
+                        cell.setAttribute('tabindex', '0');
+                        cell.setAttribute('role', 'button');
+                        cell.setAttribute('aria-label', d.count + ' contributions on ' + formatDate(d.date));
+                        frag.appendChild(cell);
                     });
-            }
 
-            window.addEventListener('resize', () => {
-                if (!allDays) return;
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(() => renderGrid(allDays), 150);
-            });
-        })();
-    </script>
-</body>
+                    // Pad the trailing (current) week so every column is a full 7 cells
+                    const trailingSlots = 6 - lastDow;
+                    for (let i = 0; i < trailingSlots; i++) {
+                        const filler = document.createElement('span');
+                        filler.className = 'heatmap-cell';
+                        filler.style.visibility = 'hidden';
+                        frag.appendChild(filler);
+                    }
+
+                    grid.appendChild(frag);
+                    wrap.classList.remove('hidden');
+                }
+
+                const CACHE_KEY = 'heatmap-v1';
+                const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 hours
+
+                function readCache() {
+                    try {
+                        return JSON.parse(localStorage.getItem(CACHE_KEY));
+                    } catch (e) {
+                        return null;
+                    }
+                }
+
+                function show(days) {
+                    allDays = days;
+                    renderGrid(allDays);
+                }
+
+                const cached = readCache();
+                if (cached && cached.days && cached.days.length && Date.now() - cached.savedAt < CACHE_TTL) {
+                    show(cached.days);
+                } else {
+                    fetch('https://github-contributions-api.jogruber.de/v4/rabbive?y=last')
+                        .then((res) => {
+                            if (!res.ok) throw new Error('bad response');
+                            return res.json();
+                        })
+                        .then((data) => {
+                            const days = data.contributions;
+                            if (!days || !days.length) return;
+                            try {
+                                localStorage.setItem(CACHE_KEY, JSON.stringify({ savedAt: Date.now(), days: days }));
+                            } catch (e) {
+                                /* storage full/unavailable — rendering still works */
+                            }
+                            show(days);
+                        })
+                        .catch(() => {
+                            // GitHub activity is supplementary — fall back to stale cache, else keep section hidden
+                            if (cached && cached.days && cached.days.length) show(cached.days);
+                        });
+                }
+
+                window.addEventListener('resize', () => {
+                    if (!allDays) return;
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(() => renderGrid(allDays), 150);
+                });
+            })();
+        </script>
+    </body>
 </html>

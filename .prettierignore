@@ -1,0 +1,6 @@
+node_modules/
+dist/
+fonts/
+*.png
+package-lock.json
+.claude/

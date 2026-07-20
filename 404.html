@@ -1,32 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 — ashwanth kumaravel</title>
-    <meta name="robots" content="noindex">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>404 — ashwanth kumaravel</title>
+        <meta name="robots" content="noindex" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <script>
-        // Apply theme before first paint to avoid a light-mode flash for dark users
-        (function () {
-            const saved = localStorage.getItem('theme');
-            const dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.classList.toggle('dark', dark);
-        })();
-    </script>
+        <script>
+            // Apply theme before first paint to avoid a light-mode flash for dark users
+            (function () {
+                const saved = localStorage.getItem('theme');
+                const dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.classList.toggle('dark', dark);
+            })();
+        </script>
 
-    <link rel="stylesheet" href="dist/output.css?v=8">
-</head>
-<body class="flex min-h-screen flex-col bg-white dark:bg-neutral-950 font-sans text-neutral-900 dark:text-neutral-100 text-sm antialiased selection:bg-neutral-200 dark:selection:bg-neutral-800">
-
-    <main class="flex-1 flex items-center px-6">
-        <div class="max-w-xl mx-auto w-full">
-            <p class="text-sm text-neutral-600 dark:text-neutral-500">404</p>
-            <h1 class="mt-1 text-sm font-medium text-neutral-900 dark:text-stone-100">this page doesn't exist.</h1>
-            <a href="/" class="mt-4 inline-block text-sm text-neutral-600 dark:text-neutral-400 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-neutral-200">&larr; back home</a>
-        </div>
-    </main>
-
-</body>
+        <link rel="stylesheet" href="dist/output.css?v=8" />
+    </head>
+    <body
+        class="flex min-h-screen flex-col bg-white dark:bg-neutral-950 font-sans text-neutral-900 dark:text-neutral-100 text-sm antialiased selection:bg-neutral-200 dark:selection:bg-neutral-800"
+    >
+        <main class="flex-1 flex items-center px-6">
+            <div class="max-w-xl mx-auto w-full">
+                <p class="text-sm text-neutral-600 dark:text-neutral-500">404</p>
+                <h1 class="mt-1 text-sm font-medium text-neutral-900 dark:text-stone-100">this page doesn't exist.</h1>
+                <a
+                    href="/"
+                    class="mt-4 inline-block text-sm text-neutral-600 dark:text-neutral-400 underline decoration-neutral-400/50 underline-offset-[3px] transition-colors hover:text-neutral-900 dark:hover:text-neutral-200"
+                    >&larr; back home</a
+                >
+            </div>
+        </main>
+    </body>
 </html>
