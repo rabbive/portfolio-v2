@@ -1,0 +1,28 @@
+# Cloudflare Pages headers — https://developers.cloudflare.com/pages/configuration/headers/
+
+# Immutable static assets: the stylesheet URL changes via ?v=N on every CSS
+# change, and font files change names if ever replaced — safe to cache forever.
+/dist/output.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Social card: short cache so an updated card propagates within a day.
+/og.png
+  Cache-Control: public, max-age=86400
+
+# Security headers on every response.
+# CSP notes: inline <script>/<style> and onclick= handlers need 'unsafe-inline';
+# the heatmap fetches the contributions API, so connect-src allows it.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://github-contributions-api.jogruber.de; base-uri 'none'; frame-ancestors 'none'
+
+# og-image.html is only the build-time source for og.png; it pulls Inter from
+# Google Fonts, so give it its own relaxed CSP instead of breaking the render.
+/og-image.html
+  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'none'; frame-ancestors 'none'
