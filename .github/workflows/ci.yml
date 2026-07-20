@@ -1,0 +1,45 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      # dist/output.css is committed on purpose (see CLAUDE.md) — fail the
+      # build if someone changed HTML/input.css without rebuilding it.
+      - name: Verify committed CSS is up to date
+        run: |
+          npm run build:css
+          git diff --exit-code dist/output.css
+
+      - name: Validate HTML
+        run: npx --yes htmlhint index.html 404.html
+
+      # Link check. Excluded:
+      # - linkedin.com / x.com: bot-blocked (999/403) — flaky in CI, verify manually
+      # - ?v= cache-bust query: not a real file on disk
+      # - resume.pdf: TODO — drop this exclusion once the PDF is added
+      - name: Link check
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --verbose --no-progress
+            --accept 200,204,301,302,307,308,429
+            --exclude-mail
+            --exclude "(linkedin\.com|x\.com|\?v=|resume\.pdf)"
+            --root-dir .
+            ./**/*.html
+          fail: true
