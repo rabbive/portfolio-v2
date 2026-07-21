@@ -20,13 +20,9 @@
     src: url('/fonts/inter-latin-500.woff2') format('woff2');
 }
 
-@font-face {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    src: url('/fonts/inter-latin-600.woff2') format('woff2');
-}
+/* NOTE: only 400/500 ship — nothing on the site uses 600. If you ever add
+   font-semibold/font-bold, re-add the 600 @font-face + file (the browser will
+   otherwise synthesize a faux-bold from 500). */
 
 body {
     font-family: 'Inter', sans-serif;
