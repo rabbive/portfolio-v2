@@ -18,12 +18,12 @@ jobs:
 
             - run: npm ci
 
-            # dist/output.css is committed on purpose (see CLAUDE.md) — fail the
-            # build if someone changed HTML/input.css without rebuilding it.
+            # dist/output.css + the inlined CSS in index.html are committed on
+            # purpose (see CLAUDE.md) — fail if sources changed without a rebuild.
             - name: Verify committed CSS is up to date
               run: |
-                  npm run build:css
-                  git diff --exit-code dist/output.css
+                  npm run build
+                  git diff --exit-code dist/output.css index.html
 
             - name: Validate HTML
               run: npx --yes htmlhint index.html 404.html

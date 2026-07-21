@@ -3,6 +3,7 @@
     "private": true,
     "version": "1.0.0",
     "scripts": {
+        "build": "npm run build:css && node scripts/inline-css.js",
         "build:css": "tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
         "watch:css": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
         "format": "prettier --write .",
