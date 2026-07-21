@@ -9,7 +9,7 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('/fonts/inter-latin-400.woff2') format('woff2');
+    src: url('/fonts/inter-latin-400.v2.woff2') format('woff2');
 }
 
 @font-face {
@@ -17,7 +17,7 @@
     font-style: normal;
     font-weight: 500;
     font-display: swap;
-    src: url('/fonts/inter-latin-500.woff2') format('woff2');
+    src: url('/fonts/inter-latin-500.v2.woff2') format('woff2');
 }
 
 /* NOTE: only 400/500 ship — nothing on the site uses 600. If you ever add
