@@ -1,6 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ['./*.html'],
+    content: {
+        files: ['./*.html'],
+        // Never scan the generated inline-CSS block: its minified tokens would
+        // be picked up as class candidates and grow the CSS on every rebuild.
+        transform: {
+            html: (content) =>
+                content.replace(/<style data-inline-css>[\s\S]*?<\/style>/g, '<style data-inline-css></style>'),
+        },
+    },
     darkMode: 'class',
     theme: {
         extend: {
