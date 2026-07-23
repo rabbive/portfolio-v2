@@ -53,6 +53,50 @@ body {
     }
 }
 
+.star {
+    position: absolute;
+    top: -10px;
+    left: var(--x);
+    width: var(--size);
+    height: var(--size);
+    border-radius: 9999px;
+    background-color: theme('colors.neutral.400');
+    opacity: 0;
+    animation:
+        star-fall var(--fall-duration) linear var(--fall-delay) infinite,
+        star-twinkle var(--twinkle-duration) ease-in-out var(--twinkle-delay) infinite;
+}
+
+.dark .star {
+    background-color: #fff;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+}
+
+@keyframes star-fall {
+    from {
+        transform: translateY(-10px);
+    }
+    to {
+        transform: translateY(110vh);
+    }
+}
+
+@keyframes star-twinkle {
+    0%,
+    100% {
+        opacity: 0.15;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #star-field {
+        display: none;
+    }
+}
+
 .heatmap-grid {
     display: grid;
     grid-auto-flow: column;
