@@ -53,6 +53,15 @@ body {
     }
 }
 
+/* Suppresses transitions for one frame during a theme switch so elements with
+   their own transition-* utilities (e.g. the "get in touch" button) snap to
+   the new theme in sync with the rest of the page, instead of visibly
+   lagging behind it. */
+.theme-transition-off,
+.theme-transition-off * {
+    transition: none !important;
+}
+
 .star {
     position: absolute;
     top: -10px;
