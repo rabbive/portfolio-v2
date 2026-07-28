@@ -13,16 +13,31 @@
   Cache-Control: public, max-age=86400
 
 # Security headers on every response.
-# CSP notes: inline <script>/<style> and onclick= handlers need 'unsafe-inline';
-# the heatmap fetches the contributions API, so connect-src allows it.
+# CSP notes:
+# - script-src is hash-based (no 'unsafe-inline') — the two hashes below cover
+#   the theme-flash-prevention <script> in <head> (shared with 404.html) and
+#   the main behavior <script> before </body>. If either inline script's
+#   content changes, recompute its SHA-256 (see CLAUDE.md) or it silently
+#   stops executing — the JSON-LD <script type="application/ld+json"> block
+#   needs no hash since non-JS script types are never subject to script-src.
+# - style-src keeps 'unsafe-inline': the many static style="--x: ..." attributes
+#   throughout index.html would each need a hash/'unsafe-hashes', and styles
+#   can't execute code, so this isn't worth hardening.
+# - onclick= handlers need 'unsafe-inline' too, same style-src reasoning applies
+#   to script-src-attr — not used here since 'unsafe-inline' is on script-src.
+# - the heatmap fetches the contributions API, so connect-src allows it.
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://github-contributions-api.jogruber.de; base-uri 'none'; frame-ancestors 'none'
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Cross-Origin-Opener-Policy: same-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-zC+Trz8oSyv8EYao+zLHHAhyA2xpfaERiH5/vGcreg8=' 'sha256-0LJNVoAUahhdEaBRhQB6rbL+GP55CUOCTq2swmBNjS8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://github-contributions-api.jogruber.de; object-src 'none'; base-uri 'none'; frame-ancestors 'none'
 
 # og-image.html is only the build-time source for og.png; it pulls Inter from
 # Google Fonts, so give it its own relaxed CSP instead of breaking the render.
+# It's a build artifact, not a page for visitors, so keep it out of indexes.
 /og-image.html
   Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'none'; frame-ancestors 'none'
+  X-Robots-Tag: noindex
