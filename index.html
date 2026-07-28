@@ -59,7 +59,7 @@
         </script>
 
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="apple-touch-icon" href="/favicon.svg" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
 
         <script>
@@ -1664,7 +1664,7 @@
             (function () {
                 const field = document.getElementById('star-field');
                 if (!field) return;
-                const COUNT = 50;
+                const COUNT = window.innerWidth < 640 ? 25 : 50;
                 for (let i = 0; i < COUNT; i++) {
                     const star = document.createElement('span');
                     star.className = 'star';

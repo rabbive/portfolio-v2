@@ -1,0 +1,3 @@
+Contact: mailto:ashwanthkumaravel@gmail.com
+Preferred-Languages: en
+Canonical: https://rabbive.dev/.well-known/security.txt

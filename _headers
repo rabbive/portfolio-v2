@@ -12,17 +12,61 @@
 /og.png
   Cache-Control: public, max-age=86400
 
-# Security headers on every response.
-# CSP notes: inline <script>/<style> and onclick= handlers need 'unsafe-inline';
-# the heatmap fetches the contributions API, so connect-src allows it.
+# Security headers on every response. Deliberately NO Content-Security-Policy
+# here: Cloudflare Pages combines/inherits headers from every rule that
+# matches a request rather than letting a more specific rule override a more
+# general one (confirmed locally with `wrangler pages dev`; also reported at
+# https://community.cloudflare.com/t/incoming-requests-are-inheriting-rather-than-overriding-the-same-headers-when-matching-multiple-rules-url-patterns/406180).
+# A CSP set here would merge with (and break) each page's own CSP below, most
+# importantly og-image.html's Google Fonts allowance. CSP is set per exact
+# document path further down instead. One tradeoff: a URL that doesn't match
+# any known path below (serves 404.html's content with a 404 status) gets no
+# CSP — acceptable, since it still renders correctly, just without that one
+# extra layer of defense.
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://github-contributions-api.jogruber.de; base-uri 'none'; frame-ancestors 'none'
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Cross-Origin-Opener-Policy: same-origin
 
-# og-image.html is only the build-time source for og.png; it pulls Inter from
-# Google Fonts, so give it its own relaxed CSP instead of breaking the render.
+# Main site CSP. script-src is hash-based (no 'unsafe-inline') — the two
+# hashes cover the theme-flash-prevention <script> in <head> (shared with
+# 404.html) and the main behavior <script> before </body>. If either inline
+# script's content changes, recompute its SHA-256 (see CLAUDE.md) or it
+# silently stops executing — the JSON-LD <script type="application/ld+json">
+# block needs no hash since non-JS script types are never subject to
+# script-src. style-src keeps 'unsafe-inline': the many static
+# style="--x: ..." attributes throughout index.html would each need a
+# hash/'unsafe-hashes', and styles can't execute code, so hardening it isn't
+# worth it. Both /  and /index.html are listed: Cloudflare Pages serves this
+# file at the clean URL / (redirecting /index.html -> /), but listing both
+# keeps this correct even if that redirect is ever turned off.
+/
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-zC+Trz8oSyv8EYao+zLHHAhyA2xpfaERiH5/vGcreg8=' 'sha256-0LJNVoAUahhdEaBRhQB6rbL+GP55CUOCTq2swmBNjS8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://github-contributions-api.jogruber.de; object-src 'none'; base-uri 'none'; frame-ancestors 'none'
+/index.html
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-zC+Trz8oSyv8EYao+zLHHAhyA2xpfaERiH5/vGcreg8=' 'sha256-0LJNVoAUahhdEaBRhQB6rbL+GP55CUOCTq2swmBNjS8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://github-contributions-api.jogruber.de; object-src 'none'; base-uri 'none'; frame-ancestors 'none'
+
+# 404 page: same theme-flash script as index.html, no heatmap fetch so no
+# connect-src needed. Served at the clean URL /404 (redirecting from
+# /404.html); both are listed for the same reason as above.
+/404
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-zC+Trz8oSyv8EYao+zLHHAhyA2xpfaERiH5/vGcreg8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'
+/404.html
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-zC+Trz8oSyv8EYao+zLHHAhyA2xpfaERiH5/vGcreg8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'
+
+# og-image.html is only the build-time source for og.png; it intentionally
+# keeps loading Inter from Google Fonts (do not switch this to the self-hosted
+# font — og.png is rendered once at build time via headless Chrome hitting
+# this file directly over file://, so the extra network request costs
+# nothing at runtime), so it needs its own relaxed CSP. Served at the clean
+# URL /og-image (redirecting from /og-image.html); both are listed so the
+# right policy applies regardless of which one is actually hit. It's a build
+# artifact, not a page for visitors, so keep it out of indexes.
+/og-image
+  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'none'; frame-ancestors 'none'
+  X-Robots-Tag: noindex
 /og-image.html
   Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'none'; frame-ancestors 'none'
+  X-Robots-Tag: noindex
