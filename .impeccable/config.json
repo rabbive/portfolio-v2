@@ -1,0 +1,45 @@
+{
+    "detector": {
+        "ignoreRules": ["overused-font", "flat-type-hierarchy"],
+        "ignoreFiles": [],
+        "ignoreValues": [
+            {
+                "rule": "flat-type-hierarchy",
+                "value": "16px",
+                "createdAt": "2026-07-28T18:14:33.062Z",
+                "reason": "16px is the preflight html default; system is deliberately 14px/12px (Two Sizes Rule)"
+            },
+            {
+                "rule": "design-system-font",
+                "value": "sfmono-regular",
+                "createdAt": "2026-07-28T18:15:16.795Z",
+                "reason": "Tailwind preflight mono stack; authored mono is IBM Plex Mono"
+            },
+            {
+                "rule": "design-system-color",
+                "value": "#9ca3af",
+                "createdAt": "2026-07-28T18:15:16.838Z",
+                "reason": "Tailwind preflight placeholder color, not authored"
+            },
+            {
+                "rule": "design-system-color",
+                "value": "rgba(0,0,0,.1)",
+                "createdAt": "2026-07-28T18:15:16.879Z",
+                "reason": "shadow color documented in design.json sidecar"
+            },
+            {
+                "rule": "pulsing-dot",
+                "value": ".shooting-star",
+                "createdAt": "2026-07-28T18:20:12.573Z",
+                "reason": "deliberate ambient shooting star (owner-approved); reduced-motion gated"
+            },
+            {
+                "rule": "pulsing-dot",
+                "value": "*",
+                "files": ["index.html"],
+                "createdAt": "2026-07-28T18:27:54.034Z",
+                "reason": "shooting star is a deliberate ambient ornament (owner-approved), not a status indicator; reduced-motion gated"
+            }
+        ]
+    }
+}
