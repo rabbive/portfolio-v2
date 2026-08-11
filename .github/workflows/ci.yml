@@ -34,14 +34,13 @@ jobs:
             # Link check. Excluded:
             # - linkedin.com / x.com: bot-blocked (999/403) — flaky in CI, verify manually
             # - ?v= cache-bust query: not a real file on disk
-            # - resume.pdf: TODO — drop this exclusion once the PDF is added
             - name: Link check
               uses: lycheeverse/lychee-action@v2
               with:
                   args: >-
                       --verbose --no-progress
                       --accept 200,204,301,302,307,308,429
-                      --exclude "(linkedin\.com|x\.com|\?v=|resume\.pdf)"
+                      --exclude "(linkedin\.com|x\.com|\?v=)"
                       --root-dir .
                       ./**/*.html
                   fail: true
