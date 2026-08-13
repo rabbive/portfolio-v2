@@ -1,0 +1,254 @@
+{
+    "schemaVersion": 2,
+    "generatedAt": "2026-07-28T23:45:00Z",
+    "title": "Design System: rabbive.dev",
+    "extensions": {
+        "colorMeta": {
+            "paper": {
+                "role": "neutral",
+                "displayName": "Paper",
+                "canonical": "#ffffff",
+                "tonalRamp": ["#ffffff", "#fafafa", "#f5f5f5", "#e5e5e5", "#d4d4d4"]
+            },
+            "night-page": {
+                "role": "neutral",
+                "displayName": "Night Page",
+                "canonical": "#0a0a0a",
+                "tonalRamp": ["#0a0a0a", "#171717", "#262626", "#404040", "#525252"]
+            },
+            "ink": {
+                "role": "primary",
+                "displayName": "Ink",
+                "canonical": "#171717",
+                "tonalRamp": ["#0a0a0a", "#171717", "#262626", "#404040", "#525252"]
+            },
+            "moonlight": {
+                "role": "primary",
+                "displayName": "Moonlight",
+                "canonical": "#f5f5f5",
+                "tonalRamp": ["#f5f5f5", "#e5e5e5", "#d4d4d4", "#a3a3a3", "#737373"]
+            },
+            "entry-ink": {
+                "role": "neutral",
+                "displayName": "Entry Ink",
+                "canonical": "#262626",
+                "tonalRamp": ["#171717", "#262626", "#404040", "#525252", "#737373"]
+            },
+            "graphite": {
+                "role": "neutral",
+                "displayName": "Graphite",
+                "canonical": "#404040",
+                "tonalRamp": ["#262626", "#404040", "#525252", "#737373", "#a3a3a3"]
+            },
+            "pencil": {
+                "role": "neutral",
+                "displayName": "Pencil",
+                "canonical": "#525252",
+                "tonalRamp": ["#404040", "#525252", "#737373", "#a3a3a3", "#d4d4d4"]
+            },
+            "ash": {
+                "role": "neutral",
+                "displayName": "Ash",
+                "canonical": "#737373",
+                "tonalRamp": ["#525252", "#737373", "#a3a3a3", "#d4d4d4", "#e5e5e5"]
+            },
+            "fog": {
+                "role": "neutral",
+                "displayName": "Fog",
+                "canonical": "#a3a3a3",
+                "tonalRamp": ["#737373", "#a3a3a3", "#d4d4d4", "#e5e5e5", "#f5f5f5"]
+            },
+            "mist": {
+                "role": "neutral",
+                "displayName": "Mist",
+                "canonical": "#e5e5e5",
+                "tonalRamp": ["#d4d4d4", "#e5e5e5", "#f5f5f5", "#fafafa", "#ffffff"]
+            },
+            "mist-deep": {
+                "role": "neutral",
+                "displayName": "Mist Deep",
+                "canonical": "#d4d4d4",
+                "tonalRamp": ["#a3a3a3", "#d4d4d4", "#e5e5e5", "#f5f5f5", "#fafafa"]
+            }
+        },
+        "typographyMeta": {
+            "title": {
+                "displayName": "Title",
+                "purpose": "Name, section headings, entry titles, button labels — 14px/500; headings never exceed body size."
+            },
+            "body": { "displayName": "Body", "purpose": "All prose at 14px/400 with relaxed 1.625 leading." },
+            "label": { "displayName": "Label", "purpose": "Pill button text; body size, medium weight." },
+            "meta": {
+                "displayName": "Meta",
+                "purpose": "Heatmap legend, tooltip, footnotes — the only 12px usage. Set in IBM Plex Mono."
+            },
+            "mono": {
+                "displayName": "Mono Meta",
+                "purpose": "IBM Plex Mono 400 — the log-annotation register: dates, legend, summary, tooltip, footer, availability line."
+            }
+        },
+        "shadows": [
+            {
+                "name": "pill-lift",
+                "value": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+                "purpose": "Faint press under the two page-level pill buttons (shadow-sm)."
+            },
+            {
+                "name": "tooltip-float",
+                "value": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+                "purpose": "Elevation for the floating heatmap tooltip (shadow-lg)."
+            },
+            {
+                "name": "star-glow",
+                "value": "0 0 4px rgba(255, 255, 255, 0.6)",
+                "purpose": "Dark-mode glow on star-field points — light, not elevation."
+            }
+        ],
+        "motion": [
+            {
+                "name": "control-press",
+                "value": "all 0.2s",
+                "purpose": "Pill hover/press transitions; :active scales to 0.98."
+            },
+            {
+                "name": "ease-standard",
+                "value": "0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                "purpose": "Collapsible grid-row unfold and chevron rotation."
+            },
+            {
+                "name": "star-fall",
+                "value": "linear 15s-35s infinite (negative delays)",
+                "purpose": "Ambient falling stars; halved under 640px; removed under reduced motion."
+            },
+            {
+                "name": "star-twinkle",
+                "value": "ease-in-out 1.5s-3.5s infinite",
+                "purpose": "Star opacity pulse; removed under reduced motion."
+            }
+        ],
+        "breakpoints": [
+            { "name": "sm", "value": "640px" },
+            { "name": "md", "value": "768px" }
+        ]
+    },
+    "components": [
+        {
+            "name": "Primary Pill Button",
+            "kind": "button",
+            "refersTo": "button-primary",
+            "description": "The page-level action (resume/cv); mist fill, ink label, faint lift, presses to 98%.",
+            "html": "<button class=\"ds-btn-primary\" type=\"button\">resume / cv</button>",
+            "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; border: none; border-radius: 9999px; background: #e5e5e5; color: #171717; font: 500 14px/1.5 Inter, sans-serif; padding: 8px 16px; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); cursor: pointer; transition: all 0.2s; } .ds-btn-primary:hover { background: #d4d4d4; } .ds-btn-primary:active { transform: scale(0.98); }"
+        },
+        {
+            "name": "Secondary Pill Button",
+            "kind": "button",
+            "refersTo": "button-secondary",
+            "description": "The quiet companion action (get in touch); paper fill with a hairline ring instead of a tonal fill.",
+            "html": "<button class=\"ds-btn-secondary\" type=\"button\">get in touch</button>",
+            "css": ".ds-btn-secondary { display: inline-flex; align-items: center; gap: 8px; border: none; border-radius: 9999px; background: #ffffff; color: #262626; font: 500 14px/1.5 Inter, sans-serif; padding: 8px 16px; box-shadow: inset 0 0 0 1px #e5e5e5, 0 1px 2px 0 rgb(0 0 0 / 0.05); cursor: pointer; transition: all 0.2s; } .ds-btn-secondary:hover { background: #fafafa; box-shadow: inset 0 0 0 1px #d4d4d4, 0 1px 2px 0 rgb(0 0 0 / 0.05); } .ds-btn-secondary:active { transform: scale(0.98); }"
+        },
+        {
+            "name": "Prose Inline Link",
+            "kind": "custom",
+            "refersTo": "link-inline",
+            "description": "Citation-style link inside paragraphs: hairline underline, hover darkens to ink.",
+            "html": "<p class=\"ds-prose\">code lives on <a class=\"ds-link-inline\" href=\"#\">github</a>.</p>",
+            "css": ".ds-prose { color: #525252; font: 400 14px/1.625 Inter, sans-serif; margin: 0; } .ds-link-inline { color: #404040; text-decoration: underline; text-decoration-color: #737373; text-decoration-thickness: 0.5px; text-underline-offset: 4px; transition: color 0.2s; } .ds-link-inline:hover { color: #171717; }"
+        },
+        {
+            "name": "Entry Title Link",
+            "kind": "custom",
+            "refersTo": "link-inline",
+            "description": "Medium-weight row title for project/experiment/contact entries; underline at half opacity, darkens on group hover.",
+            "html": "<a class=\"ds-entry-link\" href=\"#\">schrodinger-mail</a>",
+            "css": ".ds-entry-link { color: #262626; font: 500 14px/1.5 Inter, sans-serif; text-decoration: underline; text-decoration-color: rgba(163, 163, 163, 0.5); text-underline-offset: 3px; transition: color 0.2s; } .ds-entry-link:hover { color: #171717; }"
+        },
+        {
+            "name": "Section Heading",
+            "kind": "custom",
+            "refersTo": "section-heading",
+            "description": "Lowercase label led by a 14px stroke icon; stands 16px above its entries.",
+            "html": "<h2 class=\"ds-section-heading\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m18 16 4-4-4-4\"/><path d=\"m6 8-4 4 4 4\"/><path d=\"m14.5 4-5 16\"/></svg>projects</h2>",
+            "css": ".ds-section-heading { display: flex; align-items: center; gap: 8px; margin: 0 0 16px; color: #262626; font: 500 14px/1.5 Inter, sans-serif; } .ds-section-heading svg { width: 14px; height: 14px; color: #525252; flex-shrink: 0; }"
+        },
+        {
+            "name": "Heatmap Tooltip",
+            "kind": "custom",
+            "refersTo": "tooltip",
+            "description": "Inverted floating tooltip for contribution cells; the only element with a large shadow.",
+            "html": "<span class=\"ds-tooltip\">12 contributions on Jul 28, 2026</span>",
+            "css": ".ds-tooltip { display: inline-block; white-space: nowrap; border-radius: 6px; background: #262626; color: #f5f5f5; font: 400 12px/1.5 Inter, sans-serif; padding: 4px 8px; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1), inset 0 0 0 1px #404040; }"
+        },
+        {
+            "name": "Entry Row",
+            "kind": "custom",
+            "refersTo": "entry-row",
+            "description": "Shared row grammar for projects/experiments/certs/links: title, mono year, one-line description; crosses + hairline outline on hover and focus.",
+            "html": "<a class=\"ds-entry-row\" href=\"#\"><span class=\"ds-entry-head\"><span class=\"ds-entry-title\">echod</span><span class=\"ds-entry-year\">2026</span></span><span class=\"ds-entry-desc\">a lightweight, raft-inspired consensus protocol for heterogeneous edge devices.</span></a>",
+            "css": ".ds-entry-row { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 8px 0; text-decoration: none; outline-offset: 6px; } .ds-entry-row::before { content: ''; position: absolute; inset: -11.25px; pointer-events: none; opacity: 0; transition: opacity 0.2s ease; background-image: linear-gradient(#a3a3a3, #a3a3a3), linear-gradient(#a3a3a3, #a3a3a3), linear-gradient(#a3a3a3, #a3a3a3), linear-gradient(#a3a3a3, #a3a3a3); background-repeat: no-repeat; background-size: 0.5px 10px, 10px 0.5px, 0.5px 10px, 10px 0.5px; background-position: left 4.75px top 0, left 0 top 4.75px, right 4.75px bottom 0, right 0 bottom 4.75px; } .ds-entry-row:hover::before, .ds-entry-row:focus-within::before { opacity: 1; } .ds-entry-row:hover, .ds-entry-row:focus-visible { outline: 0.5px solid rgba(163, 163, 163, 0.5); } .ds-entry-head { display: flex; align-items: center; justify-content: space-between; } .ds-entry-title { color: #262626; font: 500 14px/1.5 Inter, sans-serif; text-decoration: underline; text-decoration-color: rgba(163, 163, 163, 0.5); text-underline-offset: 3px; } .ds-entry-row:hover .ds-entry-title { color: #171717; } .ds-entry-year { color: #525252; font: 400 14px/1.5 'IBM Plex Mono', monospace; white-space: nowrap; } .ds-entry-desc { color: #525252; font: 400 14px/1.5 Inter, sans-serif; }"
+        }
+    ],
+    "narrative": {
+        "northStar": "The Engineer's Field Notebook",
+        "overview": "The site reads as a working engineer's log: dense lowercase entries, evidence-first content, hairline structure, and nothing decorative that isn't also information. One column, one ink, essentially one type size — the confidence of the design is that it never raises its voice. Recruiters scan a page that behaves like a well-kept notebook: name and location stamped at the top, entries grouped under small labeled headings, every claim a click away from its proof (a repo, an issuer page, a live contribution graph).\n\nThe atmosphere is quiet, dense, precise. Ornament is limited to two ambient gestures — a star field drifting behind the page, and small cross-marks that appear at an entry's corners on hover — both disabled for reduced motion and on touch devices. Dark mode is not an inversion but a second page stock: near-black paper, pale ink, and a barely-warm stone tint on the owner's name and inline links, like pencil under lamplight.\n\nConfirmed anti-references: hero banners, gradients, marketing copy, and card grids. If a change moves the page toward any of those, it is moving away from the product.",
+        "keyCharacteristics": [
+            "Single centered measure (576px) at every viewport — no grids, no cards",
+            "Monochrome neutral palette; hierarchy by ink tone, never by hue",
+            "Headings set at body size (14px); weight and tone carry structure",
+            "Capsule controls, hairline rings, flat surfaces; shadow reserved for floating elements",
+            "Lowercase, terse, technical voice in all copy",
+            "Motion as ambience (stars, 0.2s control transitions, 0.4s collapsibles) with full reduced-motion parity"
+        ],
+        "rules": [
+            {
+                "name": "The One Ink Rule",
+                "section": "colors",
+                "body": "There is no chromatic accent anywhere in the system — not for links, not for focus, not for the heatmap (a five-step gray ramp). Emphasis is always a darker or lighter step of the same neutral. If a design needs a \"pop\", it gets a tonal step, never a hue."
+            },
+            {
+                "name": "The Two Papers Rule",
+                "section": "colors",
+                "body": "Light and dark modes are parallel stocks, not inversions. Dark-mode headings take a barely-warm stone tint (#f5f5f4 on the name, #d6d3d1 on prose links) — the only place the strict neutral ramp bends."
+            },
+            {
+                "name": "The Same-Size Rule",
+                "section": "typography",
+                "body": "Headings render at body size (14px). Hierarchy is produced by weight (400 vs 500) and ink tone (fog → pencil → ink), never by scale. A new \"bigger heading\" is a design-system change, not a local decision."
+            },
+            {
+                "name": "The Two Sizes Rule",
+                "section": "typography",
+                "body": "The system ships exactly two sizes: 14px for everything read, 12px for everything glanced (legend, tooltip). Do not introduce a third."
+            },
+            {
+                "name": "The Flat-By-Default Rule",
+                "section": "elevation",
+                "body": "Surfaces are flat at rest. A shadow means \"this floats\": pills that act, a tooltip that hovers, stars that shine. Never add a shadow to a static surface; use a tonal step or a hairline instead."
+            },
+            {
+                "name": "The Capsule-or-Square Rule",
+                "section": "shapes",
+                "body": "Interactive = capsule, information = square. A radius between 6px and full (e.g. a 12px card corner) belongs to a card grid, which is an anti-reference; don't introduce one."
+            }
+        ],
+        "dos": [
+            "Do keep all copy lowercase, terse, and technical — the voice is part of the identity.",
+            "Do build hierarchy from weight and ink tone (fog → pencil → ink); the Same-Size Rule is the system.",
+            "Do use hairline rings (1px tonal) instead of borders, and whitespace instead of dividers.",
+            "Do give every interactive element a keyboard path and a visible focus state — focus must look exactly like hover (cross-marks on `:focus-within`, hairline outline on `:focus-visible`).",
+            "Do honor reduced motion with full parity — disable the star field and transitions, never partially.",
+            "Do ship both themes together; every new custom rule needs an explicit dark variant, WCAG AA contrast included.",
+            "Do keep the two-size type scale (14px / 12px) and the two-weight subset (400/500)."
+        ],
+        "donts": [
+            "Don't add chromatic accents — no brand blue links, no colored badges, no syntax-highlight hues (One Ink Rule).",
+            "Don't introduce cards, card grids, hero banners, or gradients — confirmed anti-references.",
+            "Don't put shadows on static surfaces; shadow means floating (Flat-By-Default Rule).",
+            "Don't add a radius between 6px and full capsule (Capsule-or-Square Rule).",
+            "Don't add a third type size, a display role, or a third typeface — the system is Inter plus IBM Plex Mono for the meta register (owner-approved 2026-07-28); don't re-add Google Fonts — all faces are self-hosted on purpose.",
+            "Don't use borders where a hairline ring reads cleaner, or marketing copy anywhere — entries state facts and link their proof.",
+            "Don't enlarge text below AA on either paper; the muted tones (ash, fog) are for metadata and ornament, not body copy."
+        ]
+    }
+}

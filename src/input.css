@@ -17,10 +17,21 @@
     font-style: normal;
     font-weight: 500;
     font-display: swap;
-    src: url('/fonts/inter-latin-500.v2.woff2') format('woff2');
+    src: url('/fonts/inter-latin-500.v3.woff2') format('woff2');
 }
 
-/* NOTE: only 400/500 ship — nothing on the site uses 600. If you ever add
+/* Mono for the meta register: dates, legend, tooltip, footer, the availability
+   line — the "log annotation" voice of the field notebook. 400 only, subset to
+   the site's meta glyphs. Not preloaded (below the fold; swap covers it). */
+@font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/ibm-plex-mono-latin-400.woff2') format('woff2');
+}
+
+/* NOTE: only Inter 400/500 ship — nothing on the site uses 600. If you ever add
    font-semibold/font-bold, re-add the 600 @font-face + file (the browser will
    otherwise synthesize a faux-bold from 500). */
 
@@ -28,29 +39,46 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
-.exp-body {
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+/* Corner cross-marks: a single pseudo-element paints the diagonal pair of
+   10px registration crosses on any .cross-marks row — replaces what used to be
+   ~8 lines of absolutely-positioned divs per corner. Appears on hover and on
+   keyboard focus (focus-within), so focus looks exactly like hover. */
+.cross-marks {
+    position: relative;
 }
 
-.exp-body.open {
-    grid-template-rows: 1fr;
+.cross-marks::before {
+    content: '';
+    position: absolute;
+    inset: -11.25px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    --cross-color: #a3a3a3;
+    background-image:
+        linear-gradient(var(--cross-color), var(--cross-color)),
+        linear-gradient(var(--cross-color), var(--cross-color)),
+        linear-gradient(var(--cross-color), var(--cross-color)), linear-gradient(var(--cross-color), var(--cross-color));
+    background-repeat: no-repeat;
+    background-size:
+        0.5px 10px,
+        10px 0.5px,
+        0.5px 10px,
+        10px 0.5px;
+    background-position:
+        left 4.75px top 0,
+        left 0 top 4.75px,
+        right 4.75px bottom 0,
+        right 0 bottom 4.75px;
 }
 
-.exp-chevron {
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+.dark .cross-marks::before {
+    --cross-color: #737373;
 }
 
-.exp-chevron.rotated {
-    transform: rotate(90deg);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .exp-body,
-    .exp-chevron {
-        transition: none;
-    }
+.cross-marks:hover::before,
+.cross-marks:focus-within::before {
+    opacity: 1;
 }
 
 /* Suppresses transitions for one frame during a theme switch so elements with
@@ -81,6 +109,58 @@ body {
     box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
 }
 
+/* One shooting star per ~45s cycle: a 2s streak, hidden the rest of the loop.
+   Lives inside #star-field, so prefers-reduced-motion removes it too. */
+.shooting-star {
+    position: absolute;
+    top: 18%;
+    left: 82%;
+    width: 2px;
+    height: 2px;
+    border-radius: 9999px;
+    background-color: theme('colors.neutral.400');
+    opacity: 0;
+    animation: shoot 45s linear 8s infinite;
+}
+
+.shooting-star::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 80px;
+    height: 0.5px;
+    transform: translateY(-50%);
+    background: linear-gradient(to left, rgba(163, 163, 163, 0.5), transparent);
+}
+
+.dark .shooting-star {
+    background-color: #fff;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.7);
+}
+
+.dark .shooting-star::after {
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.6), transparent);
+}
+
+@keyframes shoot {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0);
+    }
+    1% {
+        opacity: 1;
+    }
+    4.5% {
+        opacity: 0;
+        transform: translate(-340px, 190px);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-340px, 190px);
+    }
+}
+
 @keyframes star-fall {
     from {
         transform: translateY(-10px);
@@ -104,6 +184,49 @@ body {
     #star-field {
         display: none;
     }
+}
+
+/* Bypass block (WCAG 2.4.1). The heatmap renders ~180 keyboard-focusable day
+   cells, which would otherwise sit between the activity and links sections as
+   ~180 tab stops. Hidden until keyboard focus, then styled as the secondary
+   pill so it reads as page furniture rather than a new control vocabulary. */
+.skip-heatmap {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+.skip-heatmap:focus-visible {
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 9999px;
+    font-weight: 500;
+    background-color: #ffffff;
+    color: #262626;
+    box-shadow:
+        0 0 0 1px #e5e5e5,
+        0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.dark .skip-heatmap:focus-visible {
+    background-color: #171717;
+    color: #f5f5f5;
+    box-shadow:
+        0 0 0 1px #262626,
+        0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
 .heatmap-grid {
@@ -169,6 +292,27 @@ body {
     background-color: #f5f5f5;
 }
 
+/* Skeleton cells pulse gently while the first fetch is in flight; the JS
+   staggers animation-delay per column for a left-to-right wave. */
+.heatmap-skel {
+    animation: skel-pulse 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes skel-pulse {
+    from {
+        opacity: 0.45;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .heatmap-skel {
+        animation: none;
+    }
+}
+
 .heatmap-legend-cell {
     width: 9px;
     height: 9px;
@@ -180,11 +324,10 @@ body {
     white-space: normal;
 }
 
-/* Corner-bracket hover marks are a desktop-only flourish — touch devices
-   have no real hover state, so tapping made them flash/stick oddly. */
+/* Corner cross-marks are a desktop-only flourish — touch devices have no real
+   hover state, so tapping made them flash/stick oddly. */
 @media not all and (hover: hover) and (pointer: fine) {
-    .group\/item:hover .group-hover\/item\:block,
-    .group:hover .group-hover\:block {
-        display: none !important;
+    .cross-marks::before {
+        display: none;
     }
 }

@@ -44,9 +44,9 @@
 # file at the clean URL / (redirecting /index.html -> /), but listing both
 # keeps this correct even if that redirect is ever turned off.
 /
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-zC+Trz8oSyv8EYao+zLHHAhyA2xpfaERiH5/vGcreg8=' 'sha256-0LJNVoAUahhdEaBRhQB6rbL+GP55CUOCTq2swmBNjS8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://github-contributions-api.jogruber.de; object-src 'none'; base-uri 'none'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-zC+Trz8oSyv8EYao+zLHHAhyA2xpfaERiH5/vGcreg8=' 'sha256-1yOT9qcROx/tvV+L8nNSNqio0OwLTzE9Ct2tEiSmYdc='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://github-contributions-api.jogruber.de; object-src 'none'; base-uri 'none'; frame-ancestors 'none'
 /index.html
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-zC+Trz8oSyv8EYao+zLHHAhyA2xpfaERiH5/vGcreg8=' 'sha256-0LJNVoAUahhdEaBRhQB6rbL+GP55CUOCTq2swmBNjS8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://github-contributions-api.jogruber.de; object-src 'none'; base-uri 'none'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-zC+Trz8oSyv8EYao+zLHHAhyA2xpfaERiH5/vGcreg8=' 'sha256-1yOT9qcROx/tvV+L8nNSNqio0OwLTzE9Ct2tEiSmYdc='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://github-contributions-api.jogruber.de; object-src 'none'; base-uri 'none'; frame-ancestors 'none'
 
 # 404 page: same theme-flash script as index.html, no heatmap fetch so no
 # connect-src needed. Served at the clean URL /404 (redirecting from
