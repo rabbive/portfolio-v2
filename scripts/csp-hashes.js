@@ -34,8 +34,14 @@ function rewriteHeaders(headers, hashesByPath) {
             if (!currentPath || !hashesByPath[currentPath]) return line;
             if (!/script-src\s/.test(line)) return line;
             const tokens = hashesByPath[currentPath].map((h) => `'${h}'`).join(' ');
-            return line.replace(/(script-src[^;]*?)('sha256-[^;]*?)(?=\s*;|\s*$)/, (_, head) => {
-                return head.replace(/\s+$/, '') + ' ' + tokens;
+            return line.replace(/script-src\b[^;]*/, (directive) => {
+                // Drop any existing hash tokens so this works whether the directive
+                // already has some (replace) or none at all (bootstrap).
+                const withoutHashes = directive.replace(/\s*'sha256-[^']*'/g, '');
+                if (/'self'/.test(withoutHashes)) {
+                    return withoutHashes.replace(/'self'/, `'self' ${tokens}`);
+                }
+                return withoutHashes.replace(/^script-src/, `script-src ${tokens}`);
             });
         })
         .join('\n');

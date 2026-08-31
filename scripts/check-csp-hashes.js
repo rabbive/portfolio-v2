@@ -27,27 +27,38 @@ for (const [urlPath, file] of Object.entries(PATH_TO_FILE)) {
 const headersPath = path.join(root, '_headers');
 const headers = fs.readFileSync(headersPath, 'utf8');
 
+// A fix that cannot confirm its own success is the same silent-failure shape
+// this whole script exists to prevent, so both modes check with this.
+function findMissing(text) {
+    const missing = [];
+    for (const [urlPath, hashes] of Object.entries(hashesByPath)) {
+        for (const hash of hashes) {
+            if (!text.includes(hash)) {
+                missing.push(`csp: ${urlPath} (${PATH_TO_FILE[urlPath]}) is missing '${hash}' in _headers`);
+            }
+        }
+    }
+    return missing;
+}
+
+function reportMissingAndExit(missing) {
+    for (const line of missing) console.error(line);
+    console.error('\nA stale hash does not error -- it silently stops the inline script from running.');
+    console.error('Run `npm run build` (which fixes _headers) and commit the result.');
+    process.exit(1);
+}
+
 if (fix) {
     const next = rewriteHeaders(headers, hashesByPath);
     if (next !== headers) {
         fs.writeFileSync(headersPath, next);
         console.log('csp: updated script-src hashes in _headers');
     }
+    const missing = findMissing(next);
+    if (missing.length) reportMissingAndExit(missing);
     process.exit(0);
 }
 
-let failed = false;
-for (const [urlPath, hashes] of Object.entries(hashesByPath)) {
-    for (const hash of hashes) {
-        if (headers.includes(hash)) continue;
-        failed = true;
-        console.error(`csp: ${urlPath} (${PATH_TO_FILE[urlPath]}) is missing '${hash}' in _headers`);
-    }
-}
-
-if (failed) {
-    console.error('\nA stale hash does not error -- it silently stops the inline script from running.');
-    console.error('Run `npm run build` (which fixes _headers) and commit the result.');
-    process.exit(1);
-}
+const missing = findMissing(headers);
+if (missing.length) reportMissingAndExit(missing);
 console.log('csp: all inline script hashes present in _headers');
