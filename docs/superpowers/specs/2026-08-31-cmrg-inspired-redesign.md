@@ -14,13 +14,13 @@ palette, a three-font system, hand-drawn marker underlines, and a handful of liv
 
 ## Decisions already made (do not re-litigate)
 
-| Question | Decision |
-| --- | --- |
-| Dark-only, like cmrg? | **No.** Keep the theme toggle. Warm palette applies to **both** light and dark. |
-| Guestbook | **Skipped.** Requires a datastore; site stays 100% static. |
-| Attention map (app-usage tracking) | **Skipped.** The existing GitHub contribution heatmap already covers "what I've been doing". |
-| Fonts | **Instrument Serif** (display) + **Inter** (body, unchanged) + **Caveat** (handwritten asides). All OFL, self-hosted, subset with `pyftsubset`. |
-| Cover art in the shelf section | **Skipped.** Text-only entries + pixel star ratings. Avoids committing copyrighted images and keeps `img-src 'self'`. |
+| Question                           | Decision                                                                                                                                        |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Dark-only, like cmrg?              | **No.** Keep the theme toggle. Warm palette applies to **both** light and dark.                                                                 |
+| Guestbook                          | **Skipped.** Requires a datastore; site stays 100% static.                                                                                      |
+| Attention map (app-usage tracking) | **Skipped.** The existing GitHub contribution heatmap already covers "what I've been doing".                                                    |
+| Fonts                              | **Instrument Serif** (display) + **Inter** (body, unchanged) + **Caveat** (handwritten asides). All OFL, self-hosted, subset with `pyftsubset`. |
+| Cover art in the shelf section     | **Skipped.** Text-only entries + pixel star ratings. Avoids committing copyrighted images and keeps `img-src 'self'`.                           |
 
 ## In scope
 

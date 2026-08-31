@@ -30,22 +30,22 @@ Every task's requirements implicitly include this section.
 
 ## File Structure
 
-| File | Responsibility | Status |
-| --- | --- | --- |
-| `scripts/csp-hashes.js` | Pure functions: extract inline scripts, hash them, rewrite `_headers` CSP lines. | Create (Task 1) |
-| `scripts/csp-hashes.test.js` | `node:test` unit tests for the above. | Create (Task 1) |
-| `scripts/check-csp-hashes.js` | CLI wrapper: verify (CI) or `--fix` (build). | Create (Task 1) |
-| `scripts/site-helpers.js` | Pure runtime helpers inlined into the page. Source of truth. | Create (Task 12) |
-| `scripts/site-helpers.test.js` | `node:test` unit tests for the helpers. | Create (Task 12) |
-| `scripts/inline-css.js` | Extended to also inline `site-helpers.js`. | Modify (Task 12) |
-| `tailwind.config.js` | Warm palette, three font families, `rounded-xs`. | Modify (Tasks 2, 3, 8) |
-| `src/input.css` | `@font-face` rules, `.mark-u`, `.hl`, `.aside-note`, `.rule-dashed`, `.skeleton`, `.fade-edges`, shelf styles. | Modify (Tasks 3–11) |
-| `index.html` | All markup and the single inline behaviour script. | Modify (most tasks) |
-| `404.html` | Palette + font parity, `?v=` bump. | Modify (Task 17) |
-| `_headers` | `connect-src` additions; CSP hashes auto-managed. | Modify (Tasks 1, 12, 14) |
-| `package.json` | `test`, `check:csp` scripts; `build` gains the `--fix` step. | Modify (Tasks 1, 12) |
-| `.github/workflows/ci.yml` | Run `npm test` and `npm run check:csp`. | Modify (Task 1) |
-| `fonts/` | Subset Instrument Serif + Caveat woff2. | Create (Task 3) |
+| File                           | Responsibility                                                                                                 | Status                   |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------- | ------------------------ |
+| `scripts/csp-hashes.js`        | Pure functions: extract inline scripts, hash them, rewrite `_headers` CSP lines.                               | Create (Task 1)          |
+| `scripts/csp-hashes.test.js`   | `node:test` unit tests for the above.                                                                          | Create (Task 1)          |
+| `scripts/check-csp-hashes.js`  | CLI wrapper: verify (CI) or `--fix` (build).                                                                   | Create (Task 1)          |
+| `scripts/site-helpers.js`      | Pure runtime helpers inlined into the page. Source of truth.                                                   | Create (Task 12)         |
+| `scripts/site-helpers.test.js` | `node:test` unit tests for the helpers.                                                                        | Create (Task 12)         |
+| `scripts/inline-css.js`        | Extended to also inline `site-helpers.js`.                                                                     | Modify (Task 12)         |
+| `tailwind.config.js`           | Warm palette, three font families, `rounded-xs`.                                                               | Modify (Tasks 2, 3, 8)   |
+| `src/input.css`                | `@font-face` rules, `.mark-u`, `.hl`, `.aside-note`, `.rule-dashed`, `.skeleton`, `.fade-edges`, shelf styles. | Modify (Tasks 3–11)      |
+| `index.html`                   | All markup and the single inline behaviour script.                                                             | Modify (most tasks)      |
+| `404.html`                     | Palette + font parity, `?v=` bump.                                                                             | Modify (Task 17)         |
+| `_headers`                     | `connect-src` additions; CSP hashes auto-managed.                                                              | Modify (Tasks 1, 12, 14) |
+| `package.json`                 | `test`, `check:csp` scripts; `build` gains the `--fix` step.                                                   | Modify (Tasks 1, 12)     |
+| `.github/workflows/ci.yml`     | Run `npm test` and `npm run check:csp`.                                                                        | Modify (Task 1)          |
+| `fonts/`                       | Subset Instrument Serif + Caveat woff2.                                                                        | Create (Task 3)          |
 
 ---
 
@@ -80,6 +80,7 @@ Expected: prints `BASELINE_CLEAN`. If it does not, stop — the committed CSS wa
 Every later task edits an inline `<script>`, which invalidates its SHA-256 in `_headers`. A stale hash does not error — the script silently stops running. Build this first so the rest of the plan cannot go wrong quietly.
 
 **Files:**
+
 - Create: `scripts/csp-hashes.js`
 - Create: `scripts/csp-hashes.test.js`
 - Create: `scripts/check-csp-hashes.js`
@@ -87,13 +88,14 @@ Every later task edits an inline `<script>`, which invalidates its SHA-256 in `_
 - Modify: `.github/workflows/ci.yml`
 
 **Interfaces:**
+
 - Consumes: nothing.
 - Produces:
-  - `collectInlineScripts(html: string) => string[]` — bodies of attribute-less `<script>` blocks, in document order.
-  - `sha256Base64(text: string) => string` — returns `"sha256-<base64>"`.
-  - `hashesFor(html: string) => string[]`
-  - `rewriteHeaders(headers: string, hashesByPath: Record<string, string[]>) => string`
-  - CLI: `node scripts/check-csp-hashes.js [--fix]`, exit 1 on mismatch when not fixing.
+    - `collectInlineScripts(html: string) => string[]` — bodies of attribute-less `<script>` blocks, in document order.
+    - `sha256Base64(text: string) => string` — returns `"sha256-<base64>"`.
+    - `hashesFor(html: string) => string[]`
+    - `rewriteHeaders(headers: string, hashesByPath: Record<string, string[]>) => string`
+    - CLI: `node scripts/check-csp-hashes.js [--fix]`, exit 1 on mismatch when not fixing.
 
 - [ ] **Step 1: Write the failing tests**
 
@@ -315,19 +317,19 @@ Replace the `scripts` block in `package.json` with:
 In `.github/workflows/ci.yml`, change the CSS verification step to also cover `_headers`, and add a test step. Replace the `Verify committed CSS is up to date` step with:
 
 ```yaml
-            # dist/output.css, the inlined CSS in index.html, and the CSP hashes
-            # in _headers are all committed on purpose (see CLAUDE.md) -- fail if
-            # sources changed without a rebuild.
-            - name: Verify committed build output is up to date
-              run: |
-                  npm run build
-                  git diff --exit-code dist/output.css index.html _headers
+# dist/output.css, the inlined CSS in index.html, and the CSP hashes
+# in _headers are all committed on purpose (see CLAUDE.md) -- fail if
+# sources changed without a rebuild.
+- name: Verify committed build output is up to date
+  run: |
+      npm run build
+      git diff --exit-code dist/output.css index.html _headers
 
-            - name: Unit tests
-              run: npm test
+- name: Unit tests
+  run: npm test
 
-            - name: Verify CSP hashes
-              run: npm run check:csp
+- name: Verify CSP hashes
+  run: npm run check:csp
 ```
 
 - [ ] **Step 9: Verify the full local pipeline**
@@ -351,10 +353,12 @@ git commit -m "build: automate CSP script-src hash sync in _headers"
 ## Task 2: Warm neutral palette
 
 **Files:**
+
 - Modify: `tailwind.config.js`
 - Modify: `index.html` (body background/text classes)
 
 **Interfaces:**
+
 - Produces: the `neutral` scale below, plus `ember` and `amber` accents, available as Tailwind colour utilities to every later task.
 
 - [ ] **Step 1: Replace the colour scale**
@@ -401,7 +405,8 @@ In `tailwind.config.js`, replace the entire `colors` block inside `theme.extend`
 In `index.html`, on the `<body>` element (line ~74), change `bg-white` to `bg-neutral-50` and `dark:bg-neutral-950` stays as-is (it now resolves to the warm `#13110f`). The full class list becomes:
 
 ```html
-        class="flex min-h-screen flex-col bg-neutral-50 dark:bg-neutral-950 font-sans text-neutral-900 dark:text-neutral-100 text-sm antialiased selection:bg-amber-400/20 dark:selection:bg-amber-400/20"
+class="flex min-h-screen flex-col bg-neutral-50 dark:bg-neutral-950 font-sans text-neutral-900 dark:text-neutral-100
+text-sm antialiased selection:bg-amber-400/20 dark:selection:bg-amber-400/20"
 ```
 
 - [ ] **Step 3: Update the theme-color meta tags**
@@ -409,8 +414,8 @@ In `index.html`, on the `<body>` element (line ~74), change `bg-white` to `bg-ne
 In `index.html` (lines 33–34), replace both `<meta name="theme-color">` tags:
 
 ```html
-        <meta name="theme-color" content="#fef8f2" media="(prefers-color-scheme: light)" />
-        <meta name="theme-color" content="#13110f" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#fef8f2" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#13110f" media="(prefers-color-scheme: dark)" />
 ```
 
 - [ ] **Step 4: Sweep the remaining hard-coded whites**
@@ -501,6 +506,7 @@ git commit -m "style: replace cool neutral scale with warm palette"
 ## Task 3: Self-host Instrument Serif and Caveat
 
 **Files:**
+
 - Create: `fonts/instrument-serif-400.v1.woff2`
 - Create: `fonts/caveat-400.v1.woff2`
 - Modify: `src/input.css`
@@ -508,6 +514,7 @@ git commit -m "style: replace cool neutral scale with warm palette"
 - Modify: `index.html` (preloads)
 
 **Interfaces:**
+
 - Produces: Tailwind `font-display` (Instrument Serif) and `font-hand` (Caveat) utilities, used by Tasks 4 and 7.
 
 - [ ] **Step 1: Download the upstream TTFs**
@@ -598,7 +605,7 @@ In `tailwind.config.js`, replace the `fontFamily` block inside `theme.extend`:
 Instrument Serif is above the fold (the name); Caveat is not, so it stays unpreloaded. In `index.html`, after the two existing Inter preloads (line ~74), add:
 
 ```html
-        <link rel="preload" href="/fonts/instrument-serif-400.v1.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/instrument-serif-400.v1.woff2" as="font" type="font/woff2" crossorigin />
 ```
 
 - [ ] **Step 7: Verify the fonts load**
@@ -626,9 +633,11 @@ git commit -m "feat: self-host Instrument Serif and Caveat"
 ## Task 4: Display serif on the name and section headings
 
 **Files:**
+
 - Modify: `index.html:282` (the `<h1>`), and every section `<h2>`
 
 **Interfaces:**
+
 - Consumes: `font-display` from Task 3.
 
 - [ ] **Step 1: Restyle the name**
@@ -636,9 +645,9 @@ git commit -m "feat: self-host Instrument Serif and Caveat"
 In `index.html`, replace the `<h1>` (line ~282):
 
 ```html
-                    <h1 class="font-display text-3xl leading-none tracking-tight text-neutral-900 dark:text-neutral-100">
-                        ashwanth kumaravel
-                    </h1>
+<h1 class="font-display text-3xl leading-none tracking-tight text-neutral-900 dark:text-neutral-100">
+    ashwanth kumaravel
+</h1>
 ```
 
 - [ ] **Step 2: Restyle every section heading**
@@ -646,13 +655,13 @@ In `index.html`, replace the `<h1>` (line ~282):
 Each section `<h2>` currently reads:
 
 ```html
-                    <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4">
+<h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-medium text-sm mb-4"></h2>
 ```
 
 Replace **every** occurrence with:
 
 ```html
-                    <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-display text-xl mb-4">
+<h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-display text-xl mb-4"></h2>
 ```
 
 ```bash
@@ -667,13 +676,13 @@ Expected: `6`. If fewer, find the stragglers with `grep -n 'font-medium text-sm 
 The inline SVG inside each `<h2>` is `h-3.5 w-3.5`, sized for 14px text. Against a 20px serif heading it now looks undersized. Replace every occurrence of:
 
 ```html
-                            class="h-3.5 w-3.5 shrink-0 text-neutral-600 dark:text-neutral-400"
+class="h-3.5 w-3.5 shrink-0 text-neutral-600 dark:text-neutral-400"
 ```
 
 with:
 
 ```html
-                            class="h-4 w-4 shrink-0 text-neutral-500 dark:text-neutral-500"
+class="h-4 w-4 shrink-0 text-neutral-500 dark:text-neutral-500"
 ```
 
 - [ ] **Step 4: Build and verify**
@@ -696,10 +705,12 @@ git commit -m "style: set headings and name in Instrument Serif"
 ## Task 5: Hand-drawn marker underlines
 
 **Files:**
+
 - Modify: `src/input.css`
 - Modify: `index.html` (About section prose)
 
 **Interfaces:**
+
 - Produces: `.mark-u`, `.mark-u-b`, `.mark-u-c` — decorative underline classes. Never apply to an `<a>`; real links keep `text-decoration`.
 
 - [ ] **Step 1: Add the marker classes**
@@ -747,20 +758,20 @@ Append to `src/input.css`, after the `.theme-transition-off` block:
 In `index.html`, in the About section (lines ~333–375), wrap key phrases. Replace the three prose paragraphs with:
 
 ```html
-                        <p>
-                            tldr; final-year cs @ vit (grad 2027), <span class="mark-u">building systems + security
-                            infra</span>. open to new-grad sde roles.
-                        </p>
-                        <p>
-                            i like things that <span class="mark-u-b">hold up under load</span>, so i build them that
-                            way — a raft-inspired consensus protocol running across heterogeneous iot edge nodes, a
-                            post-quantum email client with a signed kem-dem architecture on nist-standardized
-                            algorithms, and an openenv-compatible eval harness with deterministic graders for agents.
-                        </p>
-                        <p>
-                            python, typescript, rust — whichever fits.
-                            <span class="mark-u-c">i write tests, i benchmark, i ship</span>.
-                        </p>
+<p>
+    tldr; final-year cs @ vit (grad 2027), <span class="mark-u">building systems + security infra</span>. open to
+    new-grad sde roles.
+</p>
+<p>
+    i like things that <span class="mark-u-b">hold up under load</span>, so i build them that way — a raft-inspired
+    consensus protocol running across heterogeneous iot edge nodes, a post-quantum email client with a signed kem-dem
+    architecture on nist-standardized algorithms, and an openenv-compatible eval harness with deterministic graders for
+    agents.
+</p>
+<p>
+    python, typescript, rust — whichever fits.
+    <span class="mark-u-c">i write tests, i benchmark, i ship</span>.
+</p>
 ```
 
 - [ ] **Step 3: Build and verify**
@@ -791,10 +802,12 @@ git commit -m "feat: add hand-drawn marker underlines"
 ## Task 6: Amber glow highlight and selection colour
 
 **Files:**
+
 - Modify: `src/input.css`
 - Modify: `index.html` (one highlighted phrase in About)
 
 **Interfaces:**
+
 - Produces: `.hl` — inline highlight with a soft amber glow.
 
 - [ ] **Step 1: Add the highlight class**
@@ -827,8 +840,8 @@ Append to `src/input.css`, after the marker-underline block:
 In `index.html`, in the About section's first paragraph, wrap the availability line — the one thing a recruiter should not miss:
 
 ```html
-                            tldr; final-year cs @ vit (grad 2027), <span class="mark-u">building systems + security
-                            infra</span>. <span class="hl">open to new-grad sde roles</span>.
+tldr; final-year cs @ vit (grad 2027), <span class="mark-u">building systems + security infra</span>.
+<span class="hl">open to new-grad sde roles</span>.
 ```
 
 - [ ] **Step 3: Build and verify**
@@ -851,10 +864,12 @@ git commit -m "feat: add amber glow highlight"
 ## Task 7: Handwritten margin notes
 
 **Files:**
+
 - Modify: `src/input.css`
 - Modify: `index.html` (one note beside the About section)
 
 **Interfaces:**
+
 - Consumes: `font-hand` from Task 3.
 - Produces: `.aside-note` — a Caveat annotation that floats into the right gutter on wide screens and falls back to an indented inline block below `1280px`.
 
@@ -905,15 +920,13 @@ Append to `src/input.css`:
 The About `<section>` needs `relative` so the absolutely-positioned note anchors to it. In `index.html`, change the About section's opening tag (line ~333):
 
 ```html
-                <section class="relative mb-12">
+<section class="relative mb-12"></section>
 ```
 
 Then, immediately before that section's closing `</section>`, add:
 
 ```html
-                    <span class="aside-note" aria-hidden="true">
-                        yes, i really do read the raft paper for fun
-                    </span>
+<span class="aside-note" aria-hidden="true"> yes, i really do read the raft paper for fun </span>
 ```
 
 - [ ] **Step 3: Build and verify at two widths**
@@ -936,11 +949,13 @@ git commit -m "feat: add handwritten margin notes"
 ## Task 8: Dashed section rules, squared corners, and the 1px hover lift
 
 **Files:**
+
 - Modify: `tailwind.config.js`
 - Modify: `src/input.css`
 - Modify: `index.html`
 
 **Interfaces:**
+
 - Produces: `rounded-xs` Tailwind utility, `.rule-dashed` element, `.lift` interaction class.
 
 - [ ] **Step 1: Add the `xs` radius to Tailwind**
@@ -1021,13 +1036,16 @@ Expected: `4`.
 In `index.html`, on both the resume link and the "get in touch" link (lines ~287 and ~309), remove `active:scale-[0.98]` and `transition-all duration-200`, and add `lift`. The resume link's class becomes:
 
 ```html
-                            class="lift inline-flex items-center gap-2 rounded-full bg-neutral-200 px-4 py-2 font-medium text-neutral-900 shadow-sm hover:bg-neutral-300"
+class="lift inline-flex items-center gap-2 rounded-full bg-neutral-200 px-4 py-2 font-medium text-neutral-900 shadow-sm
+hover:bg-neutral-300"
 ```
 
 and the "get in touch" link's:
 
 ```html
-                            class="lift inline-flex items-center gap-2 rounded-full bg-neutral-50 dark:bg-neutral-900 px-4 py-2 font-medium text-neutral-800 dark:text-neutral-100 ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm hover:bg-neutral-100 hover:ring-neutral-300 dark:hover:bg-neutral-800/60 dark:hover:ring-neutral-700"
+class="lift inline-flex items-center gap-2 rounded-full bg-neutral-50 dark:bg-neutral-900 px-4 py-2 font-medium
+text-neutral-800 dark:text-neutral-100 ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm hover:bg-neutral-100
+hover:ring-neutral-300 dark:hover:bg-neutral-800/60 dark:hover:ring-neutral-700"
 ```
 
 - [ ] **Step 5: Build and verify**
@@ -1050,9 +1068,11 @@ git commit -m "style: add dashed section rules and 1px hover lift"
 ## Task 9: Skeleton loading state
 
 **Files:**
+
 - Modify: `src/input.css`
 
 **Interfaces:**
+
 - Produces: `.skeleton` — applied by Tasks 12 and 14 to async blocks, removed once data lands.
 
 - [ ] **Step 1: Add the skeleton class**
@@ -1113,22 +1133,24 @@ git commit -m "feat: add skeleton loading state"
 ## Task 10: Verb navigation pill
 
 **Files:**
+
 - Modify: `index.html`
 
 **Interfaces:**
+
 - Produces: section `id` attributes `am`, `built`, `tried`, `did`, `reach` — anchor targets for the nav.
 
 - [ ] **Step 1: Give the sections ids**
 
 In `index.html`, add an `id` to each section's opening tag, matching the verb nav:
 
-| Section (existing heading) | New opening tag |
-| --- | --- |
-| About | `<section id="am" class="relative mb-12">` |
-| Projects | `<section id="built" class="mb-16">` |
-| Experiments | `<section id="tried" class="mb-16">` |
-| Activity | `<section id="did" class="mb-16">` |
-| Links | `<section id="reach" class="mb-16">` |
+| Section (existing heading) | New opening tag                            |
+| -------------------------- | ------------------------------------------ |
+| About                      | `<section id="am" class="relative mb-12">` |
+| Projects                   | `<section id="built" class="mb-16">`       |
+| Experiments                | `<section id="tried" class="mb-16">`       |
+| Activity                   | `<section id="did" class="mb-16">`         |
+| Links                      | `<section id="reach" class="mb-16">`       |
 
 ```bash
 grep -c 'section id="' index.html
@@ -1141,34 +1163,54 @@ Expected: `5`.
 In `index.html`, immediately before `</body>` (before the closing `<script>` tag at line ~1423), add:
 
 ```html
-        <nav
-            class="fixed inset-x-0 bottom-0 z-40 flex justify-center pb-[calc(1rem+env(safe-area-inset-bottom,0px))] pt-6"
-            aria-label="sections"
-        >
-            <ul
-                class="flex items-center gap-1 rounded-full border border-neutral-200 bg-neutral-50/80 px-3 py-1.5 text-xs backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-950/80"
+<nav
+    class="fixed inset-x-0 bottom-0 z-40 flex justify-center pb-[calc(1rem+env(safe-area-inset-bottom,0px))] pt-6"
+    aria-label="sections"
+>
+    <ul
+        class="flex items-center gap-1 rounded-full border border-neutral-200 bg-neutral-50/80 px-3 py-1.5 text-xs backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-950/80"
+    >
+        <li>
+            <a
+                class="lift block rounded-xs px-2 py-1 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+                href="#am"
+                >am</a
             >
-                <li>
-                    <a class="lift block rounded-xs px-2 py-1 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100" href="#am">am</a>
-                </li>
-                <li aria-hidden="true" class="text-neutral-300 dark:text-neutral-700">/</li>
-                <li>
-                    <a class="lift block rounded-xs px-2 py-1 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100" href="#built">built</a>
-                </li>
-                <li aria-hidden="true" class="text-neutral-300 dark:text-neutral-700">/</li>
-                <li>
-                    <a class="lift block rounded-xs px-2 py-1 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100" href="#tried">tried</a>
-                </li>
-                <li aria-hidden="true" class="text-neutral-300 dark:text-neutral-700">/</li>
-                <li>
-                    <a class="lift block rounded-xs px-2 py-1 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100" href="#did">did</a>
-                </li>
-                <li aria-hidden="true" class="text-neutral-300 dark:text-neutral-700">/</li>
-                <li>
-                    <a class="lift block rounded-xs px-2 py-1 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100" href="#reach">reach</a>
-                </li>
-            </ul>
-        </nav>
+        </li>
+        <li aria-hidden="true" class="text-neutral-300 dark:text-neutral-700">/</li>
+        <li>
+            <a
+                class="lift block rounded-xs px-2 py-1 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+                href="#built"
+                >built</a
+            >
+        </li>
+        <li aria-hidden="true" class="text-neutral-300 dark:text-neutral-700">/</li>
+        <li>
+            <a
+                class="lift block rounded-xs px-2 py-1 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+                href="#tried"
+                >tried</a
+            >
+        </li>
+        <li aria-hidden="true" class="text-neutral-300 dark:text-neutral-700">/</li>
+        <li>
+            <a
+                class="lift block rounded-xs px-2 py-1 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+                href="#did"
+                >did</a
+            >
+        </li>
+        <li aria-hidden="true" class="text-neutral-300 dark:text-neutral-700">/</li>
+        <li>
+            <a
+                class="lift block rounded-xs px-2 py-1 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+                href="#reach"
+                >reach</a
+            >
+        </li>
+    </ul>
+</nav>
 ```
 
 - [ ] **Step 2b: Keep the nav from covering the last section**
@@ -1214,10 +1256,12 @@ git commit -m "feat: add fixed verb navigation"
 ## Task 11: "things that stayed" shelf section
 
 **Files:**
+
 - Modify: `index.html`
 - Modify: `src/input.css`
 
 **Interfaces:**
+
 - Consumes: `.rule-dashed`, `.lift`, `rounded-xs` (Task 8); `font-display` (Task 3).
 - Produces: SVG symbol `#icon-star-pixel`; section `id="kept"` (added to the Task 10 nav).
 
@@ -1226,13 +1270,13 @@ git commit -m "feat: add fixed verb navigation"
 In `index.html`, inside the existing hidden `<svg>` `<defs>` block (which ends around line 195, after `#icon-tailwindcss`), add:
 
 ```html
-                <symbol id="icon-star-pixel" viewBox="0 0 10 10">
-                    <path
-                        d="M4 0h2v2h2v1h1v1h1v2H8v1H7v1H6v1H4V8H3V7H2V6H0V4h1V3h1V2h2V0z"
-                        fill="currentColor"
-                        shape-rendering="crispEdges"
-                    />
-                </symbol>
+<symbol id="icon-star-pixel" viewBox="0 0 10 10">
+    <path
+        d="M4 0h2v2h2v1h1v1h1v2H8v1H7v1H6v1H4V8H3V7H2V6H0V4h1V3h1V2h2V0z"
+        fill="currentColor"
+        shape-rendering="crispEdges"
+    />
+</symbol>
 ```
 
 - [ ] **Step 2: Add the shelf styles**
@@ -1253,93 +1297,95 @@ Append to `src/input.css`:
 In `index.html`, insert this section — plus a `<hr class="rule-dashed" />` after it — immediately before the Links section (`<section id="reach" ...>`):
 
 ```html
-                <section id="kept" class="mb-16">
-                    <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-display text-xl mb-4">
-                        <svg
-                            class="h-4 w-4 shrink-0 text-neutral-500 dark:text-neutral-500"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            xmlns="http://www.w3.org/2000/svg"
-                            aria-hidden="true"
-                        >
-                            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
-                        </svg>
-                        things that stayed
-                    </h2>
-                    <p class="mb-4 text-neutral-600 dark:text-neutral-400">
-                        books and shows i remember for the question they left behind, not the plot.
-                    </p>
-                    <ul class="fade-edges grid grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-2">
-                        <li class="lift rounded-xs">
-                            <p class="font-display text-lg text-neutral-900 dark:text-neutral-100">
-                                the pragmatic programmer<span class="text-neutral-500 dark:text-neutral-500">, 1999</span>
-                            </p>
-                            <p class="mt-0.5 text-neutral-600 dark:text-neutral-400">
-                                read it before i had written anything worth maintaining. reread it after, and it was a
-                                different book.
-                            </p>
-                            <p class="mt-1.5 flex items-center gap-1 text-amber-500" aria-label="rated 5 out of 5">
-                                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                            </p>
-                        </li>
-                        <li class="lift rounded-xs">
-                            <p class="font-display text-lg text-neutral-900 dark:text-neutral-100">
-                                designing data-intensive applications<span class="text-neutral-500 dark:text-neutral-500">, 2017</span>
-                            </p>
-                            <p class="mt-0.5 text-neutral-600 dark:text-neutral-400">
-                                the reason the consensus protocol exists. chapter 9 cost me a semester and was worth it.
-                            </p>
-                            <p class="mt-1.5 flex items-center gap-1 text-amber-500" aria-label="rated 5 out of 5">
-                                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                            </p>
-                        </li>
-                        <li class="lift rounded-xs">
-                            <p class="font-display text-lg text-neutral-900 dark:text-neutral-100">
-                                mr. robot<span class="text-neutral-500 dark:text-neutral-500">, 2015–2019</span>
-                            </p>
-                            <p class="mt-0.5 text-neutral-600 dark:text-neutral-400">
-                                the only show that got the terminal right, and the loneliness of it too.
-                            </p>
-                            <p class="mt-1.5 flex items-center gap-1 text-amber-500" aria-label="rated 4 out of 5">
-                                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                                <svg class="h-3 w-3 text-neutral-300 dark:text-neutral-800" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                            </p>
-                        </li>
-                        <li class="lift rounded-xs">
-                            <p class="font-display text-lg text-neutral-900 dark:text-neutral-100">
-                                the little prince<span class="text-neutral-500 dark:text-neutral-500">, 1943</span>
-                            </p>
-                            <p class="mt-0.5 text-neutral-600 dark:text-neutral-400">
-                                one of the first books i remember finishing in one sitting, and the only one i still
-                                quote at people.
-                            </p>
-                            <p class="mt-1.5 flex items-center gap-1 text-amber-500" aria-label="rated 4 out of 5">
-                                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                                <svg class="h-3 w-3 text-neutral-300 dark:text-neutral-800" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
-                            </p>
-                        </li>
-                    </ul>
-                </section>
+<section id="kept" class="mb-16">
+    <h2 class="flex items-center gap-2 text-neutral-800 dark:text-neutral-100 font-display text-xl mb-4">
+        <svg
+            class="h-4 w-4 shrink-0 text-neutral-500 dark:text-neutral-500"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+        >
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+        </svg>
+        things that stayed
+    </h2>
+    <p class="mb-4 text-neutral-600 dark:text-neutral-400">
+        books and shows i remember for the question they left behind, not the plot.
+    </p>
+    <ul class="fade-edges grid grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-2">
+        <li class="lift rounded-xs">
+            <p class="font-display text-lg text-neutral-900 dark:text-neutral-100">
+                the pragmatic programmer<span class="text-neutral-500 dark:text-neutral-500">, 1999</span>
+            </p>
+            <p class="mt-0.5 text-neutral-600 dark:text-neutral-400">
+                read it before i had written anything worth maintaining. reread it after, and it was a different book.
+            </p>
+            <p class="mt-1.5 flex items-center gap-1 text-amber-500" aria-label="rated 5 out of 5">
+                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
+                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
+                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
+                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
+                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
+            </p>
+        </li>
+        <li class="lift rounded-xs">
+            <p class="font-display text-lg text-neutral-900 dark:text-neutral-100">
+                designing data-intensive applications<span class="text-neutral-500 dark:text-neutral-500">, 2017</span>
+            </p>
+            <p class="mt-0.5 text-neutral-600 dark:text-neutral-400">
+                the reason the consensus protocol exists. chapter 9 cost me a semester and was worth it.
+            </p>
+            <p class="mt-1.5 flex items-center gap-1 text-amber-500" aria-label="rated 5 out of 5">
+                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
+                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
+                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
+                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
+                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
+            </p>
+        </li>
+        <li class="lift rounded-xs">
+            <p class="font-display text-lg text-neutral-900 dark:text-neutral-100">
+                mr. robot<span class="text-neutral-500 dark:text-neutral-500">, 2015–2019</span>
+            </p>
+            <p class="mt-0.5 text-neutral-600 dark:text-neutral-400">
+                the only show that got the terminal right, and the loneliness of it too.
+            </p>
+            <p class="mt-1.5 flex items-center gap-1 text-amber-500" aria-label="rated 4 out of 5">
+                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
+                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
+                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
+                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
+                <svg class="h-3 w-3 text-neutral-300 dark:text-neutral-800" aria-hidden="true">
+                    <use href="#icon-star-pixel" />
+                </svg>
+            </p>
+        </li>
+        <li class="lift rounded-xs">
+            <p class="font-display text-lg text-neutral-900 dark:text-neutral-100">
+                the little prince<span class="text-neutral-500 dark:text-neutral-500">, 1943</span>
+            </p>
+            <p class="mt-0.5 text-neutral-600 dark:text-neutral-400">
+                one of the first books i remember finishing in one sitting, and the only one i still quote at people.
+            </p>
+            <p class="mt-1.5 flex items-center gap-1 text-amber-500" aria-label="rated 4 out of 5">
+                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
+                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
+                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
+                <svg class="h-3 w-3" aria-hidden="true"><use href="#icon-star-pixel" /></svg>
+                <svg class="h-3 w-3 text-neutral-300 dark:text-neutral-800" aria-hidden="true">
+                    <use href="#icon-star-pixel" />
+                </svg>
+            </p>
+        </li>
+    </ul>
+</section>
 
-                <hr class="rule-dashed" />
+<hr class="rule-dashed" />
 ```
 
 > Replace the four entries with your own if these aren't right — the markup shape is what matters, and each entry is self-contained.
@@ -1349,10 +1395,14 @@ In `index.html`, insert this section — plus a `<hr class="rule-dashed" />` aft
 In the `<nav>` from Task 10, insert between the `tried` and `did` items:
 
 ```html
-                <li aria-hidden="true" class="text-neutral-300 dark:text-neutral-700">/</li>
-                <li>
-                    <a class="lift block rounded-xs px-2 py-1 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100" href="#kept">kept</a>
-                </li>
+<li aria-hidden="true" class="text-neutral-300 dark:text-neutral-700">/</li>
+<li>
+    <a
+        class="lift block rounded-xs px-2 py-1 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+        href="#kept"
+        >kept</a
+    >
+</li>
 ```
 
 - [ ] **Step 5: Build and verify**
@@ -1378,18 +1428,20 @@ git commit -m "feat: add 'things that stayed' shelf section"
 The "now" paragraph (Task 13) and the footer commit line (Task 14) need real logic — haversine distance, timezone lookup, WMO weather labels, relative time. That logic lives in a tested module and is inlined into `index.html` by the build, so it stays under test without adding a runtime script request.
 
 **Files:**
+
 - Create: `scripts/site-helpers.js`
 - Create: `scripts/site-helpers.test.js`
 - Modify: `scripts/inline-css.js`
 - Modify: `index.html` (add the marker block)
 
 **Interfaces:**
+
 - Produces, on `window.helpers` in the browser and via `module.exports` in tests:
-  - `haversineKm(a: {lat, lon}, b: {lat, lon}) => number` — great-circle km, unrounded.
-  - `coordsForTimeZone(tz: string) => {lat, lon} | null`
-  - `weatherLabel(code: number) => string` — WMO code to lowercase English.
-  - `relativeTime(then: Date, now: Date) => string` — e.g. `'12 days ago'`, `'3 hours ago'`, `'just now'`.
-  - `CHENNAI = { lat: 13.0827, lon: 80.2707 }`
+    - `haversineKm(a: {lat, lon}, b: {lat, lon}) => number` — great-circle km, unrounded.
+    - `coordsForTimeZone(tz: string) => {lat, lon} | null`
+    - `weatherLabel(code: number) => string` — WMO code to lowercase English.
+    - `relativeTime(then: Date, now: Date) => string` — e.g. `'12 days ago'`, `'3 hours ago'`, `'just now'`.
+    - `CHENNAI = { lat: 13.0827, lon: 80.2707 }`
 
 - [ ] **Step 1: Write the failing tests**
 
@@ -1473,8 +1525,7 @@ Create `scripts/site-helpers.js`. Note the UMD-ish tail: the same file is `requi
     function haversineKm(a, b) {
         const dLat = toRad(b.lat - a.lat);
         const dLon = toRad(b.lon - a.lon);
-        const h =
-            Math.sin(dLat / 2) ** 2 + Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLon / 2) ** 2;
+        const h = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLon / 2) ** 2;
         return 2 * EARTH_RADIUS_KM * Math.asin(Math.sqrt(h));
     }
 
@@ -1594,18 +1645,18 @@ Expected: PASS, 8/8.
 In `index.html`, immediately **before** the existing behaviour `<script>` at line ~1423, add:
 
 ```html
-        <!-- Generated by scripts/inline-css.js from scripts/site-helpers.js — do not hand-edit. -->
-        <!-- prettier-ignore -->
-        <script data-site-helpers></script>
+<!-- Generated by scripts/inline-css.js from scripts/site-helpers.js — do not hand-edit. -->
+<!-- prettier-ignore -->
+<script data-site-helpers></script>
 ```
 
 Note the `data-site-helpers` attribute: it keeps this block out of `collectInlineScripts`'s attribute-less `<script>` match, so it needs its own hash. Handle that by making it attribute-less instead — change the tag to a plain `<script>` and rely on a distinct surrounding comment:
 
 ```html
-        <!-- site-helpers:start — generated by scripts/inline-css.js from scripts/site-helpers.js; do not hand-edit. -->
-        <!-- prettier-ignore -->
-        <script></script>
-        <!-- site-helpers:end -->
+<!-- site-helpers:start — generated by scripts/inline-css.js from scripts/site-helpers.js; do not hand-edit. -->
+<!-- prettier-ignore -->
+<script></script>
+<!-- site-helpers:end -->
 ```
 
 - [ ] **Step 6: Extend the build to inline the helpers**
@@ -1666,10 +1717,12 @@ git commit -m "feat: add tested runtime helpers inlined at build time"
 ## Task 13: The "now" paragraph — time, weather, distance, viewport
 
 **Files:**
+
 - Modify: `index.html` (new section + behaviour script)
 - Modify: `_headers` (`connect-src`)
 
 **Interfaces:**
+
 - Consumes: `helpers.CHENNAI`, `helpers.haversineKm`, `helpers.coordsForTimeZone`, `helpers.weatherLabel` (Task 12); `.skeleton` (Task 9).
 - Produces: element ids `now-time`, `now-weather`, `now-distance`, `now-viewport`; section `id="now"`.
 
@@ -1688,7 +1741,7 @@ Do not touch the `/404`, `/404.html`, or `/og-image` blocks.
 In `index.html`, next to the existing heatmap `preconnect` (line ~76), add:
 
 ```html
-        <link rel="preconnect" href="https://api.open-meteo.com" crossorigin />
+<link rel="preconnect" href="https://api.open-meteo.com" crossorigin />
 ```
 
 - [ ] **Step 3: Add the section markup**
@@ -1696,19 +1749,24 @@ In `index.html`, next to the existing heatmap `preconnect` (line ~76), add:
 Insert immediately before the Footer section (`<!-- Footer -->`), followed by a `<hr class="rule-dashed" />` before it:
 
 ```html
-                <section id="now" class="mb-16">
-                    <div class="flex flex-col gap-3 text-neutral-800 dark:text-neutral-400 leading-relaxed">
-                        <p>
-                            on my side of the screen it is <span id="now-time" class="font-medium text-neutral-900 dark:text-neutral-200">—</span>
-                            in chennai<span id="now-weather" hidden></span>.
-                        </p>
-                        <p id="now-distance-wrap" hidden>
-                            you're roughly <span id="now-distance" class="font-medium text-neutral-900 dark:text-neutral-200">—</span>
-                            from me, reading this at <span id="now-viewport" class="font-medium text-neutral-900 dark:text-neutral-200">—</span>.
-                            neither number is especially useful, but here they are.
-                        </p>
-                    </div>
-                </section>
+<section id="now" class="mb-16">
+    <div class="flex flex-col gap-3 text-neutral-800 dark:text-neutral-400 leading-relaxed">
+        <p>
+            on my side of the screen it is
+            <span id="now-time" class="font-medium text-neutral-900 dark:text-neutral-200">—</span> in chennai<span
+                id="now-weather"
+                hidden
+            ></span
+            >.
+        </p>
+        <p id="now-distance-wrap" hidden>
+            you're roughly
+            <span id="now-distance" class="font-medium text-neutral-900 dark:text-neutral-200">—</span> from me, reading
+            this at <span id="now-viewport" class="font-medium text-neutral-900 dark:text-neutral-200">—</span>. neither
+            number is especially useful, but here they are.
+        </p>
+    </div>
+</section>
 ```
 
 - [ ] **Step 4: Add the behaviour**
@@ -1716,95 +1774,95 @@ Insert immediately before the Footer section (`<!-- Footer -->`), followed by a 
 Append inside the existing behaviour `<script>` in `index.html` (before its closing `</script>`, after the star-field IIFE):
 
 ```js
-            // "now" paragraph: local time, weather, rough visitor distance, viewport.
-            // Every piece is supplementary — anything that fails just stays hidden.
-            (function () {
-                const timeEl = document.getElementById('now-time');
-                const weatherEl = document.getElementById('now-weather');
-                const distWrap = document.getElementById('now-distance-wrap');
-                const distEl = document.getElementById('now-distance');
-                const viewportEl = document.getElementById('now-viewport');
-                if (!timeEl) return;
+// "now" paragraph: local time, weather, rough visitor distance, viewport.
+// Every piece is supplementary — anything that fails just stays hidden.
+(function () {
+    const timeEl = document.getElementById('now-time');
+    const weatherEl = document.getElementById('now-weather');
+    const distWrap = document.getElementById('now-distance-wrap');
+    const distEl = document.getElementById('now-distance');
+    const viewportEl = document.getElementById('now-viewport');
+    if (!timeEl) return;
 
-                // Local time in Chennai — no network needed.
-                const timeFmt = new Intl.DateTimeFormat('en-GB', {
-                    timeZone: 'Asia/Kolkata',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: false,
-                });
-                const paintTime = () => (timeEl.textContent = timeFmt.format(new Date()));
-                paintTime();
-                setInterval(paintTime, 30000);
+    // Local time in Chennai — no network needed.
+    const timeFmt = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Kolkata',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+    });
+    const paintTime = () => (timeEl.textContent = timeFmt.format(new Date()));
+    paintTime();
+    setInterval(paintTime, 30000);
 
-                // Visitor distance, derived from their IANA timezone rather than
-                // their IP — no third-party geolocation call, nothing to track.
-                const paintViewport = () => (viewportEl.textContent = window.innerWidth + '×' + window.innerHeight);
+    // Visitor distance, derived from their IANA timezone rather than
+    // their IP — no third-party geolocation call, nothing to track.
+    const paintViewport = () => (viewportEl.textContent = window.innerWidth + '×' + window.innerHeight);
+    try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const here = window.helpers && window.helpers.coordsForTimeZone(tz);
+        if (here) {
+            const km = window.helpers.haversineKm(window.helpers.CHENNAI, here);
+            distEl.textContent = km < 1 ? 'no distance at all' : Math.round(km).toLocaleString('en-US') + 'km';
+            paintViewport();
+            distWrap.hidden = false;
+        }
+    } catch (e) {
+        /* no timezone available — leave the line hidden */
+    }
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(paintViewport, 150);
+    });
+
+    // Weather. Cached for 30 minutes; a stale cache beats a blank line.
+    const WEATHER_KEY = 'weather-v1';
+    const WEATHER_TTL = 30 * 60 * 1000;
+    const WEATHER_URL =
+        'https://api.open-meteo.com/v1/forecast?latitude=13.0827&longitude=80.2707' +
+        '&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code' +
+        '&timezone=Asia%2FKolkata';
+
+    function paintWeather(current) {
+        if (!current || !window.helpers) return;
+        weatherEl.innerHTML =
+            ', where it is <span class="font-medium text-neutral-900 dark:text-neutral-200">' +
+            current.temperature_2m +
+            '°C</span> and feels like <span class="font-medium text-neutral-900 dark:text-neutral-200">' +
+            current.apparent_temperature +
+            '°C</span>, with ' +
+            current.relative_humidity_2m +
+            '% humidity and ' +
+            window.helpers.weatherLabel(current.weather_code);
+        weatherEl.hidden = false;
+    }
+
+    let cached = null;
+    try {
+        cached = JSON.parse(localStorage.getItem(WEATHER_KEY) || 'null');
+    } catch (e) {
+        /* corrupt cache — ignore */
+    }
+    if (cached && Date.now() - cached.at < WEATHER_TTL) {
+        paintWeather(cached.current);
+    } else {
+        fetch(WEATHER_URL)
+            .then((r) => (r.ok ? r.json() : Promise.reject(new Error('weather ' + r.status))))
+            .then((data) => {
+                paintWeather(data.current);
                 try {
-                    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                    const here = window.helpers && window.helpers.coordsForTimeZone(tz);
-                    if (here) {
-                        const km = window.helpers.haversineKm(window.helpers.CHENNAI, here);
-                        distEl.textContent = km < 1 ? 'no distance at all' : Math.round(km).toLocaleString('en-US') + 'km';
-                        paintViewport();
-                        distWrap.hidden = false;
-                    }
+                    localStorage.setItem(WEATHER_KEY, JSON.stringify({ at: Date.now(), current: data.current }));
                 } catch (e) {
-                    /* no timezone available — leave the line hidden */
+                    /* storage full or blocked — the render already happened */
                 }
-
-                let resizeTimer;
-                window.addEventListener('resize', () => {
-                    clearTimeout(resizeTimer);
-                    resizeTimer = setTimeout(paintViewport, 150);
-                });
-
-                // Weather. Cached for 30 minutes; a stale cache beats a blank line.
-                const WEATHER_KEY = 'weather-v1';
-                const WEATHER_TTL = 30 * 60 * 1000;
-                const WEATHER_URL =
-                    'https://api.open-meteo.com/v1/forecast?latitude=13.0827&longitude=80.2707' +
-                    '&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code' +
-                    '&timezone=Asia%2FKolkata';
-
-                function paintWeather(current) {
-                    if (!current || !window.helpers) return;
-                    weatherEl.innerHTML =
-                        ', where it is <span class="font-medium text-neutral-900 dark:text-neutral-200">' +
-                        current.temperature_2m +
-                        '°C</span> and feels like <span class="font-medium text-neutral-900 dark:text-neutral-200">' +
-                        current.apparent_temperature +
-                        '°C</span>, with ' +
-                        current.relative_humidity_2m +
-                        '% humidity and ' +
-                        window.helpers.weatherLabel(current.weather_code);
-                    weatherEl.hidden = false;
-                }
-
-                let cached = null;
-                try {
-                    cached = JSON.parse(localStorage.getItem(WEATHER_KEY) || 'null');
-                } catch (e) {
-                    /* corrupt cache — ignore */
-                }
-                if (cached && Date.now() - cached.at < WEATHER_TTL) {
-                    paintWeather(cached.current);
-                } else {
-                    fetch(WEATHER_URL)
-                        .then((r) => (r.ok ? r.json() : Promise.reject(new Error('weather ' + r.status))))
-                        .then((data) => {
-                            paintWeather(data.current);
-                            try {
-                                localStorage.setItem(WEATHER_KEY, JSON.stringify({ at: Date.now(), current: data.current }));
-                            } catch (e) {
-                                /* storage full or blocked — the render already happened */
-                            }
-                        })
-                        .catch(() => {
-                            if (cached) paintWeather(cached.current);
-                        });
-                }
-            })();
+            })
+            .catch(() => {
+                if (cached) paintWeather(cached.current);
+            });
+    }
+})();
 ```
 
 - [ ] **Step 5: Add `now` to the verb nav**
@@ -1812,10 +1870,14 @@ Append inside the existing behaviour `<script>` in `index.html` (before its clos
 In the `<nav>`, insert before the `reach` item:
 
 ```html
-                <li aria-hidden="true" class="text-neutral-300 dark:text-neutral-700">/</li>
-                <li>
-                    <a class="lift block rounded-xs px-2 py-1 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100" href="#now">now</a>
-                </li>
+<li aria-hidden="true" class="text-neutral-300 dark:text-neutral-700">/</li>
+<li>
+    <a
+        class="lift block rounded-xs px-2 py-1 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+        href="#now"
+        >now</a
+    >
+</li>
 ```
 
 - [ ] **Step 6: Build and verify**
@@ -1825,6 +1887,7 @@ npm run format && npm run build && npm run check:csp && npx --yes htmlhint index
 ```
 
 Reload with the devtools Console and Network tabs open. Confirm:
+
 - The time renders immediately and ticks.
 - The weather clause appears after the Open-Meteo request resolves; **no CSP violation** appears in the console. A `Refused to connect` error means Step 1 was missed.
 - The distance line shows a plausible number (Chennai visitors see roughly `1,360km`, since the zone resolves to Kolkata).
@@ -1843,10 +1906,12 @@ git commit -m "feat: add live 'now' paragraph"
 ## Task 14: Footer commit line
 
 **Files:**
+
 - Modify: `index.html`
 - Modify: `_headers` (`connect-src`)
 
 **Interfaces:**
+
 - Consumes: `helpers.relativeTime` (Task 12); `.skeleton` (Task 9).
 - Produces: element id `commit-line`.
 
@@ -1865,7 +1930,7 @@ connect-src 'self' https://github-contributions-api.jogruber.de https://api.open
 In `index.html`, in the Footer section (line ~1408), add a second paragraph after the existing one:
 
 ```html
-                    <p id="commit-line" class="mt-2 text-neutral-500 dark:text-neutral-500 text-xs" hidden></p>
+<p id="commit-line" class="mt-2 text-neutral-500 dark:text-neutral-500 text-xs" hidden></p>
 ```
 
 - [ ] **Step 3: Add the behaviour**
@@ -1873,65 +1938,65 @@ In `index.html`, in the Footer section (line ~1408), add a second paragraph afte
 Append inside the behaviour `<script>`, after the "now" IIFE:
 
 ```js
-            // Footer commit line. Two unauthenticated GitHub API calls (list, then
-            // the single commit for its diffstat), cached for six hours because the
-            // anonymous rate limit is 60/hour per IP. Silent on failure.
-            (function () {
-                const el = document.getElementById('commit-line');
-                if (!el || !window.helpers) return;
+// Footer commit line. Two unauthenticated GitHub API calls (list, then
+// the single commit for its diffstat), cached for six hours because the
+// anonymous rate limit is 60/hour per IP. Silent on failure.
+(function () {
+    const el = document.getElementById('commit-line');
+    if (!el || !window.helpers) return;
 
-                const KEY = 'commit-v1';
-                const TTL = 6 * 60 * 60 * 1000;
-                const REPO = 'https://api.github.com/repos/rabbive/portfolio-v2';
+    const KEY = 'commit-v1';
+    const TTL = 6 * 60 * 60 * 1000;
+    const REPO = 'https://api.github.com/repos/rabbive/portfolio-v2';
 
-                function paint(info) {
-                    if (!info) return;
-                    el.textContent =
-                        'latest commit ' +
-                        window.helpers.relativeTime(new Date(info.date), new Date()) +
-                        ': +' +
-                        info.additions +
-                        ' −' +
-                        info.deletions;
-                    el.hidden = false;
-                }
+    function paint(info) {
+        if (!info) return;
+        el.textContent =
+            'latest commit ' +
+            window.helpers.relativeTime(new Date(info.date), new Date()) +
+            ': +' +
+            info.additions +
+            ' −' +
+            info.deletions;
+        el.hidden = false;
+    }
 
-                let cached = null;
-                try {
-                    cached = JSON.parse(localStorage.getItem(KEY) || 'null');
-                } catch (e) {
-                    /* corrupt cache — ignore */
-                }
-                if (cached && Date.now() - cached.at < TTL) {
-                    paint(cached.info);
-                    return;
-                }
+    let cached = null;
+    try {
+        cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+    } catch (e) {
+        /* corrupt cache — ignore */
+    }
+    if (cached && Date.now() - cached.at < TTL) {
+        paint(cached.info);
+        return;
+    }
 
-                fetch(REPO + '/commits?per_page=1')
-                    .then((r) => (r.ok ? r.json() : Promise.reject(new Error('commits ' + r.status))))
-                    .then((list) => {
-                        const head = list && list[0];
-                        if (!head) throw new Error('no commits');
-                        return fetch(REPO + '/commits/' + head.sha)
-                            .then((r) => (r.ok ? r.json() : Promise.reject(new Error('commit ' + r.status))))
-                            .then((full) => ({
-                                date: head.commit.author.date,
-                                additions: full.stats.additions,
-                                deletions: full.stats.deletions,
-                            }));
-                    })
-                    .then((info) => {
-                        paint(info);
-                        try {
-                            localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), info: info }));
-                        } catch (e) {
-                            /* storage blocked — the render already happened */
-                        }
-                    })
-                    .catch(() => {
-                        if (cached) paint(cached.info);
-                    });
-            })();
+    fetch(REPO + '/commits?per_page=1')
+        .then((r) => (r.ok ? r.json() : Promise.reject(new Error('commits ' + r.status))))
+        .then((list) => {
+            const head = list && list[0];
+            if (!head) throw new Error('no commits');
+            return fetch(REPO + '/commits/' + head.sha)
+                .then((r) => (r.ok ? r.json() : Promise.reject(new Error('commit ' + r.status))))
+                .then((full) => ({
+                    date: head.commit.author.date,
+                    additions: full.stats.additions,
+                    deletions: full.stats.deletions,
+                }));
+        })
+        .then((info) => {
+            paint(info);
+            try {
+                localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), info: info }));
+            } catch (e) {
+                /* storage blocked — the render already happened */
+            }
+        })
+        .catch(() => {
+            if (cached) paint(cached.info);
+        });
+})();
 ```
 
 - [ ] **Step 4: Build and verify**
@@ -1954,6 +2019,7 @@ git commit -m "feat: show latest commit and diffstat in the footer"
 ## Task 15: Live status emoji in the tab title
 
 **Files:**
+
 - Modify: `index.html`
 
 - [ ] **Step 1: Add the behaviour**
@@ -1961,23 +2027,23 @@ git commit -m "feat: show latest commit and diffstat in the footer"
 Append inside the behaviour `<script>`, after the commit-line IIFE:
 
 ```js
-            // Status dot in the tab title, driven by Chennai local hour. Purely a
-            // "there is a person behind this" signal — no presence tracking.
-            (function () {
-                const base = document.title;
-                function paint() {
-                    const hour = Number(
-                        new Intl.DateTimeFormat('en-GB', {
-                            timeZone: 'Asia/Kolkata',
-                            hour: '2-digit',
-                            hour12: false,
-                        }).format(new Date())
-                    );
-                    document.title = (hour >= 9 && hour < 24 ? '🟢 ' : '🌙 ') + base;
-                }
-                paint();
-                setInterval(paint, 5 * 60 * 1000);
-            })();
+// Status dot in the tab title, driven by Chennai local hour. Purely a
+// "there is a person behind this" signal — no presence tracking.
+(function () {
+    const base = document.title;
+    function paint() {
+        const hour = Number(
+            new Intl.DateTimeFormat('en-GB', {
+                timeZone: 'Asia/Kolkata',
+                hour: '2-digit',
+                hour12: false,
+            }).format(new Date()),
+        );
+        document.title = (hour >= 9 && hour < 24 ? '🟢 ' : '🌙 ') + base;
+    }
+    paint();
+    setInterval(paint, 5 * 60 * 1000);
+})();
 ```
 
 - [ ] **Step 2: Build and verify**
@@ -2000,6 +2066,7 @@ git commit -m "feat: add live status emoji to the tab title"
 ## Task 16: Doubled-letter tagline
 
 **Files:**
+
 - Modify: `index.html`
 - Modify: `src/input.css`
 
@@ -2008,13 +2075,13 @@ git commit -m "feat: add live status emoji to the tab title"
 In `index.html`, replace the location line under the `<h1>` (line ~283):
 
 ```html
-                    <p
-                        id="tagline"
-                        class="mt-1.5 font-sans text-neutral-600 dark:text-neutral-400 text-sm"
-                        data-text="chennai, in. i build things that hold under load"
-                    >
-                        chennai, in. i build things that hold under load
-                    </p>
+<p
+    id="tagline"
+    class="mt-1.5 font-sans text-neutral-600 dark:text-neutral-400 text-sm"
+    data-text="chennai, in. i build things that hold under load"
+>
+    chennai, in. i build things that hold under load
+</p>
 ```
 
 - [ ] **Step 2: Add the animation styles**
@@ -2052,36 +2119,36 @@ Append to `src/input.css`:
 Append inside the behaviour `<script>`, after the tab-title IIFE:
 
 ```js
-            // Doubled-letter tagline reveal. Skipped entirely under reduced motion —
-            // the element already contains the final text.
-            (function () {
-                const el = document.getElementById('tagline');
-                if (!el) return;
-                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+// Doubled-letter tagline reveal. Skipped entirely under reduced motion —
+// the element already contains the final text.
+(function () {
+    const el = document.getElementById('tagline');
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-                const text = el.dataset.text || el.textContent.trim();
-                el.textContent = '';
-                const ghosts = [];
-                for (const ch of text) {
-                    const real = document.createElement('span');
-                    real.className = 'tagline-char';
-                    real.textContent = ch;
-                    el.appendChild(real);
-                    if (ch === ' ') continue;
-                    const ghost = document.createElement('span');
-                    ghost.className = 'tagline-char ghost';
-                    ghost.setAttribute('aria-hidden', 'true');
-                    ghost.textContent = ch;
-                    el.appendChild(ghost);
-                    ghosts.push(ghost);
-                }
+    const text = el.dataset.text || el.textContent.trim();
+    el.textContent = '';
+    const ghosts = [];
+    for (const ch of text) {
+        const real = document.createElement('span');
+        real.className = 'tagline-char';
+        real.textContent = ch;
+        el.appendChild(real);
+        if (ch === ' ') continue;
+        const ghost = document.createElement('span');
+        ghost.className = 'tagline-char ghost';
+        ghost.setAttribute('aria-hidden', 'true');
+        ghost.textContent = ch;
+        el.appendChild(ghost);
+        ghosts.push(ghost);
+    }
 
-                requestAnimationFrame(() => {
-                    ghosts.forEach((ghost, i) => {
-                        setTimeout(() => ghost.classList.add('collapsed'), 260 + i * 11);
-                    });
-                });
-            })();
+    requestAnimationFrame(() => {
+        ghosts.forEach((ghost, i) => {
+            setTimeout(() => ghost.classList.add('collapsed'), 260 + i * 11);
+        });
+    });
+})();
 ```
 
 - [ ] **Step 4: Build and verify**
@@ -2104,6 +2171,7 @@ git commit -m "feat: add doubled-letter tagline reveal"
 ## Task 17: 404 parity, cache bust, docs, and full verification
 
 **Files:**
+
 - Modify: `404.html`
 - Modify: `CLAUDE.md`
 
@@ -2162,25 +2230,26 @@ Serve the site and walk through every combination. All must pass before merging.
 python3 -m http.server 8080
 ```
 
-| Check | Light | Dark |
-| --- | --- | --- |
-| Warm background, warm text, no cold grey anywhere | ☐ | ☐ |
-| Name + 7 headings in Instrument Serif | ☐ | ☐ |
-| Three marker underlines visible, distinct shapes, below baseline | ☐ | ☐ |
-| Amber highlight legible with visible ring and glow | ☐ | ☐ |
-| Margin note in Caveat, in the gutter at 1440px, inline at 1000px, never overlapping | ☐ | ☐ |
-| 5 dashed rules run wider than the text column | ☐ | ☐ |
-| Buttons and shelf entries lift 1px on hover | ☐ | ☐ |
-| Verb nav visible, all 7 anchors scroll correctly, clears the last section | ☐ | ☐ |
-| Shelf: 2 columns desktop / 1 mobile, pixel stars gold + faint, edges fade | ☐ | ☐ |
-| "now" paragraph: time ticks, weather resolves, distance + viewport shown | ☐ | ☐ |
-| Footer commit line resolves | ☐ | ☐ |
-| Tab title carries 🟢 or 🌙 | ☐ | ☐ |
-| Tagline doubles then resolves | ☐ | ☐ |
-| Heatmap still renders and matches the palette | ☐ | ☐ |
-| Theme toggle switches cleanly with no flash | ☐ | ☐ |
+| Check                                                                               | Light | Dark |
+| ----------------------------------------------------------------------------------- | ----- | ---- |
+| Warm background, warm text, no cold grey anywhere                                   | ☐     | ☐    |
+| Name + 7 headings in Instrument Serif                                               | ☐     | ☐    |
+| Three marker underlines visible, distinct shapes, below baseline                    | ☐     | ☐    |
+| Amber highlight legible with visible ring and glow                                  | ☐     | ☐    |
+| Margin note in Caveat, in the gutter at 1440px, inline at 1000px, never overlapping | ☐     | ☐    |
+| 5 dashed rules run wider than the text column                                       | ☐     | ☐    |
+| Buttons and shelf entries lift 1px on hover                                         | ☐     | ☐    |
+| Verb nav visible, all 7 anchors scroll correctly, clears the last section           | ☐     | ☐    |
+| Shelf: 2 columns desktop / 1 mobile, pixel stars gold + faint, edges fade           | ☐     | ☐    |
+| "now" paragraph: time ticks, weather resolves, distance + viewport shown            | ☐     | ☐    |
+| Footer commit line resolves                                                         | ☐     | ☐    |
+| Tab title carries 🟢 or 🌙                                                          | ☐     | ☐    |
+| Tagline doubles then resolves                                                       | ☐     | ☐    |
+| Heatmap still renders and matches the palette                                       | ☐     | ☐    |
+| Theme toggle switches cleanly with no flash                                         | ☐     | ☐    |
 
 Additional passes:
+
 - **375px viewport:** nothing overflows horizontally; the verb nav fits or wraps without clipping.
 - **`prefers-reduced-motion` on:** no tagline animation, no lift transition, no skeleton pulse, no smooth scroll, no star field.
 - **JavaScript disabled:** the page reads correctly; the "now" and commit lines are absent, not broken.
@@ -2232,6 +2301,7 @@ Expected: all checks green. Only then merge.
 **Spec coverage.** All 15 numbered spec items map to tasks: 1→T2, 2→T3/T4, 3→T5, 4→T6, 5→T2/T5 (links keep `text-decoration`; marker classes are barred from `<a>` and Task 5 Step 4 verifies it), 6→T8, 7→T8, 8→T9, 9→T11, 10→T10, 11→T11, 12→T13, 13→T14, 14→T15, 15→T16. Non-functional requirements are enforced by Task 1 (CSP), Tasks 13/14 Step 1 (`connect-src`), and Task 17 Steps 4–5 (full verification).
 
 **Known sharp edges for the executor:**
+
 - Task 12 Step 5 walks back its own first suggestion. Use the **second** markup block (attribute-less `<script>` between `site-helpers:start`/`:end` comments). An attribute-carrying `<script>` would slip past `collectInlineScripts` and end up with no CSP hash — which fails closed, silently.
 - Task 12 Step 6 must use a function replacer, not a string, if the helper source ever contains `$&` or `$1`.
 - Every task that edits `index.html`'s inline script changes a CSP hash. `npm run build` fixes it, but `_headers` must be staged in that commit. Every commit block in this plan already includes it.
