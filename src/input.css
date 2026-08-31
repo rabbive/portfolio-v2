@@ -344,3 +344,34 @@ body {
         transform: none;
     }
 }
+
+/* Placeholder for the three async blocks (weather, distance, commit). Hides its
+   own text and children so the real content can already be in the DOM. */
+.skeleton {
+    animation: skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    background-color: #e9dfd7;
+    border-radius: 0.25rem;
+    color: transparent;
+    cursor: progress;
+    user-select: none;
+}
+
+.dark .skeleton {
+    background-color: #231e1a;
+}
+
+.skeleton > * {
+    visibility: hidden;
+}
+
+@keyframes skeleton-pulse {
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skeleton {
+        animation: none;
+    }
+}
