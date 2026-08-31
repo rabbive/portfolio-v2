@@ -16,18 +16,35 @@ module.exports = {
                 sans: ['Inter', 'sans-serif'],
             },
             colors: {
+                // Warm brown-tinted neutrals, ported from cmrg.me. Every step is
+                // hue-shifted toward orange, so a "grey" here never reads cold.
                 neutral: {
-                    50: '#fafafa',
-                    100: '#f5f5f5',
-                    200: '#e5e5e5',
-                    300: '#d4d4d4',
-                    400: '#a3a3a3',
-                    500: '#737373',
-                    600: '#525252',
-                    700: '#404040',
-                    800: '#262626',
-                    900: '#171717',
-                    950: '#0a0a0a',
+                    50: '#fef8f2',
+                    100: '#f6f0eb',
+                    150: '#f6ece4',
+                    200: '#e9dfd7',
+                    300: '#cfc3b9',
+                    400: '#b7a89b',
+                    500: '#948475',
+                    600: '#6c6158',
+                    700: '#3b3229',
+                    800: '#2e2821',
+                    850: '#28231f',
+                    900: '#231e1a',
+                    950: '#13110f',
+                },
+                // Burnt orange: hand-drawn marker underlines only.
+                ember: {
+                    300: '#f1b798',
+                    400: '#e89068',
+                    500: '#f1733d',
+                },
+                // Muted gold: highlights, ::selection, star ratings.
+                amber: {
+                    300: '#d4b98a',
+                    400: '#ca9e66',
+                    500: '#ba9659',
+                    600: '#8e7347',
                 },
             },
         },
