@@ -20,6 +20,24 @@
     src: url('/fonts/inter-latin-500.v2.woff2') format('woff2');
 }
 
+/* Display serif — headings and the name. Instrument Serif, SIL OFL, 400 only. */
+@font-face {
+    font-family: 'Instrument Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/instrument-serif-400.v1.woff2') format('woff2');
+}
+
+/* Handwritten asides. Caveat, SIL OFL, variable axis instanced to 400. */
+@font-face {
+    font-family: 'Caveat';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/caveat-400.v1.woff2') format('woff2');
+}
+
 /* NOTE: only 400/500 ship — nothing on the site uses 600. If you ever add
    font-semibold/font-bold, re-add the 600 @font-face + file (the browser will
    otherwise synthesize a faux-bold from 500). */

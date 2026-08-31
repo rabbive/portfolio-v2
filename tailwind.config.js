@@ -14,6 +14,8 @@ module.exports = {
         extend: {
             fontFamily: {
                 sans: ['Inter', 'sans-serif'],
+                display: ['Instrument Serif', 'ui-serif', 'Georgia', 'serif'],
+                hand: ['Caveat', 'ui-serif', 'cursive'],
             },
             colors: {
                 // Warm brown-tinted neutrals, ported from cmrg.me. Every step is
