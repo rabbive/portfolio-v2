@@ -375,3 +375,16 @@ body {
         animation: none;
     }
 }
+
+html {
+    scroll-behavior: smooth;
+    /* Fixed nav is at the bottom, but anchored headings still want breathing
+       room above them when jumped to. */
+    scroll-padding-top: 2rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
