@@ -18,12 +18,19 @@ jobs:
 
             - run: npm ci
 
-            # dist/output.css + the inlined CSS in index.html are committed on
-            # purpose (see CLAUDE.md) — fail if sources changed without a rebuild.
-            - name: Verify committed CSS is up to date
+            # dist/output.css, the inlined CSS in index.html, and the CSP hashes
+            # in _headers are all committed on purpose (see CLAUDE.md) -- fail if
+            # sources changed without a rebuild.
+            - name: Verify committed build output is up to date
               run: |
                   npm run build
-                  git diff --exit-code dist/output.css index.html
+                  git diff --exit-code dist/output.css index.html _headers
+
+            - name: Unit tests
+              run: npm test
+
+            - name: Verify CSP hashes
+              run: npm run check:csp
 
             - name: Validate HTML
               run: npx --yes htmlhint index.html 404.html

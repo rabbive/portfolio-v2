@@ -3,9 +3,11 @@
     "private": true,
     "version": "1.0.0",
     "scripts": {
-        "build": "npm run build:css && node scripts/inline-css.js",
+        "build": "npm run build:css && node scripts/inline-css.js && node scripts/check-csp-hashes.js --fix",
         "build:css": "tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
         "watch:css": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
+        "check:csp": "node scripts/check-csp-hashes.js",
+        "test": "node --test scripts/*.test.js",
         "format": "prettier --write .",
         "format:check": "prettier --check ."
     },
