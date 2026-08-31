@@ -293,3 +293,54 @@ body {
         display: none !important;
     }
 }
+
+/* Full-bleed dashed rules between sections — graph-paper feel. The negative
+   inline margin lets the rule run past the max-w-xl content column. */
+.rule-dashed {
+    height: 0;
+    border: 0;
+    border-top: 1px dashed #e9dfd7;
+    margin: 2.5rem -1.5rem;
+}
+
+.dark .rule-dashed {
+    border-top-color: #2e2821;
+}
+
+@media (min-width: 768px) {
+    .rule-dashed {
+        margin-left: -4rem;
+        margin-right: -4rem;
+    }
+}
+
+/* One-pixel lift on interactive cards. Deliberately tiny: it reads as a
+   response, not an animation. */
+.lift {
+    transition:
+        transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        filter 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lift:hover {
+    transform: translateY(-1px);
+}
+
+.lift:active {
+    transform: translateY(1px);
+    filter: brightness(0.75);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lift {
+        transition: none;
+    }
+    .lift:hover,
+    .lift:active {
+        transform: none;
+    }
+}

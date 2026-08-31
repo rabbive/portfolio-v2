@@ -12,6 +12,9 @@ module.exports = {
     darkMode: 'class',
     theme: {
         extend: {
+            borderRadius: {
+                xs: '0.125rem',
+            },
             fontFamily: {
                 sans: ['Inter', 'sans-serif'],
                 display: ['Instrument Serif', 'ui-serif', 'Georgia', 'serif'],
