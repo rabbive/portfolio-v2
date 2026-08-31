@@ -114,6 +114,25 @@ body {
     filter: saturate(0.85) brightness(1.08);
 }
 
+/* Amber glow highlight. Translucent fill, a 1px ring, and a soft outer bloom —
+   reads as emphasis without the flat highlighter-pen look of a plain
+   background-color. Light mode needs a heavier fill to stay visible on cream. */
+.hl {
+    background-color: rgba(202, 158, 102, 0.22);
+    border-radius: 0.25rem;
+    padding: 0 0.2rem 0.1rem;
+    box-shadow:
+        0 0 0 1px rgba(202, 158, 102, 0.3),
+        0 0 10px rgba(202, 158, 102, 0.2);
+}
+
+.dark .hl {
+    background-color: rgba(202, 158, 102, 0.125);
+    box-shadow:
+        0 0 0 1px rgba(202, 158, 102, 0.19),
+        0 0 10px rgba(202, 158, 102, 0.125);
+}
+
 .star {
     position: absolute;
     top: -10px;
