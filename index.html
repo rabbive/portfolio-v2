@@ -2085,7 +2085,10 @@
                 const REPO = 'https://api.github.com/repos/rabbive/portfolio-v2';
 
                 function paint(info) {
-                    if (!info) return;
+                    if (!info) {
+                        el.hidden = true;
+                        return;
+                    }
                     const when = new Date(info.date);
                     if (
                         Number.isNaN(when.getTime()) ||
