@@ -23,10 +23,11 @@ test('sha256Base64 matches the format openssl produces', () => {
 
 test('the committed _headers already covers every inline script (baseline guard)', () => {
     const headers = fs.readFileSync(path.join(root, '_headers'), 'utf8');
-    // Expected inline-script counts as of this task. A later task raises index.html's
-    // count to 3 -- update the number here, don't delete the assertion. Without this,
-    // hashesFor returning [] would make the loop below pass vacuously.
-    const expectedCounts = { 'index.html': 2, '404.html': 1 };
+    // Expected inline-script counts. Task 12 raised index.html's count to 3 (added
+    // the site-helpers script) -- update the number here, don't delete the
+    // assertion. Without this, hashesFor returning [] would make the loop below
+    // pass vacuously.
+    const expectedCounts = { 'index.html': 3, '404.html': 1 };
     for (const file of ['index.html', '404.html']) {
         const html = fs.readFileSync(path.join(root, file), 'utf8');
         const hashes = hashesFor(html);

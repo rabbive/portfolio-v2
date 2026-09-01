@@ -16,9 +16,22 @@ if (!marker.test(html)) {
     process.exit(1);
 }
 
+// Inline scripts/site-helpers.js into its marker block. The helpers are unit
+// tested as a CommonJS module, but ship as part of the page's single inline
+// <script> budget rather than as another request.
+const helpers = fs.readFileSync(path.join(root, 'scripts', 'site-helpers.js'), 'utf8').trim();
+const helpersMarker = /(<!-- site-helpers:start[\s\S]*?<script>)[\s\S]*?(<\/script>)/;
+if (!helpersMarker.test(html)) {
+    console.error('error: site-helpers marker block not found in index.html');
+    process.exit(1);
+}
+
 // Write-then-rename: atomic, and sidesteps macOS EPERM quirks where an
 // iCloud-evicted file refuses open-for-write but directory rename works.
 const tmpPath = htmlPath + '.inline-tmp';
-fs.writeFileSync(tmpPath, html.replace(marker, `<style data-inline-css>${css}</style>`));
+const next = html
+    .replace(marker, `<style data-inline-css>${css}</style>`)
+    .replace(helpersMarker, (_, open, close) => open + helpers + close);
+fs.writeFileSync(tmpPath, next);
 fs.renameSync(tmpPath, htmlPath);
 console.log(`inlined ${css.length} bytes of CSS into index.html`);
