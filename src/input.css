@@ -388,3 +388,27 @@ html {
         scroll-behavior: auto;
     }
 }
+
+/* Doubled-letter reveal: every character starts duplicated and the duplicate
+   collapses away, left to right. The final text is in the DOM from the start,
+   so this degrades to plain text with JS off or reduced motion on. */
+.tagline-char {
+    display: inline-block;
+    white-space: pre;
+}
+
+.tagline-char.ghost {
+    max-width: 1ch;
+    overflow: hidden;
+    transition: max-width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tagline-char.ghost.collapsed {
+    max-width: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tagline-char.ghost {
+        display: none;
+    }
+}
