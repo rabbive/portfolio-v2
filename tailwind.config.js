@@ -18,7 +18,6 @@ module.exports = {
             fontFamily: {
                 sans: ['Inter', 'sans-serif'],
                 display: ['Instrument Serif', 'ui-serif', 'Georgia', 'serif'],
-                hand: ['Caveat', 'ui-serif', 'cursive'],
             },
             colors: {
                 // Warm brown-tinted neutrals, ported from cmrg.me. Every step is
@@ -37,12 +36,6 @@ module.exports = {
                     850: '#28231f',
                     900: '#231e1a',
                     950: '#13110f',
-                },
-                // Burnt orange: hand-drawn marker underlines only.
-                ember: {
-                    300: '#f1b798',
-                    400: '#e89068',
-                    500: '#f1733d',
                 },
                 // Muted gold: highlights, ::selection, star ratings.
                 amber: {

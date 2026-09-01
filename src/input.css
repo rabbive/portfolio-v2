@@ -87,6 +87,10 @@ body {
    and repaints itself per line fragment when a phrase wraps. Three variants so a
    paragraph with several marked phrases doesn't look copy-pasted. Never use on an
    <a>: links keep a real text-decoration so they stay recognisable as links. */
+/* Stroke colours (#f1733d, #e89068) are hardcoded inside the SVG data URIs
+   below, not read from a Tailwind token -- a data URI can't reference a CSS
+   custom property. Edit the hex values directly here if the burnt-orange
+   needs to change. */
 .mark-u,
 .mark-u-b,
 .mark-u-c {
