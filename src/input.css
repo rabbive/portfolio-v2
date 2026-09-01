@@ -400,6 +400,8 @@ html {
 .tagline-char.ghost {
     max-width: 1ch;
     overflow: hidden;
+    -webkit-user-select: none;
+    user-select: none;
     transition: max-width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
