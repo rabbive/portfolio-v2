@@ -1582,7 +1582,7 @@
                             >read the source</a
                         >.
                     </p>
-                    <p id="commit-line" class="skeleton mt-2 text-neutral-600 dark:text-neutral-500 text-xs">
+                    <p id="commit-line" class="skeleton mt-2 text-neutral-600 dark:text-neutral-500 text-xs" hidden>
                         latest commit 0 days ago: +0 −0
                     </p>
                 </section>
@@ -2106,6 +2106,7 @@
                         ' −' +
                         info.deletions;
                     el.classList.remove('skeleton');
+                    el.hidden = false;
                 }
 
                 let cached = null;
