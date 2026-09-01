@@ -2068,7 +2068,11 @@
             // anonymous rate limit is 60/hour per IP. Silent on failure.
             (function () {
                 const el = document.getElementById('commit-line');
-                if (!el || !window.helpers) return;
+                if (!el) return;
+                if (!window.helpers) {
+                    el.hidden = true;
+                    return;
+                }
 
                 const KEY = 'commit-v1';
                 const TTL = 6 * 60 * 60 * 1000;
@@ -2076,9 +2080,18 @@
 
                 function paint(info) {
                     if (!info) return;
+                    const when = new Date(info.date);
+                    if (
+                        Number.isNaN(when.getTime()) ||
+                        !Number.isFinite(info.additions) ||
+                        !Number.isFinite(info.deletions)
+                    ) {
+                        el.hidden = true;
+                        return;
+                    }
                     el.textContent =
                         'latest commit ' +
-                        window.helpers.relativeTime(new Date(info.date), new Date()) +
+                        window.helpers.relativeTime(when, new Date()) +
                         ': +' +
                         info.additions +
                         ' −' +
