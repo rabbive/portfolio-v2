@@ -388,11 +388,3 @@ html {
         scroll-behavior: auto;
     }
 }
-
-/* Soft bottom edge on the shelf grid instead of a hard cut, in the spirit of the
-   scroll fades on cmrg.me. Bottom only: fading the top would dim the first
-   entry's title, and this is decorative — it must not cost readability. */
-.fade-edges {
-    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 1.5rem), transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 calc(100% - 1.5rem), transparent 100%);
-}
