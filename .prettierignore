@@ -4,3 +4,4 @@ fonts/
 *.png
 package-lock.json
 .claude/
+.superpowers/

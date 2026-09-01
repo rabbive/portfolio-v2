@@ -20,6 +20,24 @@
     src: url('/fonts/inter-latin-500.v2.woff2') format('woff2');
 }
 
+/* Display serif — headings and the name. Instrument Serif, SIL OFL, 400 only. */
+@font-face {
+    font-family: 'Instrument Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/instrument-serif-400.v1.woff2') format('woff2');
+}
+
+/* Handwritten asides. Caveat, SIL OFL, variable axis instanced to 400. */
+@font-face {
+    font-family: 'Caveat';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/caveat-400.v1.woff2') format('woff2');
+}
+
 /* NOTE: only 400/500 ship — nothing on the site uses 600. If you ever add
    font-semibold/font-bold, re-add the 600 @font-face + file (the browser will
    otherwise synthesize a faux-bold from 500). */
@@ -60,6 +78,67 @@ body {
 .theme-transition-off,
 .theme-transition-off * {
     transition: none !important;
+}
+
+/* Hand-drawn marker underlines. Decorative background images, not text-decoration:
+   the stroke wobbles off the baseline the way a real pen does, which
+   underline-offset cannot express. The wobble is a short TILE rather than one
+   stretched curve -- a stretched curve flattens to a plain line on long phrases,
+   and repaints itself per line fragment when a phrase wraps. Three variants so a
+   paragraph with several marked phrases doesn't look copy-pasted. Never use on an
+   <a>: links keep a real text-decoration so they stay recognisable as links. */
+/* Stroke colours (#f1733d, #e89068) are hardcoded inside the SVG data URIs
+   below, not read from a Tailwind token -- a data URI can't reference a CSS
+   custom property. Edit the hex values directly here if the burnt-orange
+   needs to change. */
+.mark-u,
+.mark-u-b,
+.mark-u-c {
+    background-repeat: repeat-x;
+    background-size: 60px 0.5em;
+    background-position: 0 100%;
+    padding-bottom: 0.12em;
+}
+
+.mark-u {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 12' preserveAspectRatio='none'%3E%3Cpath d='M0 8C12 5.6 24 5.4 36 6.8 48 8.2 54 9 60 8' fill='none' stroke='%23f1733d' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.mark-u-b {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 12' preserveAspectRatio='none'%3E%3Cpath d='M0 7.2C10 9.4 22 9.6 34 8.2 44 7 52 6.2 60 7.2' fill='none' stroke='%23f1733d' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.mark-u-c {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 12' preserveAspectRatio='none'%3E%3Cpath d='M0 8.4C14 5.8 28 5.6 42 7 50 7.8 55 8.6 60 8.4' fill='none' stroke='%23e89068' stroke-width='2.8' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* The stroke is a fixed orange in the SVG data URI (data URIs can't read CSS
+   custom properties), so dark mode lightens it with a filter instead. */
+.dark .mark-u,
+.dark .mark-u-b,
+.dark .mark-u-c {
+    filter: saturate(0.85) brightness(1.08);
+}
+
+/* Amber glow highlight. Translucent fill, a 1px ring, and a soft outer bloom —
+   reads as emphasis without the flat highlighter-pen look of a plain
+   background-color. Light mode needs a heavier fill to stay visible on cream. */
+.hl {
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    background-color: rgba(202, 158, 102, 0.22);
+    border-radius: 0.25rem;
+    padding: 0 0.2rem 0.1rem;
+    box-shadow:
+        0 0 0 1px rgba(202, 158, 102, 0.3),
+        0 0 10px rgba(202, 158, 102, 0.2);
+}
+
+.dark .hl {
+    background-color: rgba(202, 158, 102, 0.125);
+    box-shadow:
+        0 0 0 1px rgba(202, 158, 102, 0.19),
+        0 0 10px rgba(202, 158, 102, 0.125);
 }
 
 .star {
@@ -120,20 +199,20 @@ body {
     width: 10px;
     height: 10px;
     border-radius: 2px;
-    background-color: #ebebeb;
+    background-color: #e9dfd7;
 }
 
 .heatmap-cell[data-level='1'] {
-    background-color: #d4d4d4;
+    background-color: #cfc3b9;
 }
 .heatmap-cell[data-level='2'] {
-    background-color: #a3a3a3;
+    background-color: #b7a89b;
 }
 .heatmap-cell[data-level='3'] {
-    background-color: #737373;
+    background-color: #948475;
 }
 .heatmap-cell[data-level='4'] {
-    background-color: #262626;
+    background-color: #3b3229;
 }
 
 .heatmap-cell[data-date] {
@@ -145,28 +224,28 @@ body {
 
 .heatmap-cell[data-date]:hover,
 .heatmap-cell[data-date]:focus-visible {
-    outline-color: rgba(23, 23, 23, 0.5);
+    outline-color: rgba(35, 30, 26, 0.5);
 }
 
 .dark .heatmap-cell[data-date]:hover,
 .dark .heatmap-cell[data-date]:focus-visible {
-    outline-color: rgba(245, 245, 245, 0.5);
+    outline-color: rgba(246, 240, 235, 0.5);
 }
 
 .dark .heatmap-cell {
-    background-color: #262626;
+    background-color: #2e2821;
 }
 .dark .heatmap-cell[data-level='1'] {
-    background-color: #404040;
+    background-color: #3b3229;
 }
 .dark .heatmap-cell[data-level='2'] {
-    background-color: #525252;
+    background-color: #6c6158;
 }
 .dark .heatmap-cell[data-level='3'] {
-    background-color: #a3a3a3;
+    background-color: #b7a89b;
 }
 .dark .heatmap-cell[data-level='4'] {
-    background-color: #f5f5f5;
+    background-color: #f6f0eb;
 }
 
 .heatmap-legend-cell {
@@ -180,11 +259,162 @@ body {
     white-space: normal;
 }
 
+/* Handwritten margin notes. The content column is max-w-xl (36rem) and centred,
+   so a real gutter only exists on wide viewports — below 1280px the note falls
+   back to an indented inline block rather than overlapping the prose. */
+.aside-note {
+    display: block;
+    margin-top: 0.75rem;
+    padding-left: 1rem;
+    border-left: 1px solid #cfc3b9;
+    font-family: 'Caveat', ui-serif, cursive;
+    font-size: 1.125rem;
+    line-height: 1.35;
+    color: #6c6158;
+}
+
+.dark .aside-note {
+    border-left-color: #3b3229;
+    color: #b7a89b;
+}
+
+@media (min-width: 1280px) {
+    .aside-note {
+        position: absolute;
+        left: calc(100% + 3rem);
+        top: 0;
+        width: 14rem;
+        margin-top: 0;
+        padding-left: 1rem;
+    }
+}
+
 /* Corner-bracket hover marks are a desktop-only flourish — touch devices
    have no real hover state, so tapping made them flash/stick oddly. */
 @media not all and (hover: hover) and (pointer: fine) {
     .group\/item:hover .group-hover\/item\:block,
     .group:hover .group-hover\:block {
         display: none !important;
+    }
+}
+
+/* Full-bleed dashed rules between sections — graph-paper feel. The negative
+   inline margin lets the rule run past the max-w-xl content column. */
+.rule-dashed {
+    height: 0;
+    border: 0;
+    border-top: 1px dashed #e9dfd7;
+    margin: 2.5rem -1.5rem;
+}
+
+.dark .rule-dashed {
+    border-top-color: #2e2821;
+}
+
+@media (min-width: 768px) {
+    .rule-dashed {
+        margin-left: -4rem;
+        margin-right: -4rem;
+    }
+}
+
+/* One-pixel lift on interactive cards. Deliberately tiny: it reads as a
+   response, not an animation. */
+.lift {
+    transition:
+        transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        filter 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lift:hover {
+    transform: translateY(-1px);
+}
+
+.lift:active {
+    transform: translateY(1px);
+    filter: brightness(0.75);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lift {
+        transition: none;
+    }
+    .lift:hover,
+    .lift:active {
+        transform: none;
+    }
+}
+
+/* Placeholder for the three async blocks (weather, distance, commit). Hides its
+   own text and children so the real content can already be in the DOM. */
+.skeleton {
+    animation: skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    background-color: #e9dfd7;
+    border-radius: 0.25rem;
+    color: transparent;
+    cursor: progress;
+    user-select: none;
+}
+
+.dark .skeleton {
+    background-color: #231e1a;
+}
+
+.skeleton > * {
+    visibility: hidden;
+}
+
+@keyframes skeleton-pulse {
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skeleton {
+        animation: none;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+    /* Fixed nav is at the bottom, but anchored headings still want breathing
+       room above them when jumped to. */
+    scroll-padding-top: 2rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* Doubled-letter reveal: every character starts duplicated and the duplicate
+   collapses away, left to right. The final text is in the DOM from the start,
+   so this degrades to plain text with JS off or reduced motion on. */
+.tagline-char {
+    display: inline-block;
+    white-space: pre;
+}
+
+.tagline-char.ghost {
+    max-width: 1ch;
+    overflow: hidden;
+    -webkit-user-select: none;
+    user-select: none;
+    transition: max-width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tagline-char.ghost.collapsed {
+    max-width: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tagline-char.ghost {
+        display: none;
     }
 }
