@@ -1576,6 +1576,9 @@
                             >read the source</a
                         >.
                     </p>
+                    <p id="commit-line" class="skeleton mt-2 text-neutral-600 dark:text-neutral-500 text-xs">
+                        latest commit 0 days ago: +0 −0
+                    </p>
                 </section>
             </div>
         </main>
@@ -2058,6 +2061,67 @@
                             if (cached) paintWeather(cached.current);
                         });
                 }
+            })();
+
+            // Footer commit line. Two unauthenticated GitHub API calls (list, then
+            // the single commit for its diffstat), cached for six hours because the
+            // anonymous rate limit is 60/hour per IP. Silent on failure.
+            (function () {
+                const el = document.getElementById('commit-line');
+                if (!el || !window.helpers) return;
+
+                const KEY = 'commit-v1';
+                const TTL = 6 * 60 * 60 * 1000;
+                const REPO = 'https://api.github.com/repos/rabbive/portfolio-v2';
+
+                function paint(info) {
+                    if (!info) return;
+                    el.textContent =
+                        'latest commit ' +
+                        window.helpers.relativeTime(new Date(info.date), new Date()) +
+                        ': +' +
+                        info.additions +
+                        ' −' +
+                        info.deletions;
+                    el.classList.remove('skeleton');
+                }
+
+                let cached = null;
+                try {
+                    cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+                } catch (e) {
+                    /* corrupt cache — ignore */
+                }
+                if (cached && Date.now() - cached.at < TTL) {
+                    paint(cached.info);
+                    return;
+                }
+
+                fetch(REPO + '/commits?per_page=1')
+                    .then((r) => (r.ok ? r.json() : Promise.reject(new Error('commits ' + r.status))))
+                    .then((list) => {
+                        const head = list && list[0];
+                        if (!head) throw new Error('no commits');
+                        return fetch(REPO + '/commits/' + head.sha)
+                            .then((r) => (r.ok ? r.json() : Promise.reject(new Error('commit ' + r.status))))
+                            .then((full) => ({
+                                date: head.commit.author.date,
+                                additions: full.stats.additions,
+                                deletions: full.stats.deletions,
+                            }));
+                    })
+                    .then((info) => {
+                        paint(info);
+                        try {
+                            localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), info: info }));
+                        } catch (e) {
+                            /* storage blocked — the render already happened */
+                        }
+                    })
+                    .catch(() => {
+                        if (cached) paint(cached.info);
+                        else el.hidden = true;
+                    });
             })();
         </script>
         <nav
