@@ -2136,6 +2136,24 @@
                         else el.hidden = true;
                     });
             })();
+
+            // Status dot in the tab title, driven by Chennai local hour. Purely a
+            // "there is a person behind this" signal — no presence tracking.
+            (function () {
+                const base = document.title;
+                function paint() {
+                    const hour = Number(
+                        new Intl.DateTimeFormat('en-GB', {
+                            timeZone: 'Asia/Kolkata',
+                            hour: '2-digit',
+                            hour12: false,
+                        }).format(new Date()),
+                    );
+                    document.title = (hour >= 9 && hour < 24 ? '🟢 ' : '🌙 ') + base;
+                }
+                paint();
+                setInterval(paint, 5 * 60 * 1000);
+            })();
         </script>
         <nav
             class="fixed inset-x-0 bottom-0 z-40 flex justify-center pb-[calc(1rem+env(safe-area-inset-bottom,0px))] pt-6"
