@@ -1588,7 +1588,7 @@
     // exists so a visitor sees roughly how far away they are, and using the
     // timezone means no IP geolocation service, no extra request, and nothing
     // that could be called tracking.
-    const TZ_COORDS = {
+    const TZ_COORDS = Object.assign(Object.create(null), {
         'Asia/Kolkata': { lat: 22.5726, lon: 88.3639 },
         'Asia/Calcutta': { lat: 22.5726, lon: 88.3639 },
         'Asia/Dubai': { lat: 25.2048, lon: 55.2708 },
@@ -1630,14 +1630,14 @@
         'Africa/Cairo': { lat: 30.0444, lon: 31.2357 },
         'Africa/Johannesburg': { lat: -26.2041, lon: 28.0473 },
         'Africa/Nairobi': { lat: -1.2921, lon: 36.8219 },
-    };
+    });
 
     function coordsForTimeZone(tz) {
         return TZ_COORDS[tz] || null;
     }
 
     // WMO weather interpretation codes, as returned by Open-Meteo's `weather_code`.
-    const WEATHER_LABELS = {
+    const WEATHER_LABELS = Object.assign(Object.create(null), {
         0: 'clear sky',
         1: 'mostly clear',
         2: 'partly cloudy',
@@ -1664,7 +1664,7 @@
         95: 'a thunderstorm',
         96: 'a thunderstorm with hail',
         99: 'a thunderstorm with heavy hail',
-    };
+    });
 
     function weatherLabel(code) {
         return WEATHER_LABELS[code] || 'weather of some kind';
